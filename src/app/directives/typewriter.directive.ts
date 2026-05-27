@@ -25,7 +25,7 @@ import { ThemeService } from '../services/theme.service';
 export class TypewriterDirective implements OnInit, OnDestroy {
   @Input() titles: string[] = [];
   @Input() typingSpeed: number = 80;
-  @Input() pauseDuration: number = 2000;
+  @Input() pauseDuration: number = 4000;
 
   /** The current text being displayed (exposed for template binding). */
   currentText = signal<string>('');
@@ -78,7 +78,7 @@ export class TypewriterDirective implements OnInit, OnDestroy {
         this.currentTitleIndex = (this.currentTitleIndex + 1) % this.titles.length;
         this.timeoutId = setTimeout(() => this.tick(), this.typingSpeed);
       } else {
-        this.timeoutId = setTimeout(() => this.tick(), this.typingSpeed / 2);
+        this.timeoutId = setTimeout(() => this.tick(), this.typingSpeed * 0.75);
       }
     } else {
       // Type characters one by one
