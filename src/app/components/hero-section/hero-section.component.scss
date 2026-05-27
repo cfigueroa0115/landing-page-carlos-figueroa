@@ -276,37 +276,130 @@
 // =============================================================================
 
 .metric-chip {
-  @include glass.glass-card(0.08, 12px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: $space-4 $space-3;
+  padding: $space-5 $space-4;
   text-align: center;
-  transition: transform $anim-duration-fast $anim-easing,
-              box-shadow $anim-duration-fast $anim-easing;
+  background: #FFFFFF;
+  border: 1px solid rgba(27, 58, 75, 0.08);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  transition: transform 0.4s $anim-easing,
+              box-shadow 0.4s $anim-easing,
+              border-color 0.4s $anim-easing,
+              background 0.4s $anim-easing;
 
+  // Permanent subtle glow
+  box-shadow: 0 0 20px rgba(27, 58, 75, 0.06),
+              0 4px 12px rgba(0, 0, 0, 0.04),
+              inset 0 0 30px rgba(196, 146, 42, 0.03);
+
+  // Animated shimmer/shine effect
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0%,
+      rgba(196, 146, 42, 0.08) 10%,
+      transparent 20%,
+      transparent 80%,
+      rgba(27, 58, 75, 0.06) 90%,
+      transparent 100%
+    );
+    animation: shimmerRotate 6s linear infinite;
+    pointer-events: none;
+  }
+
+  // Shine sweep effect
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+    animation: shineSweep 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  // Staggered animation delays for each chip
+  &:nth-child(1)::after { animation-delay: 0s; }
+  &:nth-child(2)::after { animation-delay: 1s; }
+  &:nth-child(3)::after { animation-delay: 2s; }
+  &:nth-child(4)::after { animation-delay: 3s; }
+
+  &:nth-child(1)::before { animation-delay: 0s; }
+  &:nth-child(2)::before { animation-delay: 1.5s; }
+  &:nth-child(3)::before { animation-delay: 3s; }
+  &:nth-child(4)::before { animation-delay: 4.5s; }
+
+  // Hover: lift + stronger glow + color change
   &:hover {
-    animation: float 3s $anim-easing infinite;
-    box-shadow: 0 4px 16px rgba($color-accent-cyan, 0.15);
+    transform: translateY(-8px) scale(1.03);
+    border-color: rgba(196, 146, 42, 0.4);
+    background: linear-gradient(135deg, #FFFFFF 0%, #FDF8F0 100%);
+    box-shadow: 0 0 30px rgba(196, 146, 42, 0.2),
+                0 12px 32px rgba(27, 58, 75, 0.12),
+                0 0 60px rgba(196, 146, 42, 0.08);
+
+    .metric-chip__value {
+      color: $color-accent-gold;
+      text-shadow: 0 0 20px rgba(196, 146, 42, 0.3);
+    }
   }
 
   &__value {
     font-family: $font-heading;
-    font-size: clamp(20px, 2.5vw, $font-size-h3);
+    font-size: clamp(24px, 3vw, 36px);
     font-weight: $font-weight-heading;
-    color: $color-accent-cyan;
-    line-height: 1.2;
+    color: $color-accent-primary;
+    line-height: 1.1;
+    position: relative;
+    z-index: 1;
+    transition: color 0.4s $anim-easing, text-shadow 0.4s $anim-easing;
   }
 
   &__label {
     font-family: $font-body;
     font-size: clamp(11px, 1vw, 13px);
-    font-weight: $font-weight-body;
+    font-weight: $font-weight-emphasis;
     color: $color-text-secondary;
-    margin-top: $space-1;
+    margin-top: $space-2;
     line-height: 1.3;
+    position: relative;
+    z-index: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
   }
+}
+
+// =============================================================================
+// Keyframes
+// =============================================================================
+
+@keyframes shimmerRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes shineSweep {
+  0%, 100% { left: -100%; opacity: 0; }
+  50% { left: 100%; opacity: 1; }
 }
 
 // =============================================================================
