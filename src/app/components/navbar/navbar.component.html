@@ -5,14 +5,31 @@
   aria-label="Navegación principal"
 >
   <div class="navbar__container">
-    <!-- CF Monogram Logo -->
+    <!-- Logo: Digital Transformation Icon -->
     <a
       class="navbar__logo"
       href="#hero"
       (click)="$event.preventDefault(); navigateToSection('hero')"
       aria-label="Ir al inicio"
     >
-      CF
+      <svg class="navbar__logo-icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="url(#logoGradient)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <defs>
+          <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#1B3A4B"/>
+            <stop offset="100%" stop-color="#C4922A"/>
+          </linearGradient>
+        </defs>
+        <!-- Network/transformation icon: nodes connected -->
+        <circle cx="12" cy="5" r="2"/>
+        <circle cx="5" cy="19" r="2"/>
+        <circle cx="19" cy="19" r="2"/>
+        <line x1="12" y1="7" x2="7" y2="17"/>
+        <line x1="12" y1="7" x2="17" y2="17"/>
+        <line x1="7" y1="19" x2="17" y2="19"/>
+        <!-- Arrow up: growth/innovation -->
+        <path d="M12 14 L12 10"/>
+        <path d="M10 12 L12 10 L14 12"/>
+      </svg>
     </a>
 
     <!-- Desktop Navigation Links -->
