@@ -241,20 +241,19 @@
   &__photo {
     position: relative;
     z-index: 1;
-    width: clamp(240px, 35vw, 380px);
+    width: clamp(280px, 38vw, 420px);
     height: auto;
-    aspect-ratio: 3 / 4;
-    border-radius: 20px;
+    border-radius: 16px;
     object-fit: cover;
     object-position: top center;
     border: none;
-    box-shadow: 0 8px 40px rgba(27, 58, 75, 0.12),
-                0 2px 12px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 12px 48px rgba(27, 58, 75, 0.14),
+                0 4px 16px rgba(0, 0, 0, 0.06);
     transition: box-shadow $anim-duration-fast $anim-easing;
 
     &:hover {
-      box-shadow: 0 12px 48px rgba(27, 58, 75, 0.18),
-                  0 4px 16px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 16px 56px rgba(27, 58, 75, 0.18),
+                  0 6px 20px rgba(0, 0, 0, 0.08);
     }
   }
 
