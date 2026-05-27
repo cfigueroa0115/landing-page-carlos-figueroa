@@ -74,7 +74,7 @@
 
   &__name {
     font-family: $font-heading;
-    font-size: clamp(32px, 5vw, $font-size-h1);
+    font-size: clamp(28px, 3.8vw, 48px);
     font-weight: $font-weight-heading;
     line-height: 1.1;
     background: $gradient-text;
@@ -83,34 +83,52 @@
     -webkit-text-fill-color: transparent;
     margin-bottom: $space-4;
     letter-spacing: -0.02em;
+    white-space: nowrap;
+
+    @media (max-width: $bp-tablet) {
+      white-space: normal;
+      font-size: clamp(26px, 7vw, 36px);
+    }
   }
 
   &__subtitle {
     font-family: $font-body;
-    font-size: clamp(18px, 2.5vw, $font-size-h4);
-    font-weight: $font-weight-body;
-    color: $color-accent-cyan;
-    min-height: 1.5em;
+    font-size: clamp(20px, 2.5vw, 28px);
+    font-weight: $font-weight-emphasis;
+    color: $color-accent-secondary;
+    min-height: 1.4em;
     margin-bottom: $space-4;
     display: flex;
     align-items: center;
     gap: 2px;
+    white-space: nowrap;
+
+    @media (max-width: $bp-tablet) {
+      white-space: normal;
+      font-size: clamp(18px, 5vw, 22px);
+    }
   }
 
   &__cursor {
     display: inline-block;
-    color: $color-accent-cyan;
+    color: $color-accent-secondary;
     animation: blink 1s step-end infinite;
   }
 
   &__tagline {
     font-family: $font-body;
-    font-size: clamp(14px, 1.5vw, 18px);
+    font-size: clamp(16px, 1.8vw, 20px);
     font-weight: $font-weight-body;
     color: $color-text-secondary;
-    line-height: 1.6;
-    max-width: 540px;
+    line-height: 1.5;
+    max-width: 700px;
     margin-bottom: $space-6;
+    white-space: nowrap;
+
+    @media (max-width: $bp-desktop) {
+      white-space: normal;
+      max-width: 540px;
+    }
   }
 
   // ---------------------------------------------------------------------------
