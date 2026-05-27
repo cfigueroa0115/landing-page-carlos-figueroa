@@ -35,6 +35,7 @@
   @media (max-width: $bp-desktop) {
     grid-template-columns: 1fr;
     gap: $space-7;
+    text-align: center;
   }
 }
 
@@ -45,6 +46,10 @@
   display: flex;
   flex-direction: column;
   gap: $space-5;
+
+  @media (max-width: $bp-desktop) {
+    align-items: center;
+  }
 }
 
 .profile-heading {

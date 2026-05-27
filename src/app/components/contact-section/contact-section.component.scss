@@ -80,14 +80,19 @@
   grid-template-columns: 1fr 1fr;
   gap: $space-3;
 
-  @media (max-width: 500px) { grid-template-columns: 1fr; }
+  @media (max-width: $bp-tablet) {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+    margin: 0 auto;
+  }
 }
 
 .contact-card {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: $space-3;
-  padding: $space-4;
+  padding: $space-4 $space-5;
   background: #FFFFFF;
   border: 1px solid rgba(27, 58, 75, 0.08);
   border-radius: 12px;
@@ -104,6 +109,11 @@
   }
 
   &--static { cursor: default; &:hover { transform: none; } }
+
+  @media (max-width: $bp-tablet) {
+    justify-content: flex-start;
+    text-align: left;
+  }
 }
 
 .card-label {

@@ -127,3 +127,30 @@ textarea:focus-visible,
     padding-block: $space-7;
   }
 }
+
+// =============================================================================
+// Mobile Responsive Centering Fix
+// =============================================================================
+@media (max-width: $bp-tablet) {
+  .section {
+    text-align: center;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  // Ensure all section headings are centered
+  .text-gradient,
+  h2, h3 {
+    text-align: center;
+    width: 100%;
+  }
+
+  // Ensure grids center their content
+  .section .container > * {
+    width: 100%;
+  }
+}
