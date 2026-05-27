@@ -46,12 +46,12 @@
     @if (isAuthenticated()) {
       <div class="dashboard">
         <div class="dash-actions">
-          <button class="refresh-btn" (click)="refresh()" [disabled]="isLoading()">↻ Actualizar</button>
-          <button class="logout-btn" (click)="logout()">Cerrar sesión</button>
+          <button type="button" class="refresh-btn" (click)="refresh()" [disabled]="isLoading()">↻ Actualizar datos</button>
+          <button type="button" class="logout-btn" (click)="logout()">Cerrar sesión</button>
         </div>
 
         @if (isLoading()) {
-          <div class="loading">Cargando datos...</div>
+          <div class="loading">Cargando datos en tiempo real...</div>
         }
 
         @if (dashboardData(); as data) {
@@ -60,74 +60,103 @@
             <div class="kpi-card">
               <span class="kpi-value">{{ data.totalViews }}</span>
               <span class="kpi-label">Visitas Totales</span>
+              <div class="kpi-bar"><div class="kpi-bar-fill" [style.width.%]="100"></div></div>
             </div>
             <div class="kpi-card">
               <span class="kpi-value">{{ data.uniqueVisitors }}</span>
               <span class="kpi-label">Visitantes Únicos</span>
+              <div class="kpi-bar"><div class="kpi-bar-fill kpi-bar-fill--blue" [style.width.%]="data.totalViews ? (data.uniqueVisitors / data.totalViews) * 100 : 0"></div></div>
             </div>
             <div class="kpi-card">
               <span class="kpi-value">{{ data.viewsToday }}</span>
               <span class="kpi-label">Visitas Hoy</span>
+              <div class="kpi-bar"><div class="kpi-bar-fill kpi-bar-fill--green" [style.width.%]="data.viewsWeek ? (data.viewsToday / data.viewsWeek) * 100 : 0"></div></div>
             </div>
             <div class="kpi-card">
               <span class="kpi-value">{{ data.viewsWeek }}</span>
               <span class="kpi-label">Última Semana</span>
+              <div class="kpi-bar"><div class="kpi-bar-fill kpi-bar-fill--purple" [style.width.%]="data.totalViews ? (data.viewsWeek / data.totalViews) * 100 : 0"></div></div>
             </div>
             <div class="kpi-card kpi-card--accent">
               <span class="kpi-value">{{ data.downloads }}</span>
               <span class="kpi-label">Descargas CV</span>
+              <div class="kpi-bar"><div class="kpi-bar-fill kpi-bar-fill--gold" [style.width.%]="data.totalViews ? (data.downloads / data.totalViews) * 100 : 0"></div></div>
             </div>
             <div class="kpi-card kpi-card--accent">
               <span class="kpi-value">{{ data.contactSubmissions }}</span>
               <span class="kpi-label">Mensajes Contacto</span>
+              <div class="kpi-bar"><div class="kpi-bar-fill kpi-bar-fill--gold" [style.width.%]="data.totalViews ? (data.contactSubmissions / data.totalViews) * 100 : 0"></div></div>
             </div>
           </div>
 
-          <!-- Sections Most Viewed -->
-          @if (data.sectionViews.length) {
-            <div class="dash-section">
-              <h4>Secciones Más Vistas</h4>
-              <div class="bar-chart">
-                @for (item of data.sectionViews; track item.section) {
-                  <div class="bar-row">
-                    <span class="bar-label">{{ item.section }}</span>
-                    <div class="bar-track">
-                      <div class="bar-fill" [style.width.%]="(+item.count / +data.sectionViews[0].count) * 100"></div>
-                    </div>
-                    <span class="bar-count">{{ item.count }}</span>
+          <!-- Two-column charts -->
+          <div class="charts-grid">
+            <!-- Pie Chart: Section Views -->
+            @if (data.sectionViews.length) {
+              <div class="dash-section chart-card">
+                <h4>📊 Secciones Más Vistas</h4>
+                <div class="pie-chart-container">
+                  <div class="pie-chart" [style.background]="getPieGradient(data.sectionViews)"></div>
+                  <div class="pie-legend">
+                    @for (item of data.sectionViews; track item.section; let i = $index) {
+                      <div class="legend-item">
+                        <span class="legend-dot" [style.background]="pieColors[i % pieColors.length]"></span>
+                        <span class="legend-label">{{ item.section }}</span>
+                        <span class="legend-value">{{ item.count }}</span>
+                      </div>
+                    }
                   </div>
-                }
+                </div>
               </div>
-            </div>
-          }
+            }
 
-          <!-- Click Events -->
-          @if (data.clickEvents.length) {
-            <div class="dash-section">
-              <h4>Clics por Elemento</h4>
-              <div class="bar-chart">
-                @for (item of data.clickEvents; track item.element) {
-                  <div class="bar-row">
-                    <span class="bar-label">{{ item.element }}</span>
-                    <div class="bar-track">
-                      <div class="bar-fill bar-fill--gold" [style.width.%]="(+item.count / +data.clickEvents[0].count) * 100"></div>
+            <!-- Bar Chart: Click Events -->
+            @if (data.clickEvents.length) {
+              <div class="dash-section chart-card">
+                <h4>🖱️ Clics por Elemento</h4>
+                <div class="bar-chart">
+                  @for (item of data.clickEvents; track item.element) {
+                    <div class="bar-row">
+                      <span class="bar-label">{{ item.element }}</span>
+                      <div class="bar-track">
+                        <div class="bar-fill bar-fill--gold" [style.width.%]="(+item.count / +data.clickEvents[0].count) * 100"></div>
+                      </div>
+                      <span class="bar-count">{{ item.count }}</span>
                     </div>
-                    <span class="bar-count">{{ item.count }}</span>
-                  </div>
-                }
+                  }
+                </div>
               </div>
-            </div>
-          }
+            }
+          </div>
 
-          <!-- Views Per Day -->
+          <!-- Views Per Day - Visual Bar Chart -->
           @if (data.viewsPerDay.length) {
-            <div class="dash-section">
-              <h4>Visitas por Día (últimos 30 días)</h4>
-              <div class="day-grid">
+            <div class="dash-section chart-card">
+              <h4>📈 Visitas por Día (últimos 30 días)</h4>
+              <div class="daily-chart">
                 @for (day of data.viewsPerDay; track day.date) {
-                  <div class="day-item">
-                    <span class="day-date">{{ day.date }}</span>
-                    <span class="day-count">{{ day.count }}</span>
+                  <div class="daily-bar-container">
+                    <span class="daily-count">{{ day.count }}</span>
+                    <div class="daily-bar" [style.height.%]="getMaxDayCount(data.viewsPerDay) ? (+day.count / getMaxDayCount(data.viewsPerDay)) * 100 : 0"></div>
+                    <span class="daily-date">{{ formatShortDate(day.date) }}</span>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+
+          <!-- Referrers -->
+          @if (data.referrers.length) {
+            <div class="dash-section chart-card">
+              <h4>🔗 Fuentes de Tráfico</h4>
+              <div class="bar-chart">
+                @for (item of data.referrers; track item.referrer) {
+                  <div class="bar-row">
+                    <span class="bar-label">{{ item.referrer || 'Directo' }}</span>
+                    <div class="bar-track">
+                      <div class="bar-fill" [style.width.%]="(+item.count / +data.referrers[0].count) * 100"></div>
+                    </div>
+                    <span class="bar-count">{{ item.count }}</span>
                   </div>
                 }
               </div>
@@ -136,12 +165,13 @@
 
           <!-- Recent Activity -->
           @if (data.recentEvents.length) {
-            <div class="dash-section">
-              <h4>Actividad Reciente</h4>
+            <div class="dash-section chart-card">
+              <h4>⚡ Actividad en Tiempo Real</h4>
               <div class="events-list">
                 @for (event of data.recentEvents; track event.created_at) {
                   <div class="event-item">
-                    <span class="event-type" [class]="'type-' + event.event_type">{{ event.event_type }}</span>
+                    <span class="event-dot" [class]="'dot-' + event.event_type"></span>
+                    <span class="event-type-label">{{ getEventLabel(event.event_type) }}</span>
                     <span class="event-time">{{ formatDate(event.created_at) }}</span>
                   </div>
                 }

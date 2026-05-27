@@ -1,8 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IntersectionObserverDirective } from '../../directives/intersection-observer.directive';
 import { SkillCategory } from '../../models/skill-category.interface';
 import { SkillBar } from '../../models/skill-bar.interface';
+import { AnalyticsService } from '../../services/analytics.service';
 
 @Component({
   standalone: true,
@@ -12,7 +13,7 @@ import { SkillBar } from '../../models/skill-bar.interface';
   imports: [CommonModule, IntersectionObserverDirective],
 })
 export class SkillsSectionComponent {
-  /** Controls animation trigger when section enters viewport */
+  private readonly analytics = inject(AnalyticsService);
   isVisible = signal<boolean>(false);
 
   /** Skill category groups with icons and tags */
@@ -87,6 +88,7 @@ export class SkillsSectionComponent {
   onVisibilityChange(visible: boolean): void {
     if (visible) {
       this.isVisible.set(true);
+      this.analytics.trackSectionView('skills');
     }
   }
 }

@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IntersectionObserverDirective } from '../../directives/intersection-observer.directive';
 import { TimelineEntry } from '../../models/timeline-entry.interface';
+import { AnalyticsService } from '../../services/analytics.service';
 
 @Component({
   standalone: true,
@@ -11,7 +12,7 @@ import { TimelineEntry } from '../../models/timeline-entry.interface';
   imports: [CommonModule, IntersectionObserverDirective],
 })
 export class TimelineSectionComponent {
-  /** Controls section-level visibility for fade-in */
+  private readonly analytics = inject(AnalyticsService);
   isVisible = signal<boolean>(false);
 
   /** Tracks which nodes have entered the viewport (by index) */
@@ -153,6 +154,7 @@ export class TimelineSectionComponent {
   onSectionVisibilityChange(visible: boolean): void {
     if (visible) {
       this.isVisible.set(true);
+      this.analytics.trackSectionView('timeline');
     }
   }
 

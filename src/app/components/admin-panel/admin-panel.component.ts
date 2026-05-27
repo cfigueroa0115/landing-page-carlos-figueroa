@@ -105,7 +105,44 @@ export class AdminPanelComponent {
     this.password = '';
   }
 
+  readonly pieColors = ['#1B3A4B', '#C4922A', '#8B5E3C', '#2D7A9C', '#D4A853', '#5C3D2E', '#3A6B7E'];
+
   formatDate(dateStr: string): string {
     return new Date(dateStr).toLocaleString('es-CO', { dateStyle: 'short', timeStyle: 'short' });
+  }
+
+  formatShortDate(dateStr: string): string {
+    const d = new Date(dateStr);
+    return `${d.getDate()}/${d.getMonth() + 1}`;
+  }
+
+  getMaxDayCount(days: { count: string }[]): number {
+    return Math.max(...days.map(d => +d.count), 1);
+  }
+
+  getPieGradient(items: { section: string; count: string }[]): string {
+    const total = items.reduce((sum, i) => sum + (+i.count), 0);
+    if (total === 0) return '#EDE8E2';
+    let accumulated = 0;
+    const stops: string[] = [];
+    items.forEach((item, idx) => {
+      const pct = (+item.count / total) * 100;
+      const color = this.pieColors[idx % this.pieColors.length];
+      stops.push(`${color} ${accumulated}% ${accumulated + pct}%`);
+      accumulated += pct;
+    });
+    return `conic-gradient(${stops.join(', ')})`;
+  }
+
+  getEventLabel(type: string): string {
+    const labels: Record<string, string> = {
+      'page_view': '👁️ Vista de página',
+      'click': '🖱️ Clic',
+      'section_view': '📄 Sección vista',
+      'download_cv': '📥 Descarga CV',
+      'contact_form_open': '📬 Formulario abierto',
+      'contact_form_submit': '✉️ Mensaje enviado',
+    };
+    return labels[type] || type;
   }
 }

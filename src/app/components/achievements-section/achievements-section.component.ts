@@ -1,8 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CountUpDirective } from '../../directives/count-up.directive';
 import { IntersectionObserverDirective } from '../../directives/intersection-observer.directive';
 import { Achievement } from '../../models/achievement.interface';
+import { AnalyticsService } from '../../services/analytics.service';
 
 /**
  * AchievementsSectionComponent — Displays 7 glassmorphism cards with
@@ -24,6 +25,7 @@ import { Achievement } from '../../models/achievement.interface';
   styleUrls: ['./achievements-section.component.scss'],
 })
 export class AchievementsSectionComponent {
+  private readonly analytics = inject(AnalyticsService);
   /** Controls animation trigger when section enters viewport */
   isVisible = signal<boolean>(false);
 
@@ -79,6 +81,7 @@ export class AchievementsSectionComponent {
   onVisibilityChange(visible: boolean): void {
     if (visible) {
       this.isVisible.set(true);
+      this.analytics.trackSectionView('achievements');
     }
   }
 

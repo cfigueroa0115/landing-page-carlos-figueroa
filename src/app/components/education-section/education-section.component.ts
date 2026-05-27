@@ -1,8 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IntersectionObserverDirective } from '../../directives/intersection-observer.directive';
 import { EducationEntry } from '../../models/education-entry.interface';
 import { Certification } from '../../models/certification.interface';
+import { AnalyticsService } from '../../services/analytics.service';
 
 @Component({
   standalone: true,
@@ -12,7 +13,7 @@ import { Certification } from '../../models/certification.interface';
   imports: [CommonModule, IntersectionObserverDirective],
 })
 export class EducationSectionComponent {
-  /** Controls animation trigger when section enters viewport */
+  private readonly analytics = inject(AnalyticsService);
   isVisible = signal<boolean>(false);
 
   /** Education entries data */
@@ -63,6 +64,7 @@ export class EducationSectionComponent {
   onVisibilityChange(visible: boolean): void {
     if (visible) {
       this.isVisible.set(true);
+      this.analytics.trackSectionView('education');
     }
   }
 }

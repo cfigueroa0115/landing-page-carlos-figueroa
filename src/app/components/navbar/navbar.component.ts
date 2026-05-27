@@ -10,6 +10,7 @@ import {
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { LucideMenu, LucideX } from '@lucide/angular';
 import { ScrollService } from '../../services/scroll.service';
+import { AnalyticsService } from '../../services/analytics.service';
 import { NavLink } from '../../models/nav-link.interface';
 
 @Component({
@@ -22,6 +23,7 @@ import { NavLink } from '../../models/nav-link.interface';
 export class NavbarComponent implements OnInit, OnDestroy {
   private readonly scrollService = inject(ScrollService);
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly analytics = inject(AnalyticsService);
 
   /** True when scroll position exceeds 50px */
   isScrolled = computed(() => this.scrollService.scrollPosition() > 50);
@@ -85,6 +87,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   navigateToSection(sectionId: string): void {
     this.scrollService.scrollToSection(sectionId);
+    this.analytics.trackClick('nav_' + sectionId);
     this.closeMobileMenu();
   }
 }
