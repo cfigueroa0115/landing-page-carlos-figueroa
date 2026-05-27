@@ -95,6 +95,7 @@ export class ContactSectionComponent {
         if (response.success) {
           this.submitStatus.set('success');
           this.formGroup.reset({ motivo: 'Consultoría' });
+          this.analytics.trackContactFormSubmit();
         } else {
           this.submitStatus.set('error');
         }

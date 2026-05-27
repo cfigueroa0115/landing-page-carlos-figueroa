@@ -100,6 +100,41 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
        LIMIT 10`
     );
 
+    // Device types
+    const deviceTypes = await pool.query(
+      `SELECT event_data->>'user_agent_short' as device, COUNT(*) as count 
+       FROM analytics_events 
+       WHERE event_type = 'page_view' AND event_data->>'user_agent_short' IS NOT NULL
+       GROUP BY event_data->>'user_agent_short' 
+       ORDER BY count DESC`
+    );
+
+    // Scroll depth milestones
+    const scrollDepth = await pool.query(
+      `SELECT event_data->>'depth' as depth, COUNT(*) as count 
+       FROM analytics_events 
+       WHERE event_type = 'scroll_depth' 
+       GROUP BY event_data->>'depth' 
+       ORDER BY depth`
+    );
+
+    // Average session duration (from session_end events)
+    const avgDuration = await pool.query(
+      `SELECT AVG((event_data->>'time_spent_seconds')::int) as avg_seconds 
+       FROM analytics_events 
+       WHERE event_type = 'session_end' AND event_data->>'time_spent_seconds' IS NOT NULL`
+    );
+
+    // External link clicks
+    const externalLinks = await pool.query(
+      `SELECT event_data->>'url' as url, COUNT(*) as count 
+       FROM analytics_events 
+       WHERE event_type = 'external_link' 
+       GROUP BY event_data->>'url' 
+       ORDER BY count DESC 
+       LIMIT 10`
+    );
+
     res.status(200).json({
       success: true,
       data: {
@@ -114,6 +149,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
         viewsPerDay: viewsPerDay.rows,
         recentEvents: recentEvents.rows,
         referrers: referrers.rows,
+        deviceTypes: deviceTypes.rows,
+        scrollDepth: scrollDepth.rows,
+        avgSessionDuration: Math.round(parseFloat(avgDuration.rows[0]?.avg_seconds) || 0),
+        externalLinks: externalLinks.rows,
       },
     });
   } catch (error) {
