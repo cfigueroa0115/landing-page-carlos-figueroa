@@ -28,7 +28,7 @@ import { ScrollService } from '../../services/scroll.service';
 
     .scroll-progress-bar {
       height: 4px;
-      background: linear-gradient(90deg, #00D4FF, #7B61FF);
+      background: linear-gradient(90deg, #1B3A4B, #8B5E3C);
       transition: width 100ms ease;
       will-change: width;
     }

@@ -4,16 +4,21 @@
 // =============================================================================
 
 // -----------------------------------------------------------------------------
-// Color Palette
+// Color Palette — Warm, Sober, Masculine
 // -----------------------------------------------------------------------------
-$color-bg-primary: #0A0E1A;
-$color-bg-secondary: #111827;
-$color-accent-cyan: #00D4FF;
-$color-accent-violet: #7B61FF;
-$color-accent-gold: #F0C040;
-$color-text-primary: #FFFFFF;
-$color-text-secondary: rgba(255, 255, 255, 0.7);
-$color-text-muted: rgba(255, 255, 255, 0.5);
+$color-bg-primary: #F5F0EB;          // warm ivory/cream
+$color-bg-secondary: #EDE8E2;        // slightly darker warm beige
+$color-bg-card: #FFFFFF;             // white cards
+$color-accent-primary: #1B3A4B;      // deep navy-teal (primary accent)
+$color-accent-secondary: #8B5E3C;    // warm bronze/terracotta
+$color-accent-gold: #C4922A;         // rich gold
+$color-text-primary: #1A1A1A;        // near-black for text
+$color-text-secondary: #4A4A4A;      // dark gray
+$color-text-muted: #7A7A7A;          // medium gray
+
+// Legacy aliases for backward compatibility
+$color-accent-cyan: $color-accent-primary;
+$color-accent-violet: $color-accent-secondary;
 
 // -----------------------------------------------------------------------------
 // Typography
@@ -43,20 +48,20 @@ $space-8: 64px;
 $space-9: 96px;
 
 // -----------------------------------------------------------------------------
-// Glassmorphism
+// Glassmorphism — adapted for light theme
 // -----------------------------------------------------------------------------
-$glass-bg-opacity-min: 0.05;
-$glass-bg-opacity-max: 0.15;
+$glass-bg-opacity-min: 0.6;
+$glass-bg-opacity-max: 0.85;
 $glass-blur-min: 12px;
 $glass-blur-max: 20px;
-$glass-border: 1px solid rgba(255, 255, 255, 0.1);
+$glass-border: 1px solid rgba(27, 58, 75, 0.1);
 
 // -----------------------------------------------------------------------------
-// Gradients
+// Gradients — Warm tones
 // -----------------------------------------------------------------------------
-$gradient-accent: linear-gradient(135deg, $color-accent-cyan, $color-accent-violet);
-$gradient-text: linear-gradient(90deg, $color-accent-cyan, $color-accent-violet);
-$gradient-ring: conic-gradient(from 0deg, $color-accent-cyan, $color-accent-violet, $color-accent-cyan);
+$gradient-accent: linear-gradient(135deg, $color-accent-primary, $color-accent-secondary);
+$gradient-text: linear-gradient(90deg, $color-accent-primary, $color-accent-secondary);
+$gradient-ring: conic-gradient(from 0deg, $color-accent-primary, $color-accent-gold, $color-accent-primary);
 
 // -----------------------------------------------------------------------------
 // Breakpoints

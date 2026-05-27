@@ -87,16 +87,16 @@ h4 {
 // Link Styles
 // -----------------------------------------------------------------------------
 a {
-  color: $color-accent-cyan;
+  color: $color-accent-primary;
   text-decoration: none;
   transition: color $anim-duration-fast $anim-easing;
 
   &:hover {
-    color: color.adjust($color-accent-cyan, $lightness: 10%);
+    color: $color-accent-secondary;
   }
 
   &:focus-visible {
-    outline: 2px solid $color-accent-cyan;
+    outline: 2px solid $color-accent-primary;
     outline-offset: 2px;
     border-radius: 2px;
   }

@@ -40,9 +40,9 @@ export class ParticleCanvasComponent implements AfterViewInit, OnDestroy {
   /** Distance threshold for drawing connection lines between particles */
   private readonly connectionDistance = 150;
 
-  /** Colors */
-  private readonly connectionColor = 'rgba(0, 212, 255, 0.1)';
-  private readonly nodeColor = 'rgba(123, 97, 255, 0.6)';
+  /** Colors — warm tones */
+  private readonly connectionColor = 'rgba(27, 58, 75, 0.06)';
+  private readonly nodeColor = 'rgba(139, 94, 60, 0.3)';
 
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) {

@@ -1,64 +1,62 @@
 // =============================================================================
-// Glassmorphism Mixins
-// Reusable glass-effect styles for cards and interactive elements
+// Card & Surface Mixins
+// Reusable styles for cards and interactive elements — warm light theme
 // =============================================================================
 
 @use 'tokens' as *;
 
-/// Standard glassmorphism card effect
-/// @param {Number} $opacity - Background opacity (0.05 to 0.15)
-/// @param {Length} $blur - Backdrop blur amount (12px to 20px)
+/// Standard card effect with subtle shadow
 @mixin glass-card($opacity: $glass-bg-opacity-min, $blur: $glass-blur-min) {
   background: rgba(255, 255, 255, $opacity);
   backdrop-filter: blur($blur);
   -webkit-backdrop-filter: blur($blur);
   border: $glass-border;
   border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
 }
 
-/// Elevated glassmorphism card with stronger effect
+/// Elevated card with stronger shadow
 @mixin glass-card-elevated() {
   background: rgba(255, 255, 255, $glass-bg-opacity-max);
   backdrop-filter: blur($glass-blur-max);
   -webkit-backdrop-filter: blur($glass-blur-max);
   border: $glass-border;
   border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
 }
 
-/// Glassmorphism navbar effect (applied on scroll)
+/// Navbar effect (applied on scroll)
 @mixin glass-navbar() {
-  background: rgba(10, 14, 26, 0.85);
+  background: rgba(245, 240, 235, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: $glass-border;
+  border-bottom: 1px solid rgba(27, 58, 75, 0.08);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
 }
 
-/// Hover glow effect for glassmorphism cards
-/// @param {Color} $glow-color - The accent color for the glow
-@mixin glass-hover-glow($glow-color: $color-accent-cyan) {
+/// Hover glow effect for cards
+@mixin glass-hover-glow($glow-color: $color-accent-primary) {
   transition: transform $anim-duration-fast $anim-easing,
               box-shadow $anim-duration-fast $anim-easing;
 
   &:hover {
     transform: translateY(-8px);
-    box-shadow: 0 8px 32px rgba($glow-color, 0.3);
+    box-shadow: 0 12px 40px rgba($glow-color, 0.12);
   }
 }
 
-/// Glass input field styling
+/// Input field styling
 @mixin glass-input() {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur($glass-blur-min);
-  -webkit-backdrop-filter: blur($glass-blur-min);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #FFFFFF;
+  border: 1px solid rgba(27, 58, 75, 0.15);
   border-radius: 8px;
   color: $color-text-primary;
   transition: border-color $anim-duration-fast $anim-easing;
 
   &:focus {
     outline: none;
-    border-color: $color-accent-cyan;
-    box-shadow: 0 0 0 2px rgba($color-accent-cyan, 0.2);
+    border-color: $color-accent-primary;
+    box-shadow: 0 0 0 3px rgba($color-accent-primary, 0.1);
   }
 
   &::placeholder {
