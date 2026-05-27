@@ -118,8 +118,10 @@
   &__cta {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
-    padding: 8px 14px;
+    padding: 8px 20px;
+    min-width: 120px;
     font-family: $font-body;
     font-size: 12px;
     font-weight: $font-weight-emphasis;
