@@ -170,22 +170,22 @@
     &--outline {
       background: transparent;
       color: $color-text-primary;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(27, 58, 75, 0.25);
 
       &:hover {
-        border-color: $color-accent-cyan;
-        box-shadow: 0 4px 20px rgba($color-accent-cyan, 0.2);
+        border-color: $color-accent-primary;
+        box-shadow: 0 4px 20px rgba($color-accent-primary, 0.1);
       }
     }
 
     &--gradient {
       background: $gradient-accent;
-      color: $color-text-primary;
+      color: #FFFFFF;
       border: none;
 
       &:hover {
         opacity: 0.9;
-        box-shadow: 0 4px 20px rgba($color-accent-violet, 0.3);
+        box-shadow: 0 4px 20px rgba($color-accent-secondary, 0.2);
       }
     }
   }
@@ -217,32 +217,27 @@
   }
 
   &__photo-ring {
-    position: absolute;
-    width: calc(100% + 16px);
-    height: calc(100% + 16px);
-    border-radius: 50%;
-    background: $gradient-ring;
-    animation: rotateRing 3s linear infinite;
-    padding: 3px;
-
-    // Create the ring effect with a mask
-    &::after {
-      content: '';
-      position: absolute;
-      inset: 3px;
-      border-radius: 50%;
-      background: $color-bg-primary;
-    }
+    display: none; // Removed — no rotating ring
   }
 
   &__photo {
     position: relative;
     z-index: 1;
-    width: clamp(200px, 30vw, 320px);
-    height: clamp(200px, 30vw, 320px);
-    border-radius: 50%;
+    width: clamp(240px, 35vw, 380px);
+    height: auto;
+    aspect-ratio: 3 / 4;
+    border-radius: 20px;
     object-fit: cover;
-    border: 3px solid transparent;
+    object-position: top center;
+    border: none;
+    box-shadow: 0 8px 40px rgba(27, 58, 75, 0.12),
+                0 2px 12px rgba(0, 0, 0, 0.06);
+    transition: box-shadow $anim-duration-fast $anim-easing;
+
+    &:hover {
+      box-shadow: 0 12px 48px rgba(27, 58, 75, 0.18),
+                  0 4px 16px rgba(0, 0, 0, 0.08);
+    }
   }
 
   // ---------------------------------------------------------------------------
@@ -307,15 +302,6 @@
   }
   50% {
     opacity: 0;
-  }
-}
-
-@keyframes rotateRing {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
   }
 }
 
