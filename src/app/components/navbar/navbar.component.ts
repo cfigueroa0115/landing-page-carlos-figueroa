@@ -8,7 +8,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { LucideMenu, LucideX, LucideExternalLink } from '@lucide/angular';
+import { LucideMenu, LucideX } from '@lucide/angular';
 import { ScrollService } from '../../services/scroll.service';
 import { NavLink } from '../../models/nav-link.interface';
 
@@ -17,7 +17,7 @@ import { NavLink } from '../../models/nav-link.interface';
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
-  imports: [CommonModule, LucideMenu, LucideX, LucideExternalLink],
+  imports: [CommonModule, LucideMenu, LucideX],
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   private readonly scrollService = inject(ScrollService);
@@ -45,6 +45,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   /** LinkedIn profile URL */
   readonly linkedInUrl =
     'https://www.linkedin.com/in/carlos-alberto-figueroa-mart%C3%ADnez-649a462a';
+
+  /** WhatsApp URL with pre-filled message */
+  readonly whatsappUrl =
+    'https://wa.me/573005091114?text=' + encodeURIComponent('¡Hola, he visto tu perfil profesional y tu landing page, nos interesa mucho poder contactar contigo para programar un espacio de diálogo!, gracias');
 
   private outsideClickListener: ((event: MouseEvent) => void) | null = null;
 
