@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IntersectionObserverDirective } from '../../directives/intersection-observer.directive';
+import { AnalyticsService } from '../../services/analytics.service';
 
 @Component({
   standalone: true,
@@ -10,10 +11,9 @@ import { IntersectionObserverDirective } from '../../directives/intersection-obs
   imports: [CommonModule, IntersectionObserverDirective],
 })
 export class ProfileSectionComponent {
-  /** Controls animation trigger when section enters viewport */
+  private readonly analytics = inject(AnalyticsService);
   isVisible = signal<boolean>(false);
 
-  /** Professional keyword tags for orbital display */
   readonly keywordTags: string[] = [
     'Transformación Digital',
     'IA Aplicada',
@@ -40,6 +40,7 @@ export class ProfileSectionComponent {
   onVisibilityChange(visible: boolean): void {
     if (visible) {
       this.isVisible.set(true);
+      this.analytics.trackSectionView('profile');
     }
   }
 }

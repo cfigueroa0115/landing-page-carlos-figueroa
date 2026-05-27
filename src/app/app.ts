@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ScrollProgressBarComponent } from './components/scroll-progress-bar/scroll-progress-bar.component';
 import { ParticleCanvasComponent } from './components/particle-canvas/particle-canvas.component';
@@ -10,6 +10,8 @@ import { SkillsSectionComponent } from './components/skills-section/skills-secti
 import { EducationSectionComponent } from './components/education-section/education-section.component';
 import { ContactSectionComponent } from './components/contact-section/contact-section.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { AnalyticsService } from './services/analytics.service';
 
 @Component({
   selector: 'app-root',
@@ -26,8 +28,12 @@ import { FooterComponent } from './components/footer/footer.component';
     EducationSectionComponent,
     ContactSectionComponent,
     FooterComponent,
+    AdminPanelComponent,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App {}
+export class App {
+  // Inject AnalyticsService to initialize page tracking on app load
+  private readonly analytics = inject(AnalyticsService);
+}

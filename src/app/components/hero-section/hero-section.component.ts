@@ -14,6 +14,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { TypewriterDirective } from '../../directives/typewriter.directive';
 import { AnimationService } from '../../services/animation.service';
 import { ScrollService } from '../../services/scroll.service';
+import { AnalyticsService } from '../../services/analytics.service';
 import { MetricChip } from '../../models/metric-chip.interface';
 
 /**
@@ -43,6 +44,7 @@ export class HeroSectionComponent implements AfterViewInit, OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly animationService = inject(AnimationService);
   private readonly scrollService = inject(ScrollService);
+  private readonly analytics = inject(AnalyticsService);
 
   @ViewChildren('animateEl') animateElements!: QueryList<ElementRef>;
   @ViewChild('heroSection') heroSection!: ElementRef;
@@ -91,6 +93,7 @@ export class HeroSectionComponent implements AfterViewInit, OnDestroy {
    */
   downloadCV(): void {
     this.downloadError.set('');
+    this.analytics.trackDownloadCV();
 
     const link = document.createElement('a');
     link.href = 'assets/documents/cv-carlos-figueroa.pdf';

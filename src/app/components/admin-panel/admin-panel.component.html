@@ -1,0 +1,156 @@
+<!-- Admin Button (top-right corner) -->
+<button
+  class="admin-trigger"
+  (click)="open()"
+  aria-label="Panel de administración"
+  title="Administrador"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+  <span>Admin</span>
+</button>
+
+<!-- Admin Panel Modal -->
+@if (isOpen()) {
+<div class="admin-overlay" (click)="close()">
+  <div class="admin-panel" (click)="$event.stopPropagation()">
+    <!-- Header -->
+    <div class="panel-header">
+      <h2>Panel de Administración</h2>
+      <button class="close-btn" (click)="close()" aria-label="Cerrar panel">✕</button>
+    </div>
+
+    <!-- Login Form -->
+    @if (!isAuthenticated()) {
+      <div class="login-section">
+        <h3>Iniciar Sesión</h3>
+        <form (ngSubmit)="login()" class="login-form">
+          <div class="field">
+            <label for="admin-user">Usuario</label>
+            <input id="admin-user" type="text" [(ngModel)]="username" name="username" placeholder="Usuario" autocomplete="username" required/>
+          </div>
+          <div class="field">
+            <label for="admin-pass">Contraseña</label>
+            <input id="admin-pass" type="password" [(ngModel)]="password" name="password" placeholder="Contraseña" autocomplete="current-password" required/>
+          </div>
+          @if (loginError()) {
+            <p class="error-msg">{{ loginError() }}</p>
+          }
+          <button type="submit" class="login-btn" [disabled]="isLoading()">
+            @if (isLoading()) { Verificando... } @else { Ingresar }
+          </button>
+        </form>
+      </div>
+    }
+
+    <!-- Dashboard -->
+    @if (isAuthenticated()) {
+      <div class="dashboard">
+        <div class="dash-actions">
+          <button class="refresh-btn" (click)="refresh()" [disabled]="isLoading()">↻ Actualizar</button>
+          <button class="logout-btn" (click)="logout()">Cerrar sesión</button>
+        </div>
+
+        @if (isLoading()) {
+          <div class="loading">Cargando datos...</div>
+        }
+
+        @if (dashboardData(); as data) {
+          <!-- KPI Cards -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <span class="kpi-value">{{ data.totalViews }}</span>
+              <span class="kpi-label">Visitas Totales</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-value">{{ data.uniqueVisitors }}</span>
+              <span class="kpi-label">Visitantes Únicos</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-value">{{ data.viewsToday }}</span>
+              <span class="kpi-label">Visitas Hoy</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-value">{{ data.viewsWeek }}</span>
+              <span class="kpi-label">Última Semana</span>
+            </div>
+            <div class="kpi-card kpi-card--accent">
+              <span class="kpi-value">{{ data.downloads }}</span>
+              <span class="kpi-label">Descargas CV</span>
+            </div>
+            <div class="kpi-card kpi-card--accent">
+              <span class="kpi-value">{{ data.contactSubmissions }}</span>
+              <span class="kpi-label">Mensajes Contacto</span>
+            </div>
+          </div>
+
+          <!-- Sections Most Viewed -->
+          @if (data.sectionViews.length) {
+            <div class="dash-section">
+              <h4>Secciones Más Vistas</h4>
+              <div class="bar-chart">
+                @for (item of data.sectionViews; track item.section) {
+                  <div class="bar-row">
+                    <span class="bar-label">{{ item.section }}</span>
+                    <div class="bar-track">
+                      <div class="bar-fill" [style.width.%]="(+item.count / +data.sectionViews[0].count) * 100"></div>
+                    </div>
+                    <span class="bar-count">{{ item.count }}</span>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+
+          <!-- Click Events -->
+          @if (data.clickEvents.length) {
+            <div class="dash-section">
+              <h4>Clics por Elemento</h4>
+              <div class="bar-chart">
+                @for (item of data.clickEvents; track item.element) {
+                  <div class="bar-row">
+                    <span class="bar-label">{{ item.element }}</span>
+                    <div class="bar-track">
+                      <div class="bar-fill bar-fill--gold" [style.width.%]="(+item.count / +data.clickEvents[0].count) * 100"></div>
+                    </div>
+                    <span class="bar-count">{{ item.count }}</span>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+
+          <!-- Views Per Day -->
+          @if (data.viewsPerDay.length) {
+            <div class="dash-section">
+              <h4>Visitas por Día (últimos 30 días)</h4>
+              <div class="day-grid">
+                @for (day of data.viewsPerDay; track day.date) {
+                  <div class="day-item">
+                    <span class="day-date">{{ day.date }}</span>
+                    <span class="day-count">{{ day.count }}</span>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+
+          <!-- Recent Activity -->
+          @if (data.recentEvents.length) {
+            <div class="dash-section">
+              <h4>Actividad Reciente</h4>
+              <div class="events-list">
+                @for (event of data.recentEvents; track event.created_at) {
+                  <div class="event-item">
+                    <span class="event-type" [class]="'type-' + event.event_type">{{ event.event_type }}</span>
+                    <span class="event-time">{{ formatDate(event.created_at) }}</span>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        }
+      </div>
+    }
+  </div>
+</div>
+}

@@ -9,6 +9,7 @@ import {
 import { HttpErrorResponse } from '@angular/common/http';
 import { IntersectionObserverDirective } from '../../directives/intersection-observer.directive';
 import { ContactService, ContactFormData } from '../../services/contact.service';
+import { AnalyticsService } from '../../services/analytics.service';
 
 @Component({
   standalone: true,
@@ -43,6 +44,7 @@ export class ContactSectionComponent {
 
   private readonly fb = inject(FormBuilder);
   private readonly contactService = inject(ContactService);
+  private readonly analytics = inject(AnalyticsService);
 
   /** Reactive form group with validation rules */
   formGroup: FormGroup = this.fb.group({
@@ -62,6 +64,7 @@ export class ContactSectionComponent {
   openModal(): void {
     this.isModalOpen.set(true);
     this.submitStatus.set('idle');
+    this.analytics.trackContactFormOpen();
   }
 
   closeModal(): void {
