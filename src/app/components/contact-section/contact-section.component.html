@@ -8,252 +8,164 @@
   aria-labelledby="contact-heading"
 >
   <div class="container">
-    <!-- Section Heading -->
-    <h2 id="contact-heading" class="text-gradient section-heading">
-      ¿Hablamos de tu próxima transformación?
-    </h2>
-
-    <div class="contact-grid">
-      <!-- Left Column: Contact Info -->
-      <div class="contact-info">
-        <h3 class="info-title">Información de Contacto</h3>
-
-        <ul class="info-list" aria-label="Datos de contacto">
-          <li class="info-item">
-            <span class="info-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-                <circle cx="12" cy="10" r="3"/>
-              </svg>
-            </span>
-            <span>{{ contactInfo.location }}</span>
-          </li>
-          <li class="info-item">
-            <span class="info-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-              </svg>
-            </span>
-            <a href="tel:+573005091114" class="info-link">{{ contactInfo.phone }}</a>
-          </li>
-          <li class="info-item">
-            <span class="info-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect width="20" height="16" x="2" y="4" rx="2"/>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-              </svg>
-            </span>
-            <a href="mailto:carlosfigueroa.cf0115&#64;gmail.com" class="info-link">{{ contactInfo.email }}</a>
-          </li>
-          <li class="info-item">
-            <span class="info-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                <rect width="4" height="12" x="2" y="9"/>
-                <circle cx="4" cy="4" r="2"/>
-              </svg>
-            </span>
-            <a
-              [href]="contactInfo.linkedin"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="info-link"
-              aria-label="Perfil de LinkedIn"
-            >LinkedIn</a>
-          </li>
-        </ul>
+    <div class="contact-compact">
+      <!-- Left: Heading + Description -->
+      <div class="contact-left">
+        <h2 id="contact-heading" class="text-gradient contact-heading">
+          ¿Hablamos?
+        </h2>
+        <p class="contact-description">
+          Estoy disponible para consultoría, colaboración académica y proyectos de transformación digital.
+        </p>
+        <button
+          type="button"
+          class="contact-cta-btn"
+          (click)="openModal()"
+          aria-label="Abrir formulario de contacto"
+        >
+          Contáctame
+        </button>
       </div>
 
-      <!-- Right Column: Contact Form Card -->
-      <div class="contact-form-card">
-        <!-- Success Message -->
-        @if (submitStatus() === 'success') {
-          <div class="contact-success" role="alert" aria-live="polite">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-              <polyline points="22 4 12 14.01 9 11.01"/>
-            </svg>
-            <p>¡Mensaje enviado con éxito! Te responderé pronto.</p>
-            <button
-              type="button"
-              class="btn btn--outline"
-              (click)="resetForm()"
-              aria-label="Enviar otro mensaje"
-            >
-              Enviar otro mensaje
-            </button>
+      <!-- Right: Contact Info Cards -->
+      <div class="contact-right">
+        <a href="tel:+573005091114" class="contact-card">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          <div>
+            <span class="card-label">Teléfono</span>
+            <span class="card-value">{{ contactInfo.phone }}</span>
           </div>
-        }
+        </a>
 
-        <!-- Contact Form -->
-        @if (submitStatus() !== 'success') {
-          <form
-            [formGroup]="formGroup"
-            (ngSubmit)="onSubmit()"
-            novalidate
-            aria-label="Formulario de contacto"
-          >
-            <!-- Nombre -->
-            <div class="form-field">
-              <label for="contact-nombre" class="form-label">Nombre *</label>
-              <input
-                id="contact-nombre"
-                type="text"
-                formControlName="nombre"
-                class="form-input"
-                placeholder="Tu nombre completo"
-                autocomplete="name"
-                [attr.aria-invalid]="hasError('nombre', 'required') || hasError('nombre', 'maxlength')"
-                aria-describedby="nombre-error"
-              />
-              @if (hasError('nombre', 'required')) {
-                <span id="nombre-error" class="form-error" role="alert">
-                  El nombre es obligatorio.
-                </span>
-              }
-              @if (hasError('nombre', 'maxlength')) {
-                <span id="nombre-error" class="form-error" role="alert">
-                  Máximo 100 caracteres.
-                </span>
-              }
-            </div>
+        <a href="mailto:carlosfigueroa.cf0115&#64;gmail.com" class="contact-card">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect width="20" height="16" x="2" y="4" rx="2"/>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          </svg>
+          <div>
+            <span class="card-label">Email</span>
+            <span class="card-value">{{ contactInfo.email }}</span>
+          </div>
+        </a>
 
-            <!-- Empresa -->
-            <div class="form-field">
-              <label for="contact-empresa" class="form-label">Empresa</label>
-              <input
-                id="contact-empresa"
-                type="text"
-                formControlName="empresa"
-                class="form-input"
-                placeholder="Tu empresa (opcional)"
-                autocomplete="organization"
-                [attr.aria-invalid]="hasError('empresa', 'maxlength')"
-                aria-describedby="empresa-error"
-              />
-              @if (hasError('empresa', 'maxlength')) {
-                <span id="empresa-error" class="form-error" role="alert">
-                  Máximo 100 caracteres.
-                </span>
-              }
-            </div>
+        <a [href]="contactInfo.linkedin" target="_blank" rel="noopener noreferrer" class="contact-card">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect width="4" height="12" x="2" y="9"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+          <div>
+            <span class="card-label">LinkedIn</span>
+            <span class="card-value">Conectar</span>
+          </div>
+        </a>
 
-            <!-- Email -->
-            <div class="form-field">
-              <label for="contact-email" class="form-label">Email *</label>
-              <input
-                id="contact-email"
-                type="email"
-                formControlName="email"
-                class="form-input"
-                placeholder="tu@email.com"
-                autocomplete="email"
-                [attr.aria-invalid]="hasError('email', 'required') || hasError('email', 'email') || hasError('email', 'maxlength')"
-                aria-describedby="email-error"
-              />
-              @if (hasError('email', 'required')) {
-                <span id="email-error" class="form-error" role="alert">
-                  El email es obligatorio.
-                </span>
-              }
-              @if (hasError('email', 'email')) {
-                <span id="email-error" class="form-error" role="alert">
-                  Ingresa un email válido.
-                </span>
-              }
-              @if (hasError('email', 'maxlength')) {
-                <span id="email-error" class="form-error" role="alert">
-                  Máximo 150 caracteres.
-                </span>
-              }
-            </div>
-
-            <!-- Motivo -->
-            <div class="form-field">
-              <label for="contact-motivo" class="form-label">Motivo *</label>
-              <select
-                id="contact-motivo"
-                formControlName="motivo"
-                class="form-input form-select"
-                [attr.aria-invalid]="hasError('motivo', 'required')"
-                aria-describedby="motivo-error"
-              >
-                @for (option of motivoOptions; track option) {
-                  <option [value]="option">{{ option }}</option>
-                }
-              </select>
-              @if (hasError('motivo', 'required')) {
-                <span id="motivo-error" class="form-error" role="alert">
-                  Selecciona un motivo.
-                </span>
-              }
-            </div>
-
-            <!-- Mensaje -->
-            <div class="form-field">
-              <label for="contact-mensaje" class="form-label">Mensaje *</label>
-              <textarea
-                id="contact-mensaje"
-                formControlName="mensaje"
-                class="form-input form-textarea"
-                placeholder="¿En qué puedo ayudarte?"
-                rows="5"
-                [attr.aria-invalid]="hasError('mensaje', 'required') || hasError('mensaje', 'maxlength')"
-                aria-describedby="mensaje-error"
-              ></textarea>
-              @if (hasError('mensaje', 'required')) {
-                <span id="mensaje-error" class="form-error" role="alert">
-                  El mensaje es obligatorio.
-                </span>
-              }
-              @if (hasError('mensaje', 'maxlength')) {
-                <span id="mensaje-error" class="form-error" role="alert">
-                  Máximo 1000 caracteres.
-                </span>
-              }
-            </div>
-
-            <!-- Error / Rate Limit Messages -->
-            @if (submitStatus() === 'error') {
-              <div class="status-message status-error" role="alert" aria-live="assertive">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"/>
-                  <line x1="12" x2="12" y1="8" y2="12"/>
-                  <line x1="12" x2="12.01" y1="16" y2="16"/>
-                </svg>
-                <span>Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.</span>
-              </div>
-            }
-
-            @if (submitStatus() === 'rate-limited') {
-              <div class="status-message status-rate-limited" role="alert" aria-live="assertive">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"/>
-                  <polyline points="12 6 12 12 16 14"/>
-                </svg>
-                <span>Has alcanzado el límite de envíos. Intenta de nuevo más tarde.</span>
-              </div>
-            }
-
-            <!-- Submit Button -->
-            <button
-              type="submit"
-              class="submit-btn"
-              [disabled]="isSubmitting()"
-              [class.is-loading]="isSubmitting()"
-            >
-              @if (isSubmitting()) {
-                <span class="btn-loading">
-                  <span class="spinner" aria-hidden="true"></span>
-                  Enviando...
-                </span>
-              } @else {
-                <span class="btn-text">Enviar Mensaje</span>
-              }
-            </button>
-          </form>
-        }
+        <div class="contact-card contact-card--static">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          <div>
+            <span class="card-label">Ubicación</span>
+            <span class="card-value">{{ contactInfo.location }}</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- Contact Form Modal -->
+@if (isModalOpen()) {
+  <div
+    class="modal-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+    (click)="onOverlayClick($event)"
+  >
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 id="modal-title" class="modal-title">Envíame un mensaje</h3>
+        <button
+          type="button"
+          class="modal-close"
+          (click)="closeModal()"
+          aria-label="Cerrar formulario"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Success State -->
+      @if (submitStatus() === 'success') {
+        <div class="modal-success" role="alert">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          <p>¡Mensaje enviado con éxito!</p>
+          <span>Te responderé pronto.</span>
+          <button type="button" class="btn-secondary" (click)="closeModal()">Cerrar</button>
+        </div>
+      }
+
+      <!-- Form -->
+      @if (submitStatus() !== 'success') {
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" novalidate class="modal-form">
+          <div class="form-row">
+            <div class="form-field">
+              <label for="m-nombre" class="form-label">Nombre *</label>
+              <input id="m-nombre" type="text" formControlName="nombre" class="form-input" placeholder="Tu nombre" autocomplete="name" [attr.aria-invalid]="hasError('nombre', 'required')"/>
+              @if (hasError('nombre', 'required')) { <span class="form-error">Obligatorio</span> }
+            </div>
+            <div class="form-field">
+              <label for="m-empresa" class="form-label">Empresa</label>
+              <input id="m-empresa" type="text" formControlName="empresa" class="form-input" placeholder="Opcional" autocomplete="organization"/>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label for="m-email" class="form-label">Email *</label>
+              <input id="m-email" type="email" formControlName="email" class="form-input" placeholder="tu@email.com" autocomplete="email" [attr.aria-invalid]="hasError('email', 'required') || hasError('email', 'email')"/>
+              @if (hasError('email', 'required')) { <span class="form-error">Obligatorio</span> }
+              @if (hasError('email', 'email')) { <span class="form-error">Email inválido</span> }
+            </div>
+            <div class="form-field">
+              <label for="m-motivo" class="form-label">Motivo *</label>
+              <select id="m-motivo" formControlName="motivo" class="form-input form-select">
+                @for (option of motivoOptions; track option) {
+                  <option [value]="option">{{ option }}</option>
+                }
+              </select>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="m-mensaje" class="form-label">Mensaje *</label>
+            <textarea id="m-mensaje" formControlName="mensaje" class="form-input form-textarea" placeholder="¿En qué puedo ayudarte?" rows="4" [attr.aria-invalid]="hasError('mensaje', 'required')"></textarea>
+            @if (hasError('mensaje', 'required')) { <span class="form-error">Obligatorio</span> }
+          </div>
+
+          @if (submitStatus() === 'error') {
+            <div class="form-alert" role="alert">Error al enviar. Intenta de nuevo.</div>
+          }
+          @if (submitStatus() === 'rate-limited') {
+            <div class="form-alert" role="alert">Límite alcanzado. Intenta más tarde.</div>
+          }
+
+          <button type="submit" class="submit-btn" [disabled]="isSubmitting()">
+            @if (isSubmitting()) { <span class="spinner"></span> Enviando... }
+            @else { Enviar Mensaje }
+          </button>
+        </form>
+      }
+    </div>
+  </div>
+}

@@ -21,6 +21,9 @@ export class ContactSectionComponent {
   /** Controls animation trigger when section enters viewport */
   isVisible = signal<boolean>(false);
 
+  /** Controls modal visibility */
+  isModalOpen = signal<boolean>(false);
+
   /** Whether the form is currently being submitted */
   isSubmitting = signal<boolean>(false);
 
@@ -32,10 +35,10 @@ export class ContactSectionComponent {
 
   /** Contact information */
   readonly contactInfo = {
-    location: 'Bogotá D.C.',
+    location: 'Bogotá D.C., Colombia',
     phone: '+57 3005091114',
     email: 'carlosfigueroa.cf0115@gmail.com',
-    linkedin: 'https://www.linkedin.com/in/carlosfigueroamartinez/',
+    linkedin: 'https://www.linkedin.com/in/carlos-alberto-figueroa-mart%C3%ADnez-649a462a',
   };
 
   private readonly fb = inject(FormBuilder);
@@ -53,6 +56,21 @@ export class ContactSectionComponent {
   onVisibilityChange(visible: boolean): void {
     if (visible) {
       this.isVisible.set(true);
+    }
+  }
+
+  openModal(): void {
+    this.isModalOpen.set(true);
+    this.submitStatus.set('idle');
+  }
+
+  closeModal(): void {
+    this.isModalOpen.set(false);
+  }
+
+  onOverlayClick(event: MouseEvent): void {
+    if ((event.target as HTMLElement).classList.contains('modal-overlay')) {
+      this.closeModal();
     }
   }
 

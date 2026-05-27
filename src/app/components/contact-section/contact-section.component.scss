@@ -1,277 +1,316 @@
 @use 'styles/tokens' as *;
 
-:host {
-  display: block;
-}
+:host { display: block; }
 
+// =============================================================================
+// Contact Section — Compact two-column layout
+// =============================================================================
 .contact-section {
-  padding: $space-9 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity $anim-duration-normal $anim-easing, transform $anim-duration-normal $anim-easing;
+  &.is-visible { opacity: 1; transform: translateY(0); }
 }
 
-.contact-container {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 0 $space-5;
-}
-
-.section-heading {
-  text-align: center;
-  margin-bottom: $space-4;
-}
-
-.contact-subtitle {
-  text-align: center;
-  color: $color-text-secondary;
-  font-family: $font-body;
-  font-size: 1.125rem;
-  margin-bottom: $space-8;
-  max-width: 560px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-// Form
-.contact-form {
+.contact-compact {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: $space-5;
+  gap: $space-8;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
 
   @media (max-width: $bp-tablet) {
     grid-template-columns: 1fr;
+    gap: $space-6;
+    text-align: center;
   }
+}
+
+// Left column
+.contact-left {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+
+  @media (max-width: $bp-tablet) { align-items: center; }
+}
+
+.contact-heading {
+  font-family: $font-heading;
+  font-size: $font-size-h2;
+  font-weight: $font-weight-heading;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.contact-description {
+  font-family: $font-body;
+  font-size: 1.0625rem;
+  color: $color-text-secondary;
+  line-height: 1.6;
+  max-width: 400px;
+}
+
+.contact-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-3 $space-6;
+  font-family: $font-body;
+  font-size: 1rem;
+  font-weight: $font-weight-emphasis;
+  color: #FFFFFF;
+  background: $gradient-accent;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform $anim-duration-fast $anim-easing, box-shadow $anim-duration-fast $anim-easing;
+  width: fit-content;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba($color-accent-primary, 0.2);
+  }
+}
+
+// Right column — contact cards grid
+.contact-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-3;
+
+  @media (max-width: 500px) { grid-template-columns: 1fr; }
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-4;
+  background: #FFFFFF;
+  border: 1px solid rgba(27, 58, 75, 0.08);
+  border-radius: 12px;
+  text-decoration: none;
+  color: $color-text-primary;
+  transition: border-color $anim-duration-fast $anim-easing, box-shadow $anim-duration-fast $anim-easing, transform $anim-duration-fast $anim-easing;
+
+  svg { color: $color-accent-primary; flex-shrink: 0; }
+
+  &:hover {
+    border-color: rgba($color-accent-primary, 0.2);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+  }
+
+  &--static { cursor: default; &:hover { transform: none; } }
+}
+
+.card-label {
+  display: block;
+  font-size: 0.75rem;
+  color: $color-text-muted;
+  font-weight: $font-weight-emphasis;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.card-value {
+  display: block;
+  font-size: 0.875rem;
+  color: $color-text-primary;
+  font-weight: $font-weight-body;
+  margin-top: 2px;
+}
+
+// =============================================================================
+// Modal Overlay
+// =============================================================================
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-4;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-content {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: $space-6;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  animation: slideUp 0.3s $anim-easing;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $space-5;
+}
+
+.modal-title {
+  font-family: $font-heading;
+  font-size: $font-size-h4;
+  font-weight: $font-weight-heading;
+  color: $color-text-primary;
+  margin: 0;
+}
+
+.modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: rgba(27, 58, 75, 0.06);
+  border-radius: 8px;
+  cursor: pointer;
+  color: $color-text-secondary;
+  transition: background $anim-duration-fast $anim-easing;
+  &:hover { background: rgba(27, 58, 75, 0.12); }
+}
+
+// Modal form
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-4;
+  @media (max-width: 500px) { grid-template-columns: 1fr; }
 }
 
 .form-field {
   display: flex;
   flex-direction: column;
-  gap: $space-2;
-
-  &--full {
-    grid-column: 1 / -1;
-  }
+  gap: $space-1;
 }
 
 .form-label {
   font-family: $font-body;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: $font-weight-emphasis;
   color: $color-text-secondary;
 }
 
 .form-input {
-  background: rgba(255, 255, 255, $glass-bg-opacity-min);
-  border: $glass-border;
+  background: #F9F7F5;
+  border: 1px solid rgba(27, 58, 75, 0.12);
   border-radius: 8px;
-  padding: $space-3 $space-4;
+  padding: 10px 14px;
   font-family: $font-body;
-  font-size: 1rem;
+  font-size: 0.9375rem;
   color: $color-text-primary;
-  transition: border-color $anim-duration-fast $anim-easing,
-              box-shadow $anim-duration-fast $anim-easing;
   outline: none;
+  transition: border-color $anim-duration-fast $anim-easing;
 
-  &::placeholder {
-    color: $color-text-muted;
-  }
-
-  &:focus {
-    border-color: $color-accent-cyan;
-    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15);
-  }
-
-  &[aria-invalid="true"] {
-    border-color: #ef4444;
-    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
-  }
+  &::placeholder { color: $color-text-muted; }
+  &:focus { border-color: $color-accent-primary; box-shadow: 0 0 0 3px rgba($color-accent-primary, 0.08); }
+  &[aria-invalid="true"] { border-color: #dc2626; }
 }
 
 .form-select {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.5)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237A7A7A' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
-  padding-right: 40px;
+  padding-right: 36px;
   cursor: pointer;
-
-  option {
-    background: $color-bg-secondary;
-    color: $color-text-primary;
-  }
 }
 
-.form-textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
-.form-field__footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
+.form-textarea { resize: vertical; min-height: 100px; }
 
 .form-error {
-  font-size: 0.8125rem;
-  color: #ef4444;
-  font-family: $font-body;
-}
-
-.form-char-count {
   font-size: 0.75rem;
-  color: $color-text-muted;
-  margin-left: auto;
+  color: #dc2626;
 }
 
-// Alerts
 .form-alert {
-  grid-column: 1 / -1;
-  padding: $space-4;
+  padding: $space-3;
   border-radius: 8px;
-  font-family: $font-body;
-  font-size: 0.875rem;
-
-  &--error {
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    color: #fca5a5;
-  }
-
-  &--warning {
-    background: rgba(240, 192, 64, 0.1);
-    border: 1px solid rgba(240, 192, 64, 0.3);
-    color: $color-accent-gold;
-  }
-
-  p {
-    margin-bottom: $space-3;
-  }
+  font-size: 0.8125rem;
+  background: rgba(220, 38, 38, 0.06);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  color: #dc2626;
 }
 
-.alternative-contact {
-  display: flex;
-  gap: $space-4;
-  flex-wrap: wrap;
-
-  a {
-    color: $color-accent-cyan;
-    text-decoration: underline;
-    transition: color $anim-duration-fast $anim-easing;
-
-    &:hover {
-      color: $color-text-primary;
-    }
-
-    &:focus-visible {
-      outline: 2px solid $color-accent-cyan;
-      outline-offset: 2px;
-      border-radius: 2px;
-    }
-  }
-}
-
-// Actions
-.form-actions {
-  grid-column: 1 / -1;
-  display: flex;
-  justify-content: center;
-  padding-top: $space-4;
-}
-
-.btn {
+.submit-btn {
+  width: 100%;
+  padding: 12px;
   font-family: $font-body;
   font-size: 1rem;
   font-weight: $font-weight-emphasis;
-  padding: $space-3 $space-6;
-  border-radius: 8px;
+  color: #FFFFFF;
+  background: $gradient-accent;
   border: none;
+  border-radius: 10px;
   cursor: pointer;
-  transition: transform $anim-duration-fast $anim-easing,
-              box-shadow $anim-duration-fast $anim-easing;
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: $space-2;
+  transition: transform $anim-duration-fast $anim-easing, box-shadow $anim-duration-fast $anim-easing;
 
-  &:focus-visible {
-    outline: 2px solid $color-accent-cyan;
-    outline-offset: 2px;
-  }
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-
-  &--gradient {
-    background: $gradient-accent;
-    color: $color-bg-primary;
-
-    &:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
-    }
-  }
-
-  &--outline {
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: $color-text-primary;
-
-    &:hover:not(:disabled) {
-      border-color: $color-accent-cyan;
-      color: $color-accent-cyan;
-    }
-  }
+  &:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 4px 16px rgba($color-accent-primary, 0.2); }
+  &:disabled { opacity: 0.6; cursor: not-allowed; }
 }
 
-.btn-spinner {
-  width: 16px;
-  height: 16px;
+.spinner {
+  width: 16px; height: 16px;
   border: 2px solid transparent;
   border-top-color: currentColor;
   border-radius: 50%;
   animation: spin 0.6s linear infinite;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-// Success state
-.contact-success {
+// Modal success
+.modal-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-4;
+  padding: $space-6 0;
   text-align: center;
-  padding: $space-8 $space-5;
 
-  p {
-    font-family: $font-body;
-    font-size: 1.25rem;
-    color: $color-accent-cyan;
-    margin-bottom: $space-6;
-  }
+  svg { color: #16a34a; }
+  p { font-family: $font-heading; font-size: 1.25rem; font-weight: $font-weight-heading; color: $color-text-primary; margin: 0; }
+  span { font-size: 0.9375rem; color: $color-text-secondary; }
 }
 
-// Animations
-.contact-section {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity $anim-duration-normal $anim-easing,
-              transform $anim-duration-normal $anim-easing;
-
-  &.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.btn-secondary {
+  padding: $space-2 $space-5;
+  font-family: $font-body;
+  font-size: 0.875rem;
+  font-weight: $font-weight-emphasis;
+  color: $color-text-primary;
+  background: transparent;
+  border: 1px solid rgba(27, 58, 75, 0.2);
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: $space-2;
+  &:hover { border-color: $color-accent-primary; }
 }
+
+// Keyframes
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes spin { to { transform: rotate(360deg); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .contact-section {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-
-  .btn-spinner {
-    animation: none;
-  }
+  .contact-section, .modal-overlay, .modal-content { animation: none; transition: none; opacity: 1; transform: none; }
 }
