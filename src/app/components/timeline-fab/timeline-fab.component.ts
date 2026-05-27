@@ -5,20 +5,20 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
   selector: 'app-timeline-fab',
   encapsulation: ViewEncapsulation.None,
   template: `
-    <!-- Floating Action Button -->
-    <button
-      class="timeline-fab"
-      (click)="openPopup()"
-      aria-label="Ver trayectoria profesional"
-      title="Trayectoria Profesional"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M12 20V10"/>
-        <path d="M18 20V4"/>
-        <path d="M6 20v-4"/>
-      </svg>
-      <span class="fab-text">Trayectoria Profesional</span>
-    </button>
+    <!-- Inline button - NOT floating -->
+    <div class="timeline-btn-wrapper">
+      <button
+        class="timeline-btn"
+        (click)="openPopup()"
+        type="button"
+        aria-label="Ver trayectoria profesional completa"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/>
+        </svg>
+        <span>Ver Trayectoria Profesional</span>
+      </button>
+    </div>
 
     <!-- Popup Overlay -->
     @if (isOpen()) {
@@ -41,66 +41,57 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
     }
   `,
   styles: [`
-    .timeline-fab {
-      position: fixed;
-      bottom: 24px;
-      left: 20px;
-      z-index: 9990;
+    .timeline-btn-wrapper {
       display: flex;
+      justify-content: center;
+      padding: 32px 0 0;
+    }
+
+    .timeline-btn {
+      display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 10px 18px;
+      padding: 14px 28px;
       font-family: 'Inter', system-ui, sans-serif;
-      font-size: 12px;
+      font-size: 15px;
       font-weight: 600;
       color: #FFFFFF;
       background: linear-gradient(135deg, #1B3A4B, #C4922A);
       border: none;
-      border-radius: 30px;
+      border-radius: 12px;
       cursor: pointer;
-      box-shadow:
-        0 4px 16px rgba(196, 146, 42, 0.25),
-        0 0 20px rgba(196, 146, 42, 0.1);
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                  box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
       overflow: hidden;
-      animation: fabPulseGlow 3s ease-in-out infinite;
+      box-shadow: 0 4px 20px rgba(196, 146, 42, 0.25);
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: btnGlow 3s ease-in-out infinite;
     }
 
-    .timeline-fab::before {
+    .timeline-btn::before {
       content: '';
       position: absolute;
       top: 0;
       left: -100%;
       width: 60%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-      animation: fabShine 4s ease-in-out infinite;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      animation: btnShine 4s ease-in-out infinite;
       pointer-events: none;
     }
 
-    .timeline-fab:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow:
-        0 8px 28px rgba(196, 146, 42, 0.4),
-        0 0 40px rgba(196, 146, 42, 0.2);
+    .timeline-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 8px 32px rgba(196, 146, 42, 0.35);
     }
 
-    .fab-text {
-      white-space: nowrap;
+    @keyframes btnGlow {
+      0%, 100% { box-shadow: 0 4px 20px rgba(196, 146, 42, 0.25); }
+      50% { box-shadow: 0 4px 28px rgba(196, 146, 42, 0.4); }
     }
 
-    @media (max-width: 768px) {
-      .timeline-fab {
-        bottom: 70px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 9px 14px;
-        font-size: 11px;
-      }
-      .timeline-fab:hover {
-        transform: translateX(-50%) translateY(-2px) scale(1.03);
-      }
+    @keyframes btnShine {
+      0%, 100% { left: -100%; opacity: 0; }
+      50% { left: 100%; opacity: 1; }
     }
 
     /* Popup */
@@ -147,15 +138,9 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
     }
 
     .popup-close {
-      width: 36px;
-      height: 36px;
-      border: none;
-      background: rgba(27, 58, 75, 0.06);
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 18px;
-      color: #4A4A4A;
-      transition: background 0.2s;
+      width: 36px; height: 36px;
+      border: none; background: rgba(27, 58, 75, 0.06);
+      border-radius: 8px; cursor: pointer; font-size: 18px; color: #4A4A4A;
     }
     .popup-close:hover { background: rgba(27, 58, 75, 0.12); }
 
@@ -171,17 +156,6 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
       height: auto;
       border-radius: 8px;
       object-fit: contain;
-    }
-
-    /* Animations */
-    @keyframes fabPulseGlow {
-      0%, 100% { box-shadow: 0 4px 20px rgba(196, 146, 42, 0.3), 0 0 30px rgba(196, 146, 42, 0.15); }
-      50% { box-shadow: 0 4px 28px rgba(196, 146, 42, 0.45), 0 0 50px rgba(196, 146, 42, 0.25); }
-    }
-
-    @keyframes fabShine {
-      0%, 100% { left: -100%; opacity: 0; }
-      50% { left: 100%; opacity: 1; }
     }
 
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
