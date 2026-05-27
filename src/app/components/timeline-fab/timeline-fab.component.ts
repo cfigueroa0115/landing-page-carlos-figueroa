@@ -43,15 +43,15 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
   styles: [`
     .timeline-fab {
       position: fixed;
-      bottom: 80px;
+      bottom: 24px;
       left: 20px;
-      z-index: 9997;
+      z-index: 9990;
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 12px 20px;
+      padding: 10px 18px;
       font-family: 'Inter', system-ui, sans-serif;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       color: #FFFFFF;
       background: linear-gradient(135deg, #1B3A4B, #C4922A);
@@ -59,9 +59,8 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
       border-radius: 30px;
       cursor: pointer;
       box-shadow:
-        0 4px 20px rgba(196, 146, 42, 0.3),
-        0 0 30px rgba(196, 146, 42, 0.15),
-        0 0 60px rgba(27, 58, 75, 0.1);
+        0 4px 16px rgba(196, 146, 42, 0.25),
+        0 0 20px rgba(196, 146, 42, 0.1);
       transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
                   box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       overflow: hidden;
@@ -83,9 +82,8 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
     .timeline-fab:hover {
       transform: translateY(-3px) scale(1.05);
       box-shadow:
-        0 8px 32px rgba(196, 146, 42, 0.4),
-        0 0 40px rgba(196, 146, 42, 0.25),
-        0 0 80px rgba(27, 58, 75, 0.15);
+        0 8px 28px rgba(196, 146, 42, 0.4),
+        0 0 40px rgba(196, 146, 42, 0.2);
     }
 
     .fab-text {
@@ -94,14 +92,14 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
 
     @media (max-width: 768px) {
       .timeline-fab {
-        bottom: 20px;
+        bottom: 70px;
         left: 50%;
         transform: translateX(-50%);
-        padding: 10px 16px;
-        font-size: 12px;
+        padding: 9px 14px;
+        font-size: 11px;
       }
       .timeline-fab:hover {
-        transform: translateX(-50%) translateY(-3px) scale(1.05);
+        transform: translateX(-50%) translateY(-2px) scale(1.03);
       }
     }
 
