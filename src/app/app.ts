@@ -11,6 +11,7 @@ import { EducationSectionComponent } from './components/education-section/educat
 import { ContactSectionComponent } from './components/contact-section/contact-section.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { TimelineFabComponent } from './components/timeline-fab/timeline-fab.component';
 import { AnalyticsService } from './services/analytics.service';
 
 @Component({
@@ -29,6 +30,7 @@ import { AnalyticsService } from './services/analytics.service';
     ContactSectionComponent,
     FooterComponent,
     AdminPanelComponent,
+    TimelineFabComponent,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
