@@ -1,0 +1,28 @@
+<section
+  id="profile"
+  class="section profile-section"
+  appInView
+  [threshold]="0.2"
+  (inView)="onVisibilityChange($event)"
+  [class.is-visible]="isVisible()"
+  aria-labelledby="profile-heading"
+>
+  <div class="container profile-container">
+    <!-- Left Column: Professional Summary -->
+    <div class="profile-summary">
+      <h2 id="profile-heading" class="text-gradient profile-heading">Perfil Profesional</h2>
+      <p class="profile-text">{{ summary }}</p>
+    </div>
+
+    <!-- Right Column: Orbiting Keyword Tags -->
+    <ul class="profile-tags-orbit" aria-label="Competencias clave">
+      <li
+        *ngFor="let tag of keywordTags; let i = index"
+        class="orbit-tag"
+        [style.animation-delay]="(i * 0.375) + 's'"
+      >
+        {{ tag }}
+      </li>
+    </ul>
+  </div>
+</section>

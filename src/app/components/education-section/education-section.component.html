@@ -1,0 +1,55 @@
+<section
+  id="education"
+  class="section education-section"
+  appInView
+  [threshold]="0.2"
+  (inView)="onVisibilityChange($event)"
+  [class.is-visible]="isVisible()"
+  aria-labelledby="education-heading"
+>
+  <div class="container education-container">
+    <h2 id="education-heading" class="text-gradient section-heading">Formación Académica</h2>
+
+    <div class="education-grid">
+      <!-- Education Cards Column -->
+      <div class="education-column">
+        <div
+          *ngFor="let entry of educationEntries; let i = index"
+          class="education-card"
+          [style.animation-delay]="(i * 0.15) + 's'"
+        >
+          <div class="card-header">
+            <h3 class="card-degree">{{ entry.degree }}</h3>
+            <span
+              class="card-status"
+              [class.status-active]="entry.status === 'en curso'"
+              [class.status-completed]="entry.status === 'completado'"
+            >
+              {{ entry.status }}
+            </span>
+          </div>
+          <p class="card-institution">{{ entry.institution }}</p>
+          <p class="card-year">{{ entry.yearRange }}</p>
+        </div>
+      </div>
+
+      <!-- Certifications Column -->
+      <div class="certifications-column">
+        <h3 id="certifications-heading" class="certifications-title">Certificaciones</h3>
+        <div class="certifications-grid" role="list" aria-labelledby="certifications-heading">
+          <div
+            *ngFor="let cert of certifications; let i = index"
+            class="cert-badge"
+            [style.animation-delay]="(i * 0.1) + 's'"
+          >
+            <div class="cert-content">
+              <span class="cert-title">{{ cert.title }}</span>
+              <span *ngIf="cert.institution" class="cert-institution">{{ cert.institution }}</span>
+            </div>
+            <span class="cert-year">{{ cert.year }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,128 @@
+// =============================================================================
+// Global Styles Entry Point
+// Executive Landing Page — Carlos Alberto Figueroa Martínez
+// =============================================================================
+
+// Design system partials (must come first per SCSS spec)
+@use 'styles/tokens' as *;
+@use 'styles/glassmorphism';
+@use 'styles/typography';
+@use 'styles/animations';
+
+// Google Fonts: Inter (body) + Bricolage Grotesque (headings)
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700&family=Inter:wght@400;600&display=swap');
+
+// Tailwind CSS layers
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// =============================================================================
+// Global Reset & Base Styles
+// =============================================================================
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: $font-size-base;
+}
+
+body {
+  background-color: $color-bg-primary;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+// =============================================================================
+// Selection Styles
+// =============================================================================
+::selection {
+  background: rgba($color-accent-cyan, 0.3);
+  color: $color-text-primary;
+}
+
+// =============================================================================
+// Scrollbar Styles
+// =============================================================================
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $color-bg-primary;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba($color-accent-cyan, 0.3);
+  border-radius: 4px;
+
+  &:hover {
+    background: rgba($color-accent-cyan, 0.5);
+  }
+}
+
+// =============================================================================
+// Focus Visible Styles (Accessibility)
+// =============================================================================
+:focus-visible {
+  outline: 2px solid $color-accent-cyan;
+  outline-offset: 2px;
+}
+
+// Ensure focus indicators are visible on all interactive elements
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid $color-accent-cyan;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+// =============================================================================
+// Reduced Motion Preference
+// =============================================================================
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// =============================================================================
+// Utility Classes
+// =============================================================================
+.container {
+  width: 100%;
+  max-width: $bp-wide;
+  margin-inline: auto;
+  padding-inline: $space-4;
+
+  @media (min-width: $bp-tablet) {
+    padding-inline: $space-6;
+  }
+
+  @media (min-width: $bp-desktop) {
+    padding-inline: $space-8;
+  }
+}
+
+.section {
+  padding-block: $space-9;
+
+  @media (max-width: $bp-tablet) {
+    padding-block: $space-7;
+  }
+}

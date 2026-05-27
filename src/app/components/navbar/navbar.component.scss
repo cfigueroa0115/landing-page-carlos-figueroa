@@ -1,0 +1,261 @@
+@use 'styles/tokens' as *;
+@use 'styles/glassmorphism' as glass;
+
+// =============================================================================
+// Navbar Component Styles
+// =============================================================================
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: $space-4 0;
+  transition: background $anim-duration-fast $anim-easing,
+              backdrop-filter $anim-duration-fast $anim-easing,
+              border-color $anim-duration-fast $anim-easing;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+
+  &--scrolled {
+    @include glass.glass-navbar();
+  }
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: $bp-wide;
+    margin-inline: auto;
+    padding-inline: $space-4;
+
+    @media (min-width: $bp-tablet) {
+      padding-inline: $space-6;
+    }
+
+    @media (min-width: $bp-desktop) {
+      padding-inline: $space-8;
+    }
+  }
+
+  &__logo {
+    font-family: $font-heading;
+    font-size: $font-size-h4;
+    font-weight: $font-weight-heading;
+    background: $gradient-text;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+    transition: opacity $anim-duration-fast $anim-easing;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: $space-5;
+    list-style: none;
+
+    @media (max-width: calc($bp-tablet - 1px)) {
+      display: none;
+    }
+  }
+
+  &__link {
+    font-family: $font-body;
+    font-size: 14px;
+    font-weight: $font-weight-body;
+    color: $color-text-secondary;
+    text-decoration: none;
+    transition: color $anim-duration-fast $anim-easing;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: $gradient-accent;
+      border-radius: 1px;
+      transition: width $anim-duration-fast $anim-easing;
+    }
+
+    &:hover {
+      color: $color-text-primary;
+
+      &::after {
+        width: 100%;
+      }
+    }
+
+    &--active {
+      color: $color-accent-cyan;
+
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+
+  &__cta {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    padding: $space-2 $space-4;
+    font-family: $font-body;
+    font-size: 13px;
+    font-weight: $font-weight-emphasis;
+    color: $color-text-primary;
+    background: $gradient-accent;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: opacity $anim-duration-fast $anim-easing,
+                transform $anim-duration-fast $anim-easing;
+
+    &:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: calc($bp-tablet - 1px)) {
+      display: none;
+    }
+  }
+}
+
+// =============================================================================
+// Hamburger Button (Mobile Only)
+// =============================================================================
+
+.hamburger-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  color: $color-text-primary;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background $anim-duration-fast $anim-easing;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  @media (max-width: calc($bp-tablet - 1px)) {
+    display: flex;
+  }
+}
+
+// =============================================================================
+// Mobile Overlay
+// =============================================================================
+
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba($color-bg-primary, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn $anim-duration-fast $anim-easing;
+}
+
+.mobile-nav-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-6;
+
+  &__close {
+    position: absolute;
+    top: $space-5;
+    right: $space-5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
+    color: $color-text-primary;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background $anim-duration-fast $anim-easing;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-5;
+    list-style: none;
+  }
+
+  &__link {
+    font-family: $font-heading;
+    font-size: $font-size-h3;
+    font-weight: $font-weight-heading;
+    color: $color-text-secondary;
+    text-decoration: none;
+    transition: color $anim-duration-fast $anim-easing;
+
+    &:hover {
+      color: $color-text-primary;
+    }
+
+    &--active {
+      color: $color-accent-cyan;
+    }
+  }
+
+  &__cta {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    margin-top: $space-5;
+    padding: $space-3 $space-5;
+    font-family: $font-body;
+    font-size: 15px;
+    font-weight: $font-weight-emphasis;
+    color: $color-text-primary;
+    background: $gradient-accent;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: opacity $anim-duration-fast $anim-easing;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+// =============================================================================
+// Animations
+// =============================================================================
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

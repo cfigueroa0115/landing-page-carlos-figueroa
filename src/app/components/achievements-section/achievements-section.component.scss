@@ -1,0 +1,139 @@
+@use '../../../styles/tokens' as *;
+@use '../../../styles/glassmorphism' as *;
+
+// =============================================================================
+// Achievements Section
+// 7 glassmorphism cards with count-up animation in responsive grid
+// =============================================================================
+
+.achievements-section {
+  background-color: $color-bg-primary;
+  position: relative;
+  overflow: hidden;
+
+  // Fade-in animation on section entry
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity $anim-duration-normal $anim-easing,
+              transform $anim-duration-normal $anim-easing;
+
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Section Heading
+// -----------------------------------------------------------------------------
+.achievements-heading {
+  font-family: $font-heading;
+  font-weight: $font-weight-heading;
+  font-size: $font-size-h2;
+  line-height: 1.2;
+  text-align: center;
+  margin-bottom: $space-8;
+
+  @media (max-width: $bp-tablet) {
+    font-size: 28px;
+    margin-bottom: $space-7;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Responsive Grid Layout
+// Desktop: 3 columns | Tablet: 2 columns | Mobile: 1 column
+// -----------------------------------------------------------------------------
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-6;
+
+  @media (max-width: $bp-desktop - 1) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-5;
+  }
+
+  @media (max-width: $bp-tablet - 1) {
+    grid-template-columns: 1fr;
+    gap: $space-5;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Achievement Card — Glassmorphism
+// -----------------------------------------------------------------------------
+.achievement-card {
+  @include glass-card($glass-bg-opacity-min, $glass-blur-min);
+  padding: $space-6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: $space-3;
+  cursor: default;
+  transition: transform $anim-duration-fast $anim-easing,
+              box-shadow $anim-duration-fast $anim-easing;
+
+  // Hover effect for pointer devices: translateY(-8px) + colored glow
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 32px rgba($color-accent-cyan, 0.3);
+    }
+  }
+
+  // Touch toggle effect
+  &.touch-active {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 32px rgba($color-accent-cyan, 0.3);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Card Content
+// -----------------------------------------------------------------------------
+.achievement-percentage {
+  font-family: $font-heading;
+  font-weight: $font-weight-heading;
+  font-size: $font-size-h1;
+  line-height: 1;
+  background: $gradient-text;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  @media (max-width: $bp-tablet) {
+    font-size: $font-size-h2;
+  }
+}
+
+.achievement-title {
+  font-family: $font-heading;
+  font-weight: $font-weight-emphasis;
+  font-size: 1.125rem;
+  color: $color-text-primary;
+  line-height: 1.4;
+
+  @media (max-width: $bp-tablet) {
+    font-size: 1rem;
+  }
+}
+
+.achievement-description {
+  font-family: $font-body;
+  font-size: 0.875rem;
+  color: $color-text-secondary;
+  line-height: 1.5;
+}
+
+.achievement-company {
+  font-family: $font-body;
+  font-size: 0.75rem;
+  font-weight: $font-weight-emphasis;
+  color: $color-accent-cyan;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: auto;
+  padding-top: $space-2;
+}

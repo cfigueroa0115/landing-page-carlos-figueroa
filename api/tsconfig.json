@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/api",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "types": ["node"],
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "noPropertyAccessFromIndexSignature": false
+  },
+  "include": ["./**/*.ts"],
+  "exclude": ["./**/*.spec.ts"]
+}

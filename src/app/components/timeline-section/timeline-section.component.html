@@ -1,0 +1,85 @@
+<section
+  id="timeline"
+  class="section timeline-section"
+  appInView
+  [threshold]="0.1"
+  (inView)="onSectionVisibilityChange($event)"
+  [class.is-visible]="isVisible()"
+  aria-labelledby="timeline-heading"
+>
+  <div class="container">
+    <h2 id="timeline-heading" class="text-gradient timeline-heading">Experiencia Profesional</h2>
+
+    <div class="timeline">
+      <!-- Central vertical line -->
+      <div class="timeline-line" aria-hidden="true"></div>
+
+      <!-- Timeline entries -->
+      <div
+        *ngFor="let entry of timelineEntries; let i = index"
+        class="timeline-entry"
+        [class.timeline-entry--left]="i % 2 === 0"
+        [class.timeline-entry--right]="i % 2 !== 0"
+        [class.is-node-visible]="isNodeVisible(i)"
+        appInView
+        [threshold]="0.2"
+        (inView)="onNodeVisibilityChange($event, i)"
+      >
+        <!-- Node dot with pulsing ring -->
+        <div class="timeline-node" aria-hidden="true">
+          <span class="timeline-node__dot"></span>
+          <span class="timeline-node__pulse"></span>
+        </div>
+
+        <!-- Card content -->
+        <article
+          class="timeline-card"
+          [class.timeline-card--expanded]="isNodeExpanded(i)"
+          (click)="toggleNode(i)"
+          (keydown.enter)="toggleNode(i)"
+          (keydown.space)="toggleNode(i); $event.preventDefault()"
+          role="button"
+          tabindex="0"
+          [attr.aria-expanded]="isNodeExpanded(i)"
+          [attr.aria-label]="entry.company + ' - ' + getDateRange(entry) + '. Clic para ' + (isNodeExpanded(i) ? 'colapsar' : 'expandir') + ' detalles'"
+        >
+          <!-- Collapsed state: company name and date range -->
+          <div class="timeline-card__header">
+            <h3 class="timeline-card__company">{{ entry.company }}</h3>
+            <span class="timeline-card__date">{{ getDateRange(entry) }}</span>
+          </div>
+
+          <!-- Expanded state: position, duration, responsibilities -->
+          <div
+            class="timeline-card__details"
+            [class.timeline-card__details--visible]="isNodeExpanded(i)"
+          >
+            <p class="timeline-card__position">{{ entry.position }}</p>
+            <span class="timeline-card__duration">{{ getDuration(entry) }}</span>
+            <ul class="timeline-card__responsibilities">
+              <li *ngFor="let resp of entry.responsibilities">{{ resp }}</li>
+            </ul>
+          </div>
+
+          <!-- Expand indicator -->
+          <span class="timeline-card__toggle" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              [class.rotated]="isNodeExpanded(i)"
+            >
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </span>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>

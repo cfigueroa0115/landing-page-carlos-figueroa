@@ -1,0 +1,38 @@
+<section
+  id="achievements"
+  class="section achievements-section"
+  appInView
+  [threshold]="0.2"
+  (inView)="onVisibilityChange($event)"
+  [class.is-visible]="isVisible()"
+  aria-labelledby="achievements-heading"
+>
+  <div class="container">
+    <h2 id="achievements-heading" class="text-gradient achievements-heading">Logros Profesionales</h2>
+
+    <div class="achievements-grid" role="list" aria-label="Logros profesionales">
+      <article
+        *ngFor="let achievement of achievements; let i = index"
+        class="achievement-card"
+        [class.touch-active]="isCardActive(i)"
+        (click)="onCardTap(i)"
+        role="listitem"
+        [attr.aria-label]="achievement.title + ' - ' + achievement.percentage + '%'"
+      >
+        <span
+          class="achievement-percentage"
+          appCountUp
+          [targetValue]="achievement.percentage"
+          [duration]="2000"
+          [threshold]="0.5"
+          [suffix]="'%'"
+        >
+          0%
+        </span>
+        <h3 class="achievement-title">{{ achievement.title }}</h3>
+        <p class="achievement-description">{{ achievement.description }}</p>
+        <span class="achievement-company">{{ achievement.company }}</span>
+      </article>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,341 @@
+@use 'styles/tokens' as *;
+@use 'styles/glassmorphism' as glass;
+
+// =============================================================================
+// Hero Section Component Styles
+// =============================================================================
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $space-9 $space-4 $space-7;
+  overflow: hidden;
+
+  @media (min-width: $bp-tablet) {
+    padding: $space-9 $space-6;
+  }
+
+  @media (min-width: $bp-desktop) {
+    padding: $space-9 $space-8;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-7;
+    max-width: $bp-wide;
+    width: 100%;
+    margin-inline: auto;
+
+    // Tablet: single-column centered
+    @media (min-width: $bp-tablet) and (max-width: calc($bp-desktop - 1px)) {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    // Desktop: 60/40 layout (content left, photo right)
+    @media (min-width: $bp-desktop) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: $space-8;
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Content Column
+  // ---------------------------------------------------------------------------
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    order: 2;
+
+    @media (min-width: $bp-tablet) and (max-width: calc($bp-desktop - 1px)) {
+      order: 2;
+      align-items: center;
+      max-width: 640px;
+    }
+
+    @media (min-width: $bp-desktop) {
+      order: 1;
+      flex: 0 0 60%;
+      align-items: flex-start;
+      text-align: left;
+    }
+  }
+
+  &__name {
+    font-family: $font-heading;
+    font-size: clamp(32px, 5vw, $font-size-h1);
+    font-weight: $font-weight-heading;
+    line-height: 1.1;
+    background: $gradient-text;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: $space-4;
+    letter-spacing: -0.02em;
+  }
+
+  &__subtitle {
+    font-family: $font-body;
+    font-size: clamp(18px, 2.5vw, $font-size-h4);
+    font-weight: $font-weight-body;
+    color: $color-accent-cyan;
+    min-height: 1.5em;
+    margin-bottom: $space-4;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  &__cursor {
+    display: inline-block;
+    color: $color-accent-cyan;
+    animation: blink 1s step-end infinite;
+  }
+
+  &__tagline {
+    font-family: $font-body;
+    font-size: clamp(14px, 1.5vw, 18px);
+    font-weight: $font-weight-body;
+    color: $color-text-secondary;
+    line-height: 1.6;
+    max-width: 540px;
+    margin-bottom: $space-6;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Metric Chips
+  // ---------------------------------------------------------------------------
+  &__metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-3;
+    margin-bottom: $space-6;
+    width: 100%;
+    max-width: 480px;
+
+    @media (min-width: $bp-desktop) {
+      grid-template-columns: repeat(4, 1fr);
+      max-width: 100%;
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // CTA Buttons
+  // ---------------------------------------------------------------------------
+  &__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-4;
+    align-items: center;
+
+    @media (max-width: calc($bp-tablet - 1px)) {
+      justify-content: center;
+      width: 100%;
+    }
+  }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    padding: $space-3 $space-5;
+    font-family: $font-body;
+    font-size: 15px;
+    font-weight: $font-weight-emphasis;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform $anim-duration-fast $anim-easing,
+                box-shadow $anim-duration-fast $anim-easing,
+                opacity $anim-duration-fast $anim-easing;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &--outline {
+      background: transparent;
+      color: $color-text-primary;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+
+      &:hover {
+        border-color: $color-accent-cyan;
+        box-shadow: 0 4px 20px rgba($color-accent-cyan, 0.2);
+      }
+    }
+
+    &--gradient {
+      background: $gradient-accent;
+      color: $color-text-primary;
+      border: none;
+
+      &:hover {
+        opacity: 0.9;
+        box-shadow: 0 4px 20px rgba($color-accent-violet, 0.3);
+      }
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Download Error
+  // ---------------------------------------------------------------------------
+  &__error {
+    margin-top: $space-3;
+    font-size: 13px;
+    color: #ff6b6b;
+    font-family: $font-body;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Photo Column
+  // ---------------------------------------------------------------------------
+  &__photo-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    order: 1;
+
+    @media (min-width: $bp-desktop) {
+      order: 2;
+      flex: 0 0 40%;
+    }
+  }
+
+  &__photo-ring {
+    position: absolute;
+    width: calc(100% + 16px);
+    height: calc(100% + 16px);
+    border-radius: 50%;
+    background: $gradient-ring;
+    animation: rotateRing 3s linear infinite;
+    padding: 3px;
+
+    // Create the ring effect with a mask
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: $color-bg-primary;
+    }
+  }
+
+  &__photo {
+    position: relative;
+    z-index: 1;
+    width: clamp(200px, 30vw, 320px);
+    height: clamp(200px, 30vw, 320px);
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid transparent;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Scroll Indicator
+  // ---------------------------------------------------------------------------
+  &__scroll-indicator {
+    position: absolute;
+    bottom: $space-6;
+    left: 50%;
+    transform: translateX(-50%);
+    color: $color-text-muted;
+    animation: bounce 2s ease-in-out infinite;
+    cursor: default;
+  }
+}
+
+// =============================================================================
+// Metric Chip
+// =============================================================================
+
+.metric-chip {
+  @include glass.glass-card(0.08, 12px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $space-4 $space-3;
+  text-align: center;
+  transition: transform $anim-duration-fast $anim-easing,
+              box-shadow $anim-duration-fast $anim-easing;
+
+  &:hover {
+    animation: float 3s $anim-easing infinite;
+    box-shadow: 0 4px 16px rgba($color-accent-cyan, 0.15);
+  }
+
+  &__value {
+    font-family: $font-heading;
+    font-size: clamp(20px, 2.5vw, $font-size-h3);
+    font-weight: $font-weight-heading;
+    color: $color-accent-cyan;
+    line-height: 1.2;
+  }
+
+  &__label {
+    font-family: $font-body;
+    font-size: clamp(11px, 1vw, 13px);
+    font-weight: $font-weight-body;
+    color: $color-text-secondary;
+    margin-top: $space-1;
+    line-height: 1.3;
+  }
+}
+
+// =============================================================================
+// Keyframes
+// =============================================================================
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes rotateRing {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  60% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+}

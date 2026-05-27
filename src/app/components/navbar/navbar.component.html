@@ -1,0 +1,109 @@
+<nav
+  class="navbar"
+  [class.navbar--scrolled]="isScrolled()"
+  role="navigation"
+  aria-label="Navegación principal"
+>
+  <div class="navbar__container">
+    <!-- CF Monogram Logo -->
+    <a
+      class="navbar__logo"
+      href="#hero"
+      (click)="$event.preventDefault(); navigateToSection('hero')"
+      aria-label="Ir al inicio"
+    >
+      CF
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <ul class="navbar__links" role="list">
+      @for (link of navLinks; track link.sectionId) {
+        <li>
+          <a
+            class="navbar__link"
+            [class.navbar__link--active]="activeSection() === link.sectionId"
+            [href]="'#' + link.sectionId"
+            (click)="$event.preventDefault(); navigateToSection(link.sectionId)"
+          >
+            {{ link.label }}
+          </a>
+        </li>
+      }
+    </ul>
+
+    <!-- Desktop LinkedIn Button -->
+    <a
+      class="navbar__cta"
+      [href]="linkedInUrl"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Conectar en LinkedIn"
+    >
+      <svg lucideExternalLink [size]="16"></svg>
+      <span>Conectar en LinkedIn</span>
+    </a>
+
+    <!-- Mobile Hamburger Button -->
+    <button
+      class="hamburger-btn"
+      type="button"
+      (click)="toggleMobileMenu()"
+      [attr.aria-expanded]="isMobileMenuOpen()"
+      aria-controls="mobile-menu"
+      aria-label="Abrir menú de navegación"
+    >
+      <svg lucideMenu [size]="24"></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu Overlay -->
+@if (isMobileMenuOpen()) {
+  <div
+    class="mobile-overlay"
+    id="mobile-menu"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Menú de navegación móvil"
+  >
+    <div class="mobile-nav-content">
+      <!-- Close Button -->
+      <button
+        class="mobile-nav-content__close"
+        type="button"
+        (click)="closeMobileMenu()"
+        aria-label="Cerrar menú de navegación"
+      >
+        <svg lucideX [size]="28"></svg>
+      </button>
+
+      <!-- Mobile Navigation Links -->
+      <ul class="mobile-nav-content__links" role="list">
+        @for (link of navLinks; track link.sectionId) {
+          <li>
+            <a
+              class="mobile-nav-content__link"
+              [class.mobile-nav-content__link--active]="activeSection() === link.sectionId"
+              [href]="'#' + link.sectionId"
+              (click)="$event.preventDefault(); navigateToSection(link.sectionId)"
+            >
+              {{ link.label }}
+            </a>
+          </li>
+        }
+      </ul>
+
+      <!-- Mobile LinkedIn Button -->
+      <a
+        class="mobile-nav-content__cta"
+        [href]="linkedInUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Conectar en LinkedIn"
+      >
+        <svg lucideExternalLink [size]="18"></svg>
+        <span>Conectar en LinkedIn</span>
+      </a>
+    </div>
+  </div>
+}

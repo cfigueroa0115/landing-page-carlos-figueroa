@@ -1,0 +1,289 @@
+@use '../../../styles/tokens' as *;
+@use '../../../styles/glassmorphism' as *;
+
+// =============================================================================
+// Skills Section
+// Category grid with animated tags and horizontal skill bars
+// =============================================================================
+
+.skills-section {
+  background-color: $color-bg-primary;
+  position: relative;
+  overflow: hidden;
+
+  // Fade-in animation on section entry
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity $anim-duration-normal $anim-easing,
+              transform $anim-duration-normal $anim-easing;
+
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Section Heading
+// -----------------------------------------------------------------------------
+.section-heading {
+  font-family: $font-heading;
+  font-weight: $font-weight-heading;
+  font-size: $font-size-h2;
+  line-height: 1.2;
+  text-align: center;
+  margin-bottom: $space-8;
+
+  @media (max-width: $bp-tablet) {
+    font-size: 28px;
+    margin-bottom: $space-7;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Categories Grid — 2x2 desktop, 2-col tablet, 1-col mobile
+// -----------------------------------------------------------------------------
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-6;
+  margin-bottom: $space-9;
+
+  @media (max-width: $bp-tablet) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-5;
+  }
+
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+    gap: $space-5;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Category Card
+// -----------------------------------------------------------------------------
+.category-card {
+  @include glass-card($glass-bg-opacity-min, $glass-blur-min);
+  padding: $space-6;
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+
+  // Staggered fade-in animation
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity $anim-duration-normal $anim-easing,
+              transform $anim-duration-normal $anim-easing;
+
+  .is-visible & {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: var(--stagger-delay, 0s);
+  }
+
+  // Use animation-delay from inline style for stagger
+  .is-visible & {
+    animation: fadeInUp $anim-duration-normal $anim-easing both;
+  }
+
+  @media (max-width: $bp-tablet) {
+    padding: $space-5;
+  }
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+}
+
+.category-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: $gradient-accent;
+  color: $color-bg-primary;
+  flex-shrink: 0;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.category-title {
+  font-family: $font-heading;
+  font-weight: $font-weight-emphasis;
+  font-size: 1.125rem;
+  color: $color-text-primary;
+  margin: 0;
+}
+
+// -----------------------------------------------------------------------------
+// Category Tags — staggered fade-in within 1 second
+// -----------------------------------------------------------------------------
+.category-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.skill-tag {
+  padding: $space-2 $space-3;
+  font-family: $font-body;
+  font-size: 0.8125rem;
+  font-weight: $font-weight-emphasis;
+  color: $color-text-primary;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  white-space: nowrap;
+  cursor: default;
+  user-select: none;
+  transition: transform $anim-duration-fast $anim-easing,
+              box-shadow $anim-duration-fast $anim-easing,
+              border-color $anim-duration-fast $anim-easing;
+
+  // Staggered fade-in — paused until section is visible
+  opacity: 0;
+  animation: fadeIn 0.4s $anim-easing both;
+  animation-play-state: paused;
+
+  .is-visible & {
+    animation-play-state: running;
+  }
+
+  // Hover: scale + accent glow
+  &:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 16px rgba($color-accent-cyan, 0.35),
+                0 0 4px rgba($color-accent-violet, 0.2);
+    border-color: rgba($color-accent-cyan, 0.5);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Skill Bars Container
+// -----------------------------------------------------------------------------
+.skill-bars-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.skill-bars-heading {
+  font-family: $font-heading;
+  font-weight: $font-weight-emphasis;
+  font-size: $font-size-h4;
+  color: $color-text-primary;
+  text-align: center;
+  margin-bottom: $space-7;
+
+  @media (max-width: $bp-tablet) {
+    font-size: 1.25rem;
+    margin-bottom: $space-6;
+  }
+}
+
+.skill-bars-grid {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+}
+
+// -----------------------------------------------------------------------------
+// Individual Skill Bar
+// -----------------------------------------------------------------------------
+.skill-bar-item {
+  opacity: 0;
+  transform: translateX(-16px);
+  transition: opacity $anim-duration-normal $anim-easing,
+              transform $anim-duration-normal $anim-easing;
+
+  .is-visible & {
+    animation: fadeInLeft $anim-duration-normal $anim-easing both;
+  }
+}
+
+.skill-bar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $space-2;
+}
+
+.skill-bar-label {
+  font-family: $font-body;
+  font-size: 0.9375rem;
+  font-weight: $font-weight-emphasis;
+  color: $color-text-primary;
+}
+
+.skill-bar-percentage {
+  font-family: $font-body;
+  font-size: 0.875rem;
+  font-weight: $font-weight-heading;
+  color: $color-accent-cyan;
+}
+
+.skill-bar-track {
+  width: 100%;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  border-radius: 5px;
+  background: $gradient-accent;
+  width: 0%;
+  transition: width 1.5s $anim-easing;
+
+  // Animate to target width when section is visible
+  .is-visible & {
+    width: var(--target-width, 0%);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Keyframes
+// -----------------------------------------------------------------------------
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

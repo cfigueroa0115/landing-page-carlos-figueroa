@@ -1,0 +1,67 @@
+// =============================================================================
+// Glassmorphism Mixins
+// Reusable glass-effect styles for cards and interactive elements
+// =============================================================================
+
+@use 'tokens' as *;
+
+/// Standard glassmorphism card effect
+/// @param {Number} $opacity - Background opacity (0.05 to 0.15)
+/// @param {Length} $blur - Backdrop blur amount (12px to 20px)
+@mixin glass-card($opacity: $glass-bg-opacity-min, $blur: $glass-blur-min) {
+  background: rgba(255, 255, 255, $opacity);
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+  border: $glass-border;
+  border-radius: 16px;
+}
+
+/// Elevated glassmorphism card with stronger effect
+@mixin glass-card-elevated() {
+  background: rgba(255, 255, 255, $glass-bg-opacity-max);
+  backdrop-filter: blur($glass-blur-max);
+  -webkit-backdrop-filter: blur($glass-blur-max);
+  border: $glass-border;
+  border-radius: 16px;
+}
+
+/// Glassmorphism navbar effect (applied on scroll)
+@mixin glass-navbar() {
+  background: rgba(10, 14, 26, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: $glass-border;
+}
+
+/// Hover glow effect for glassmorphism cards
+/// @param {Color} $glow-color - The accent color for the glow
+@mixin glass-hover-glow($glow-color: $color-accent-cyan) {
+  transition: transform $anim-duration-fast $anim-easing,
+              box-shadow $anim-duration-fast $anim-easing;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 32px rgba($glow-color, 0.3);
+  }
+}
+
+/// Glass input field styling
+@mixin glass-input() {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur($glass-blur-min);
+  -webkit-backdrop-filter: blur($glass-blur-min);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: $color-text-primary;
+  transition: border-color $anim-duration-fast $anim-easing;
+
+  &:focus {
+    outline: none;
+    border-color: $color-accent-cyan;
+    box-shadow: 0 0 0 2px rgba($color-accent-cyan, 0.2);
+  }
+
+  &::placeholder {
+    color: $color-text-muted;
+  }
+}

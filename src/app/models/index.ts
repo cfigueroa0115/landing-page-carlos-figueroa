@@ -1,0 +1,9 @@
+export type { Lead } from './lead.interface';
+export type { MetricChip } from './metric-chip.interface';
+export type { NavLink } from './nav-link.interface';
+export type { Achievement } from './achievement.interface';
+export type { TimelineEntry } from './timeline-entry.interface';
+export type { SkillCategory } from './skill-category.interface';
+export type { SkillBar } from './skill-bar.interface';
+export type { EducationEntry } from './education-entry.interface';
+export type { Certification } from './certification.interface';
