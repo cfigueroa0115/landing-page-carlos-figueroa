@@ -55,39 +55,87 @@
         }
 
         @if (dashboardData(); as data) {
-          <!-- KPI Cards -->
+          <!-- KPI Cards (clickeable para ver detalle) -->
           <div class="kpi-grid">
-            <div class="kpi-card">
+            <div class="kpi-card kpi-card--clickable" (click)="openDetail('total')">
               <span class="kpi-value">{{ data.totalViews }}</span>
               <span class="kpi-label">Visitas Totales</span>
               <div class="kpi-bar"><div class="kpi-bar-fill" [style.width.%]="100"></div></div>
+              <span class="kpi-hint">Clic para ver detalle</span>
             </div>
-            <div class="kpi-card">
+            <div class="kpi-card kpi-card--clickable" (click)="openDetail('unique')">
               <span class="kpi-value">{{ data.uniqueVisitors }}</span>
               <span class="kpi-label">Visitantes Únicos</span>
               <div class="kpi-bar"><div class="kpi-bar-fill kpi-bar-fill--blue" [style.width.%]="data.totalViews ? (data.uniqueVisitors / data.totalViews) * 100 : 0"></div></div>
+              <span class="kpi-hint">Clic para ver detalle</span>
             </div>
-            <div class="kpi-card">
+            <div class="kpi-card kpi-card--clickable" (click)="openDetail('today')">
               <span class="kpi-value">{{ data.viewsToday }}</span>
               <span class="kpi-label">Visitas Hoy</span>
               <div class="kpi-bar"><div class="kpi-bar-fill kpi-bar-fill--green" [style.width.%]="data.viewsWeek ? (data.viewsToday / data.viewsWeek) * 100 : 0"></div></div>
+              <span class="kpi-hint">Clic para ver detalle</span>
             </div>
-            <div class="kpi-card">
+            <div class="kpi-card kpi-card--clickable" (click)="openDetail('week')">
               <span class="kpi-value">{{ data.viewsWeek }}</span>
               <span class="kpi-label">Última Semana</span>
               <div class="kpi-bar"><div class="kpi-bar-fill kpi-bar-fill--purple" [style.width.%]="data.totalViews ? (data.viewsWeek / data.totalViews) * 100 : 0"></div></div>
+              <span class="kpi-hint">Clic para ver detalle</span>
             </div>
-            <div class="kpi-card kpi-card--accent">
+            <div class="kpi-card kpi-card--accent kpi-card--clickable" (click)="openDetail('downloads')">
               <span class="kpi-value">{{ data.downloads }}</span>
               <span class="kpi-label">Descargas CV</span>
               <div class="kpi-bar"><div class="kpi-bar-fill kpi-bar-fill--gold" [style.width.%]="data.totalViews ? (data.downloads / data.totalViews) * 100 : 0"></div></div>
+              <span class="kpi-hint">Clic para ver detalle</span>
             </div>
-            <div class="kpi-card kpi-card--accent">
+            <div class="kpi-card kpi-card--accent kpi-card--clickable" (click)="openDetail('contacts')">
               <span class="kpi-value">{{ data.contactSubmissions }}</span>
               <span class="kpi-label">Mensajes Contacto</span>
               <div class="kpi-bar"><div class="kpi-bar-fill kpi-bar-fill--gold" [style.width.%]="data.totalViews ? (data.contactSubmissions / data.totalViews) * 100 : 0"></div></div>
+              <span class="kpi-hint">Clic para ver detalle</span>
             </div>
           </div>
+
+          <!-- Detail Popup -->
+          @if (detailOpen()) {
+            <div class="detail-popup-overlay" (click)="closeDetail()">
+              <div class="detail-popup" (click)="$event.stopPropagation()">
+                <div class="detail-header">
+                  <h4>{{ detailTitle() }}</h4>
+                  <button type="button" class="detail-close" (click)="closeDetail()">✕</button>
+                </div>
+                @if (detailLoading()) {
+                  <div class="detail-loading">Cargando registros...</div>
+                }
+                @if (!detailLoading() && detailRecords().length === 0) {
+                  <div class="detail-empty">No hay registros aún.</div>
+                }
+                @if (!detailLoading() && detailRecords().length > 0) {
+                  <div class="detail-table-wrap">
+                    <table class="detail-table">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Fecha</th>
+                          <th>Hora</th>
+                          <th>Detalle</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @for (record of detailRecords(); track record.time; let i = $index) {
+                          <tr>
+                            <td class="detail-num">{{ i + 1 }}</td>
+                            <td>{{ record.date }}</td>
+                            <td class="detail-time">{{ record.time }}</td>
+                            <td class="detail-info">{{ record.info }}</td>
+                          </tr>
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+                }
+              </div>
+            </div>
+          }
 
           <!-- Two-column charts -->
           <div class="charts-grid">

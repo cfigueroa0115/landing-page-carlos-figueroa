@@ -206,3 +206,48 @@
 }
 .event-type-label { flex: 1; color: $color-text-secondary; }
 .event-time { color: $color-text-muted; font-size: 11px; white-space: nowrap; }
+
+
+// KPI Clickable
+.kpi-card--clickable {
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  &:hover { transform: translateY(-3px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+}
+.kpi-hint {
+  font-size: 9px; color: $color-text-muted; margin-top: 6px; opacity: 0.6;
+}
+
+// Detail Popup
+.detail-popup-overlay {
+  position: fixed; inset: 0; z-index: 100001;
+  background: rgba(0,0,0,0.4); backdrop-filter: blur(3px);
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+}
+.detail-popup {
+  background: #FFF; border-radius: 16px; padding: 24px;
+  width: 100%; max-width: 600px; max-height: 80vh; overflow-y: auto;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+}
+.detail-header {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
+  h4 { font-family: $font-heading; font-size: 18px; color: $color-text-primary; margin: 0; }
+}
+.detail-close {
+  width: 32px; height: 32px; border: none; background: rgba(27,58,75,0.06);
+  border-radius: 6px; cursor: pointer; font-size: 16px; color: $color-text-secondary;
+  &:hover { background: rgba(27,58,75,0.12); }
+}
+.detail-loading, .detail-empty {
+  text-align: center; padding: 32px; color: $color-text-muted; font-size: 14px;
+}
+.detail-table-wrap { overflow-x: auto; }
+.detail-table {
+  width: 100%; border-collapse: collapse; font-size: 13px;
+  th { text-align: left; padding: 8px 10px; font-weight: 600; color: $color-text-secondary; border-bottom: 2px solid rgba(27,58,75,0.1); font-size: 11px; text-transform: uppercase; letter-spacing: 0.03em; }
+  td { padding: 8px 10px; border-bottom: 1px solid rgba(27,58,75,0.05); color: $color-text-primary; }
+  tr:hover td { background: rgba(27,58,75,0.02); }
+}
+.detail-num { color: $color-text-muted; font-weight: 600; width: 30px; }
+.detail-time { font-weight: 600; color: $color-accent-primary; white-space: nowrap; }
+.detail-info { color: $color-text-secondary; font-size: 12px; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

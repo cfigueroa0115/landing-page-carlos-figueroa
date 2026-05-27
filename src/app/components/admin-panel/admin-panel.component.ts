@@ -35,6 +35,12 @@ export class AdminPanelComponent {
   token = signal('');
   dashboardData = signal<DashboardData | null>(null);
 
+  // Detail popup state
+  detailOpen = signal(false);
+  detailTitle = signal('');
+  detailLoading = signal(false);
+  detailRecords = signal<{ date: string; time: string; info: string }[]>([]);
+
   username = '';
   password = '';
 
@@ -106,6 +112,45 @@ export class AdminPanelComponent {
   }
 
   readonly pieColors = ['#1B3A4B', '#C4922A', '#8B5E3C', '#2D7A9C', '#D4A853', '#5C3D2E', '#3A6B7E'];
+
+  // === Detail popup methods ===
+
+  openDetail(type: 'total' | 'unique' | 'today' | 'week' | 'downloads' | 'contacts'): void {
+    const titles: Record<string, string> = {
+      total: 'Detalle — Visitas Totales',
+      unique: 'Detalle — Visitantes Únicos',
+      today: 'Detalle — Visitas Hoy',
+      week: 'Detalle — Última Semana',
+      downloads: 'Detalle — Descargas CV',
+      contacts: 'Detalle — Mensajes de Contacto',
+    };
+    this.detailTitle.set(titles[type]);
+    this.detailOpen.set(true);
+    this.detailLoading.set(true);
+    this.detailRecords.set([]);
+
+    const headers = new HttpHeaders({ Authorization: `Bearer ${this.token()}` });
+    this.http.get<{ success: boolean; records: any[] }>(`/api/dashboard-detail?type=${type}`, { headers }).subscribe({
+      next: (res) => {
+        this.detailLoading.set(false);
+        if (res.success) {
+          this.detailRecords.set(res.records.map((r: any) => ({
+            date: new Date(r.created_at).toLocaleDateString('es-CO', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }),
+            time: new Date(r.created_at).toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+            info: r.info || '',
+          })));
+        }
+      },
+      error: () => {
+        this.detailLoading.set(false);
+        this.detailRecords.set([]);
+      },
+    });
+  }
+
+  closeDetail(): void {
+    this.detailOpen.set(false);
+  }
 
   formatDate(dateStr: string): string {
     return new Date(dateStr).toLocaleString('es-CO', { dateStyle: 'short', timeStyle: 'short' });
