@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -23,6 +23,7 @@ interface DashboardData {
   imports: [CommonModule, FormsModule],
   templateUrl: './admin-panel.component.html',
   styleUrls: ['./admin-panel.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AdminPanelComponent {
   private readonly http = inject(HttpClient);

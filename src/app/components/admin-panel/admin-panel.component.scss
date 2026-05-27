@@ -3,26 +3,27 @@
 // Admin trigger button (top-right)
 .admin-trigger {
   position: fixed;
-  top: 16px;
-  right: 16px;
-  z-index: 999;
+  top: 72px;
+  right: 20px;
+  z-index: 9998;
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 14px;
+  padding: 10px 16px;
   font-family: $font-body;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: $font-weight-emphasis;
   color: #FFFFFF;
-  background: rgba(27, 58, 75, 0.85);
+  background: rgba(27, 58, 75, 0.9);
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   backdrop-filter: blur(8px);
-  transition: background 0.3s, transform 0.3s;
-  opacity: 0.7;
+  transition: background 0.3s, transform 0.3s, opacity 0.3s;
+  opacity: 0.6;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
 
-  &:hover { opacity: 1; transform: scale(1.05); background: rgba(27, 58, 75, 0.95); }
+  &:hover { opacity: 1; transform: scale(1.05); background: rgba(27, 58, 75, 1); }
 }
 
 // Overlay
