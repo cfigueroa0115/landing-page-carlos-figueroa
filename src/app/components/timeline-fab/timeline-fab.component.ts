@@ -35,32 +35,34 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
   styles: [`
     .traj-fab {
       position: fixed;
-      top: 16px;
+      top: 50%;
       left: 16px;
+      transform: translateY(-50%);
       z-index: 998;
       display: flex;
       align-items: center;
       gap: 6px;
-      padding: 10px 14px;
+      padding: 12px 16px;
       font-family: 'Inter', system-ui, sans-serif;
       font-size: 11px;
       font-weight: 600;
-      color: #1B3A4B;
-      background: rgba(255, 255, 255, 0.7);
+      color: #FFFFFF;
+      background: rgba(27, 58, 75, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(196, 146, 42, 0.25);
+      border: 1px solid rgba(196, 146, 42, 0.3);
       border-radius: 24px;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 2px 12px rgba(196, 146, 42, 0.12);
+      box-shadow: 0 4px 16px rgba(27, 58, 75, 0.2), 0 0 20px rgba(196, 146, 42, 0.1);
+      writing-mode: horizontal-tb;
     }
 
     .traj-fab:hover {
-      background: rgba(255, 255, 255, 0.9);
-      border-color: rgba(196, 146, 42, 0.5);
-      box-shadow: 0 4px 20px rgba(196, 146, 42, 0.25);
-      transform: scale(1.05);
+      background: rgba(27, 58, 75, 0.95);
+      border-color: rgba(196, 146, 42, 0.6);
+      box-shadow: 0 6px 24px rgba(27, 58, 75, 0.3), 0 0 30px rgba(196, 146, 42, 0.2);
+      transform: translateY(-50%) scale(1.05);
     }
 
     .traj-fab svg { color: #C4922A; }
@@ -69,10 +71,9 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
 
     @media (max-width: 768px) {
       .traj-fab {
-        top: auto;
-        bottom: 24px;
-        left: 16px;
-        padding: 8px 12px;
+        top: 50%;
+        left: 12px;
+        padding: 10px 12px;
         font-size: 10px;
       }
     }
