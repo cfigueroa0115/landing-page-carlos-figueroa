@@ -35,7 +35,7 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
   styles: [`
     .traj-fab {
       position: fixed;
-      top: 38%;
+      top: 22%;
       left: 16px;
       transform: translateY(-50%);
       z-index: 998;
@@ -47,30 +47,35 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
       font-size: 11px;
       font-weight: 600;
       color: #FFFFFF;
-      background: rgba(27, 58, 75, 0.6);
+      background: rgba(27, 58, 75, 0.55);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(196, 146, 42, 0.3);
+      border: 1px solid rgba(196, 146, 42, 0.5);
       border-radius: 24px;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 4px 16px rgba(27, 58, 75, 0.15), 0 0 20px rgba(196, 146, 42, 0.08);
+      box-shadow: 0 4px 16px rgba(196, 146, 42, 0.2), 0 0 24px rgba(196, 146, 42, 0.12);
+      animation: trajGoldPulse 2.5s ease-in-out infinite;
     }
 
     .traj-fab:hover {
-      background: rgba(27, 58, 75, 0.8);
-      border-color: rgba(196, 146, 42, 0.6);
-      box-shadow: 0 6px 24px rgba(27, 58, 75, 0.25), 0 0 30px rgba(196, 146, 42, 0.15);
+      background: rgba(27, 58, 75, 0.75);
+      border-color: rgba(196, 146, 42, 0.8);
+      box-shadow: 0 6px 28px rgba(196, 146, 42, 0.35), 0 0 40px rgba(196, 146, 42, 0.2);
       transform: translateY(-50%) scale(1.05);
     }
 
     .traj-fab svg { color: #C4922A; }
-
     .traj-fab__label { white-space: nowrap; }
+
+    @keyframes trajGoldPulse {
+      0%, 100% { box-shadow: 0 4px 16px rgba(196, 146, 42, 0.2), 0 0 24px rgba(196, 146, 42, 0.12); border-color: rgba(196, 146, 42, 0.5); }
+      50% { box-shadow: 0 4px 24px rgba(196, 146, 42, 0.4), 0 0 36px rgba(196, 146, 42, 0.25); border-color: rgba(196, 146, 42, 0.7); }
+    }
 
     @media (max-width: 768px) {
       .traj-fab {
-        top: 38%;
+        top: 22%;
         left: 12px;
         padding: 10px 12px;
         font-size: 10px;
