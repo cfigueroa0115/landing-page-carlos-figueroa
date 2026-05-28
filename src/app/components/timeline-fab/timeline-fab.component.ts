@@ -35,7 +35,7 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
   styles: [`
     .traj-fab {
       position: fixed;
-      top: 50%;
+      top: 38%;
       left: 16px;
       transform: translateY(-50%);
       z-index: 998;
@@ -47,21 +47,20 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
       font-size: 11px;
       font-weight: 600;
       color: #FFFFFF;
-      background: rgba(27, 58, 75, 0.85);
+      background: rgba(27, 58, 75, 0.6);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border: 1px solid rgba(196, 146, 42, 0.3);
       border-radius: 24px;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 4px 16px rgba(27, 58, 75, 0.2), 0 0 20px rgba(196, 146, 42, 0.1);
-      writing-mode: horizontal-tb;
+      box-shadow: 0 4px 16px rgba(27, 58, 75, 0.15), 0 0 20px rgba(196, 146, 42, 0.08);
     }
 
     .traj-fab:hover {
-      background: rgba(27, 58, 75, 0.95);
+      background: rgba(27, 58, 75, 0.8);
       border-color: rgba(196, 146, 42, 0.6);
-      box-shadow: 0 6px 24px rgba(27, 58, 75, 0.3), 0 0 30px rgba(196, 146, 42, 0.2);
+      box-shadow: 0 6px 24px rgba(27, 58, 75, 0.25), 0 0 30px rgba(196, 146, 42, 0.15);
       transform: translateY(-50%) scale(1.05);
     }
 
@@ -71,7 +70,7 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
 
     @media (max-width: 768px) {
       .traj-fab {
-        top: 50%;
+        top: 38%;
         left: 12px;
         padding: 10px 12px;
         font-size: 10px;
