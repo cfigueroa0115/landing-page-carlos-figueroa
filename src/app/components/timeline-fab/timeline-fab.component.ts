@@ -35,7 +35,7 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
   styles: [`
     .traj-fab {
       position: fixed;
-      top: 22%;
+      top: 18%;
       left: 16px;
       transform: translateY(-50%);
       z-index: 998;
@@ -50,32 +50,40 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
       background: rgba(27, 58, 75, 0.55);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(196, 146, 42, 0.5);
+      border: 2px solid rgba(196, 146, 42, 0.6);
       border-radius: 24px;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       box-shadow: 0 4px 16px rgba(196, 146, 42, 0.2), 0 0 24px rgba(196, 146, 42, 0.12);
-      animation: trajGoldPulse 2.5s ease-in-out infinite;
+      animation: trajGoldPulse 2s ease-in-out infinite, trajBorderShimmer 3s linear infinite;
     }
 
     .traj-fab:hover {
       background: rgba(27, 58, 75, 0.75);
-      border-color: rgba(196, 146, 42, 0.8);
-      box-shadow: 0 6px 28px rgba(196, 146, 42, 0.35), 0 0 40px rgba(196, 146, 42, 0.2);
-      transform: translateY(-50%) scale(1.05);
+      border-color: rgba(196, 146, 42, 1);
+      box-shadow: 0 6px 28px rgba(196, 146, 42, 0.4), 0 0 50px rgba(196, 146, 42, 0.25);
+      transform: translateY(-50%) scale(1.08);
     }
 
-    .traj-fab svg { color: #C4922A; }
-    .traj-fab__label { white-space: nowrap; }
+    .traj-fab svg { color: #C4922A; filter: drop-shadow(0 0 4px rgba(196, 146, 42, 0.5)); }
+    .traj-fab__label { white-space: nowrap; text-shadow: 0 0 8px rgba(196, 146, 42, 0.3); }
 
     @keyframes trajGoldPulse {
-      0%, 100% { box-shadow: 0 4px 16px rgba(196, 146, 42, 0.2), 0 0 24px rgba(196, 146, 42, 0.12); border-color: rgba(196, 146, 42, 0.5); }
-      50% { box-shadow: 0 4px 24px rgba(196, 146, 42, 0.4), 0 0 36px rgba(196, 146, 42, 0.25); border-color: rgba(196, 146, 42, 0.7); }
+      0%, 100% { box-shadow: 0 4px 16px rgba(196, 146, 42, 0.2), 0 0 24px rgba(196, 146, 42, 0.12); }
+      50% { box-shadow: 0 4px 28px rgba(196, 146, 42, 0.45), 0 0 44px rgba(196, 146, 42, 0.3); }
+    }
+
+    @keyframes trajBorderShimmer {
+      0% { border-color: rgba(196, 146, 42, 0.4); }
+      25% { border-color: rgba(196, 146, 42, 0.8); }
+      50% { border-color: rgba(196, 146, 42, 0.4); }
+      75% { border-color: rgba(196, 146, 42, 0.9); }
+      100% { border-color: rgba(196, 146, 42, 0.4); }
     }
 
     @media (max-width: 768px) {
       .traj-fab {
-        top: 22%;
+        top: 18%;
         left: 12px;
         padding: 10px 12px;
         font-size: 10px;
