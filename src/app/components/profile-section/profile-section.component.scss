@@ -1,11 +1,10 @@
 @use 'styles/tokens' as *;
 
 .profile-section {
-  background-color: $color-bg-secondary;
+  background-color: $color-bg-primary;
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity $anim-duration-normal $anim-easing,
-              transform $anim-duration-normal $anim-easing;
+  transform: translateY(24px);
+  transition: opacity 450ms $anim-easing, transform 450ms $anim-easing;
 
   &.is-visible {
     opacity: 1;
@@ -13,40 +12,14 @@
   }
 }
 
-.profile-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: $space-8;
-  align-items: start;
-
-  @media (max-width: $bp-desktop) {
-    grid-template-columns: 1fr;
-    gap: $space-7;
-  }
+.profile-header {
+  text-align: center;
+  margin-bottom: $space-7;
 }
 
-// Summary Column (60% on desktop)
-.profile-summary {
-  display: flex;
-  flex-direction: column;
-  gap: $space-5;
-
-  @media (min-width: $bp-desktop) {
-    grid-column: 1;
-    max-width: 100%;
-  }
-}
-
-.profile-heading {
-  font-family: $font-heading;
-  font-weight: $font-weight-heading;
-  font-size: $font-size-h2;
-  line-height: 1.2;
-  color: $color-text-primary;
-
-  @media (max-width: $bp-tablet) {
-    font-size: 28px;
-  }
+.profile-body {
+  max-width: 64ch;
+  margin: 0 auto $space-8;
 }
 
 .profile-text {
@@ -54,10 +27,35 @@
   font-size: 1.0625rem;
   line-height: 1.8;
   color: $color-text-secondary;
+  margin-bottom: $space-5;
 
-  @media (max-width: $bp-tablet) {
+  @media (min-width: $bp-desktop) {
+    text-align: justify;
+  }
+
+  @media (max-width: calc($bp-tablet - 1px)) {
     font-size: 1rem;
     line-height: 1.7;
+  }
+}
+
+.profile-quote {
+  position: relative;
+  font-family: $font-body;
+  font-size: 1.125rem;
+  font-weight: 500;
+  font-style: italic;
+  color: $color-text-primary;
+  line-height: 1.6;
+  padding: $space-5 $space-6;
+  margin: $space-6 0;
+  border-left: 4px solid $color-cyan-500;
+  background: $color-bg-secondary;
+  border-radius: 0 12px 12px 0;
+
+  @media (max-width: calc($bp-tablet - 1px)) {
+    font-size: 1rem;
+    padding: $space-4 $space-5;
   }
 }
 
@@ -65,17 +63,21 @@
   font-family: $font-body;
   font-size: 0.875rem;
   font-weight: 500;
-  color: $color-accent-primary;
+  color: $color-blue-600;
   line-height: 1.6;
-  padding-top: $space-2;
-  border-top: 1px solid rgba($color-accent-primary, 0.1);
+  padding-top: $space-4;
+  border-top: 1px solid $color-border;
 }
 
-// Pillars Grid
-.profile-pillars {
+// Value Pillars Grid
+.pillars-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: $space-4;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $space-5;
+
+  @media (max-width: calc($bp-desktop - 1px)) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
   @media (max-width: 576px) {
     grid-template-columns: 1fr;
@@ -84,33 +86,35 @@
 
 .pillar-card {
   background: $color-bg-card;
-  border: 1px solid rgba($color-accent-primary, 0.06);
-  border-radius: 12px;
+  border: 1px solid $color-border;
+  border-top: 3px solid $color-cyan-500;
+  border-radius: 16px;
   padding: $space-5;
   display: flex;
   flex-direction: column;
   gap: $space-3;
-  transition: box-shadow $anim-duration-fast $anim-easing,
-              transform $anim-duration-fast $anim-easing;
+  transition: transform $anim-duration-fast $anim-easing,
+              box-shadow $anim-duration-fast $anim-easing;
+  height: 100%;
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
   }
 
   &__icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: rgba($color-accent-primary, 0.06);
-    color: $color-accent-primary;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba($color-cyan-500, 0.08);
+    color: $color-blue-600;
 
     svg {
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
     }
   }
 
@@ -128,5 +132,13 @@
     color: $color-text-secondary;
     line-height: 1.6;
     margin: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-section {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

@@ -1,6 +1,5 @@
 // =============================================================================
 // Card & Surface Mixins
-// Reusable styles for cards and interactive elements — warm light theme
 // =============================================================================
 
 @use 'tokens' as *;
@@ -25,22 +24,22 @@
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
 }
 
-/// Navbar effect (applied on scroll)
+/// Navbar effect (applied on scroll) - white with blur
 @mixin glass-navbar() {
-  background: rgba(245, 240, 235, 0.92);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(27, 58, 75, 0.08);
+  border-bottom: 1px solid rgba($color-border, 0.5);
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
 }
 
 /// Hover glow effect for cards
-@mixin glass-hover-glow($glow-color: $color-accent-primary) {
+@mixin glass-hover-glow($glow-color: $color-blue-600) {
   transition: transform $anim-duration-fast $anim-easing,
               box-shadow $anim-duration-fast $anim-easing;
 
   &:hover {
-    transform: translateY(-8px);
+    transform: translateY(-4px);
     box-shadow: 0 12px 40px rgba($glow-color, 0.12);
   }
 }
@@ -48,15 +47,15 @@
 /// Input field styling
 @mixin glass-input() {
   background: #FFFFFF;
-  border: 1px solid rgba(27, 58, 75, 0.15);
+  border: 1px solid $color-border;
   border-radius: 8px;
   color: $color-text-primary;
   transition: border-color $anim-duration-fast $anim-easing;
 
   &:focus {
     outline: none;
-    border-color: $color-accent-primary;
-    box-shadow: 0 0 0 3px rgba($color-accent-primary, 0.1);
+    border-color: $color-cyan-500;
+    box-shadow: 0 0 0 3px rgba($color-cyan-500, 0.1);
   }
 
   &::placeholder {

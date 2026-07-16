@@ -1,10 +1,6 @@
 @use 'styles/tokens' as *;
 @use 'styles/glassmorphism' as glass;
 
-// =============================================================================
-// Navbar Component Styles
-// =============================================================================
-
 .navbar {
   position: fixed;
   top: 0;
@@ -18,15 +14,50 @@
   background: transparent;
   border-bottom: 1px solid transparent;
 
+  // On dark hero: white text
+  .navbar__initials,
+  .navbar__link,
+  .hamburger-btn {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .navbar__link:hover {
+    color: #FFFFFF;
+  }
+
+  .navbar__link--active {
+    color: $color-cyan-500;
+  }
+
   &--scrolled {
     @include glass.glass-navbar();
+
+    .navbar__initials {
+      color: $color-text-primary;
+    }
+
+    .navbar__link {
+      color: $color-text-secondary;
+
+      &:hover {
+        color: $color-text-primary;
+      }
+
+      &--active {
+        color: $color-blue-600;
+      }
+    }
+
+    .hamburger-btn {
+      color: $color-text-primary;
+    }
   }
 
   &__container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: $bp-wide;
+    max-width: $container-max;
     margin-inline: auto;
     padding-inline: $space-4;
 
@@ -43,11 +74,10 @@
     display: flex;
     align-items: center;
     text-decoration: none;
-    transition: transform $anim-duration-fast $anim-easing, opacity $anim-duration-fast $anim-easing;
+    transition: transform $anim-duration-fast $anim-easing;
 
     &:hover {
-      transform: scale(1.08);
-      opacity: 0.85;
+      transform: scale(1.05);
     }
   }
 
@@ -55,13 +85,8 @@
     font-family: $font-heading;
     font-size: 1.25rem;
     font-weight: $font-weight-heading;
-    color: $color-accent-primary;
     letter-spacing: -0.02em;
-  }
-
-  &__logo-icon {
-    width: 36px;
-    height: 36px;
+    transition: color $anim-duration-fast $anim-easing;
   }
 
   &__links {
@@ -77,9 +102,8 @@
 
   &__link {
     font-family: $font-body;
-    font-size: 14px;
-    font-weight: $font-weight-body;
-    color: $color-text-secondary;
+    font-size: 0.875rem;
+    font-weight: 500;
     text-decoration: none;
     transition: color $anim-duration-fast $anim-easing;
     position: relative;
@@ -91,32 +115,20 @@
       left: 0;
       width: 0;
       height: 2px;
-      background: $gradient-accent;
+      background: $color-cyan-500;
       border-radius: 1px;
       transition: width $anim-duration-fast $anim-easing;
     }
 
-    &:hover {
-      color: $color-text-primary;
-
-      &::after {
-        width: 100%;
-      }
-    }
-
-    &--active {
-      color: $color-accent-cyan;
-
-      &::after {
-        width: 100%;
-      }
+    &:hover::after,
+    &--active::after {
+      width: 100%;
     }
   }
 
   &__ctas {
     display: flex;
     align-items: center;
-    gap: $space-2;
 
     @media (max-width: calc($bp-tablet - 1px)) {
       display: none;
@@ -129,10 +141,10 @@
     gap: 6px;
     padding: 8px 18px;
     font-family: $font-body;
-    font-size: 13px;
+    font-size: 0.8125rem;
     font-weight: $font-weight-emphasis;
-    color: #FFFFFF;
-    background: $color-accent-primary;
+    color: $color-navy-950;
+    background: $color-cyan-500;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -141,15 +153,12 @@
 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba($color-accent-primary, 0.25);
+      box-shadow: 0 4px 16px rgba($color-cyan-500, 0.3);
     }
   }
 }
 
-// =============================================================================
 // Hamburger Button (Mobile Only)
-// =============================================================================
-
 .hamburger-btn {
   display: none;
   align-items: center;
@@ -158,10 +167,10 @@
   height: 40px;
   background: transparent;
   border: none;
-  color: $color-text-primary;
   cursor: pointer;
   border-radius: 8px;
-  transition: background $anim-duration-fast $anim-easing;
+  transition: background $anim-duration-fast $anim-easing,
+              color $anim-duration-fast $anim-easing;
 
   &:hover {
     background: rgba(255, 255, 255, 0.05);
@@ -172,15 +181,12 @@
   }
 }
 
-// =============================================================================
 // Mobile Overlay
-// =============================================================================
-
 .mobile-overlay {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: rgba($color-bg-primary, 0.95);
+  background: rgba($color-navy-900, 0.97);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   display: flex;
@@ -206,7 +212,7 @@
     height: 44px;
     background: transparent;
     border: none;
-    color: $color-text-primary;
+    color: rgba(255, 255, 255, 0.8);
     cursor: pointer;
     border-radius: 8px;
     transition: background $anim-duration-fast $anim-easing;
@@ -226,18 +232,18 @@
 
   &__link {
     font-family: $font-heading;
-    font-size: $font-size-h3;
+    font-size: 1.75rem;
     font-weight: $font-weight-heading;
-    color: $color-text-secondary;
+    color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     transition: color $anim-duration-fast $anim-easing;
 
     &:hover {
-      color: $color-text-primary;
+      color: #FFFFFF;
     }
 
     &--active {
-      color: $color-accent-cyan;
+      color: $color-cyan-500;
     }
   }
 
@@ -250,10 +256,10 @@
     max-width: 280px;
     padding: $space-3 $space-5;
     font-family: $font-body;
-    font-size: 15px;
+    font-size: 0.9375rem;
     font-weight: $font-weight-emphasis;
-    color: #FFFFFF;
-    background: $color-accent-primary;
+    color: $color-navy-950;
+    background: $color-cyan-500;
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -262,20 +268,12 @@
 
     &:hover {
       transform: scale(1.03);
-      box-shadow: 0 4px 16px rgba($color-accent-primary, 0.25);
+      box-shadow: 0 4px 20px rgba($color-cyan-500, 0.3);
     }
   }
 }
 
-// =============================================================================
-// Animations
-// =============================================================================
-
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

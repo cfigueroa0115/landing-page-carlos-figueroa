@@ -2,31 +2,39 @@
   id="profile"
   class="section profile-section"
   appInView
-  [threshold]="0.2"
+  [threshold]="0.15"
   (inView)="onVisibilityChange($event)"
   [class.is-visible]="isVisible()"
   aria-labelledby="profile-heading"
 >
-  <div class="container profile-container">
-    <!-- Left Column: Summary -->
-    <div class="profile-summary">
-      <h2 id="profile-heading" class="profile-heading">Perfil ejecutivo</h2>
+  <div class="container">
+    <!-- Section Header -->
+    <div class="profile-header">
+      <span class="section-eyebrow">PERFIL EJECUTIVO</span>
+      <h2 id="profile-heading" class="section-title">Liderazgo que convierte complejidad en valor</h2>
+    </div>
 
+    <!-- Profile Content -->
+    <div class="profile-body">
       <p class="profile-text">
-        Profesional con más de 18 años de trayectoria liderando iniciativas de modernización tecnológica, automatización inteligente, excelencia operativa e innovación aplicada al negocio. Ha gestionado proyectos estratégicos con mejoras de eficiencia de hasta el 95% y reducciones de tiempos de procesamiento de hasta el 80%, fortaleciendo la productividad, la experiencia del cliente y la capacidad de respuesta organizacional.
+        A lo largo de más de 18 años he liderado iniciativas de modernización tecnológica, automatización inteligente, excelencia operativa e innovación aplicada al negocio. He gestionado proyectos estratégicos con mejoras de eficiencia de hasta el 95 % y reducciones de tiempos de procesamiento de hasta el 80 %, fortaleciendo la productividad, la experiencia del cliente y la capacidad de respuesta organizacional.
       </p>
 
       <p class="profile-text">
-        Su experiencia integra inteligencia artificial aplicada, gestión de producto y portafolios, BPM, mejora continua, analítica de datos, agilidad y evolución de modelos operativos. Se distingue por articular negocio, tecnología, operaciones, proveedores y equipos multidisciplinarios para convertir necesidades empresariales complejas en soluciones viables, escalables y medibles.
+        Mi experiencia integra inteligencia artificial aplicada, gestión de producto y portafolios, BPM, mejora continua, analítica de datos, agilidad y evolución de modelos operativos. Me distingo por articular negocio, tecnología, operaciones, proveedores y equipos multidisciplinarios para convertir necesidades empresariales complejas en soluciones viables, escalables y medibles.
       </p>
+
+      <blockquote class="profile-quote">
+        "Transformar no es incorporar más tecnología; es conseguir que estrategia, procesos y personas generen un mejor resultado."
+      </blockquote>
 
       <p class="profile-credentials">
         Ingeniero Industrial · Especialista en Gerencia Financiera · Magíster en Alta Dirección · Doctorando en Administración de Empresas
       </p>
     </div>
 
-    <!-- Right Column: Value Pillar Cards -->
-    <div class="profile-pillars">
+    <!-- Value Pillars -->
+    <div class="pillars-grid">
       @for (pillar of pillars; track pillar.title) {
         <article class="pillar-card">
           <div class="pillar-card__icon" [innerHTML]="pillar.icon"></div>

@@ -12,7 +12,7 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
       aria-label="Ver trayectoria profesional"
       title="Trayectoria Profesional"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/>
       </svg>
       <span class="traj-fab__label">Trayectoria</span>
@@ -42,58 +42,44 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
       display: flex;
       align-items: center;
       gap: 6px;
-      padding: 12px 16px;
+      padding: 10px 14px;
       font-family: 'Inter', system-ui, sans-serif;
-      font-size: 11px;
+      font-size: 0.6875rem;
       font-weight: 600;
       color: #FFFFFF;
-      background: rgba(27, 58, 75, 0.55);
+      background: rgba(11, 41, 64, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border: 2px solid rgba(196, 146, 42, 0.6);
+      border: 1px solid rgba(22, 166, 199, 0.4);
       border-radius: 24px;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 4px 16px rgba(196, 146, 42, 0.2), 0 0 24px rgba(196, 146, 42, 0.12);
-      animation: trajGoldPulse 2s ease-in-out infinite, trajBorderShimmer 3s linear infinite;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
     }
 
     .traj-fab:hover {
-      background: rgba(27, 58, 75, 0.75);
-      border-color: rgba(196, 146, 42, 1);
-      box-shadow: 0 6px 28px rgba(196, 146, 42, 0.4), 0 0 50px rgba(196, 146, 42, 0.25);
-      transform: translateY(-50%) scale(1.08);
+      background: rgba(11, 41, 64, 0.95);
+      border-color: rgba(22, 166, 199, 0.8);
+      box-shadow: 0 6px 24px rgba(22, 166, 199, 0.2);
+      transform: translateY(-50%) scale(1.05);
     }
 
-    .traj-fab svg { color: #C4922A; filter: drop-shadow(0 0 4px rgba(196, 146, 42, 0.5)); }
-    .traj-fab__label { white-space: nowrap; text-shadow: 0 0 8px rgba(196, 146, 42, 0.3); }
-
-    @keyframes trajGoldPulse {
-      0%, 100% { box-shadow: 0 4px 16px rgba(196, 146, 42, 0.2), 0 0 24px rgba(196, 146, 42, 0.12); }
-      50% { box-shadow: 0 4px 28px rgba(196, 146, 42, 0.45), 0 0 44px rgba(196, 146, 42, 0.3); }
-    }
-
-    @keyframes trajBorderShimmer {
-      0% { border-color: rgba(196, 146, 42, 0.4); }
-      25% { border-color: rgba(196, 146, 42, 0.8); }
-      50% { border-color: rgba(196, 146, 42, 0.4); }
-      75% { border-color: rgba(196, 146, 42, 0.9); }
-      100% { border-color: rgba(196, 146, 42, 0.4); }
-    }
+    .traj-fab svg { color: #16A6C7; }
+    .traj-fab__label { white-space: nowrap; }
 
     @media (max-width: 768px) {
       .traj-fab {
         top: 18%;
         left: 12px;
-        padding: 10px 12px;
-        font-size: 10px;
+        padding: 8px 10px;
+        font-size: 0.625rem;
       }
     }
 
     /* Popup */
     .traj-overlay {
       position: fixed; inset: 0; z-index: 100000;
-      background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+      background: rgba(5, 21, 34, 0.8); backdrop-filter: blur(4px);
       display: flex; align-items: center; justify-content: center;
       padding: 20px; animation: trajFadeIn 0.2s ease;
     }
@@ -106,23 +92,28 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
     }
     .traj-popup__header {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 20px 24px; border-bottom: 1px solid rgba(27,58,75,0.08);
+      padding: 20px 24px; border-bottom: 1px solid #DCE4EA;
     }
     .traj-popup__header h3 {
-      font-family: 'Bricolage Grotesque', system-ui, sans-serif;
-      font-size: 20px; font-weight: 700; color: #1A1A1A; margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 1.25rem; font-weight: 700; color: #102433; margin: 0;
     }
     .traj-popup__close {
       width: 36px; height: 36px; border: none;
-      background: rgba(27,58,75,0.06); border-radius: 8px;
-      cursor: pointer; font-size: 18px; color: #4A4A4A;
+      background: #F5F7F9; border-radius: 8px;
+      cursor: pointer; font-size: 18px; color: #526675;
     }
-    .traj-popup__close:hover { background: rgba(27,58,75,0.12); }
+    .traj-popup__close:hover { background: #EEF3F6; }
     .traj-popup__body { overflow: auto; padding: 16px; display: flex; justify-content: center; }
     .traj-popup__body img { width: 100%; height: auto; border-radius: 8px; object-fit: contain; }
 
     @keyframes trajFadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes trajSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .traj-fab { animation: none; }
+      .traj-overlay, .traj-popup { animation: none; }
+    }
   `],
 })
 export class TimelineFabComponent {

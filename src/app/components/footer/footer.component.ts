@@ -5,76 +5,118 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   template: `
-    <footer class="bg-bg-secondary border-t border-glass-border py-8 desktop:py-6">
-      <div class="max-w-7xl mx-auto px-5 desktop:px-8">
-        <div class="flex flex-col items-center gap-5 desktop:flex-row desktop:justify-between desktop:items-center">
-          <!-- Copyright -->
-          <div class="text-center desktop:text-left">
-            <p class="text-text-primary text-sm font-body">
-              &copy; {{ currentYear }} Carlos Alberto Figueroa Martínez. Todos los derechos reservados.
-            </p>
-            <p class="text-text-muted text-xs mt-1 font-body">
-              Estrategia · Procesos · Tecnología · Resultados
-            </p>
-          </div>
+    <footer class="footer">
+      <div class="footer__container">
+        <div class="footer__left">
+          <p class="footer__copyright">
+            &copy; {{ currentYear }} Carlos Alberto Figueroa Martínez. Todos los derechos reservados.
+          </p>
+          <p class="footer__tagline">
+            Estrategia · Procesos · Tecnología · Resultados
+          </p>
+        </div>
 
-          <!-- Social Links -->
-          <div class="flex items-center gap-5">
-            <a
-              href="https://www.linkedin.com/in/carlos-alberto-figueroa-mart%C3%ADnez-649a462a"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Perfil de LinkedIn de Carlos Alberto Figueroa Martínez"
-              class="flex items-center gap-2 text-text-muted hover:text-accent-cyan transition-colors duration-fast"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                <rect width="4" height="12" x="2" y="9"/>
-                <circle cx="4" cy="4" r="2"/>
-              </svg>
-              <span class="text-sm">LinkedIn</span>
-            </a>
-            <a
-              href="mailto:carlosfigueroa.cf0115&#64;gmail.com"
-              aria-label="Enviar correo a Carlos Alberto Figueroa Martínez"
-              class="flex items-center gap-2 text-text-muted hover:text-accent-cyan transition-colors duration-fast"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <rect width="20" height="16" x="2" y="4" rx="2"/>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-              </svg>
-              <span class="text-sm">carlosfigueroa.cf0115&#64;gmail.com</span>
-            </a>
-          </div>
+        <div class="footer__links">
+          <a
+            href="https://www.linkedin.com/in/carlos-alberto-figueroa-mart%C3%ADnez-649a462a"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Perfil de LinkedIn"
+            class="footer__link"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect width="4" height="12" x="2" y="9"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+            <span>LinkedIn</span>
+          </a>
+          <a
+            href="mailto:carlosfigueroa.cf0115&#64;gmail.com"
+            aria-label="Enviar correo electrónico"
+            class="footer__link"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect width="20" height="16" x="2" y="4" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+            <span>carlosfigueroa.cf0115&#64;gmail.com</span>
+          </a>
         </div>
       </div>
     </footer>
   `,
   styles: [`
-    :host {
-      display: block;
+    @use 'styles/tokens' as *;
+
+    :host { display: block; }
+
+    .footer {
+      background: $color-navy-950;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding: $space-7 0;
+    }
+
+    .footer__container {
+      max-width: $container-max;
+      margin: 0 auto;
+      padding: 0 $space-4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: $space-5;
+
+      @media (min-width: $bp-tablet) {
+        padding: 0 $space-6;
+      }
+
+      @media (min-width: $bp-desktop) {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0 $space-8;
+      }
+    }
+
+    .footer__left {
+      text-align: center;
+
+      @media (min-width: $bp-desktop) {
+        text-align: left;
+      }
+    }
+
+    .footer__copyright {
+      font-family: $font-body;
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .footer__tagline {
+      font-family: $font-body;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.4);
+      margin-top: $space-1;
+    }
+
+    .footer__links {
+      display: flex;
+      align-items: center;
+      gap: $space-5;
+    }
+
+    .footer__link {
+      display: flex;
+      align-items: center;
+      gap: $space-2;
+      font-family: $font-body;
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.5);
+      text-decoration: none;
+      transition: color $anim-duration-fast $anim-easing;
+
+      &:hover {
+        color: $color-cyan-500;
+      }
     }
   `],
 })

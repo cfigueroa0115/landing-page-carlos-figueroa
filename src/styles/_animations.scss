@@ -9,11 +9,10 @@
 // Keyframe Definitions
 // -----------------------------------------------------------------------------
 
-/// Fade in from below
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -21,7 +20,6 @@
   }
 }
 
-/// Fade in from the left
 @keyframes fadeInLeft {
   from {
     opacity: 0;
@@ -33,7 +31,6 @@
   }
 }
 
-/// Fade in from the right
 @keyframes fadeInRight {
   from {
     opacity: 0;
@@ -45,69 +42,20 @@
   }
 }
 
-/// Simple fade in
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-/// Rotating gradient ring for profile photo
-@keyframes rotateRing {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/// Pulsing ring for timeline nodes
 @keyframes pulseRing {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.5);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0;
-  }
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 0; }
 }
 
-/// Subtle floating animation for metric chips
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-/// Orbital floating for keyword tags
-@keyframes orbit {
-  0% {
-    transform: translateX(0) translateY(0);
-  }
-  25% {
-    transform: translateX(10px) translateY(-10px);
-  }
-  50% {
-    transform: translateX(0) translateY(-5px);
-  }
-  75% {
-    transform: translateX(-10px) translateY(-10px);
-  }
-  100% {
-    transform: translateX(0) translateY(0);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 
 // -----------------------------------------------------------------------------
@@ -129,20 +77,12 @@
   animation: fadeIn $anim-duration-normal $anim-easing both;
 }
 
-.animate-rotate-ring {
-  animation: rotateRing 3s linear infinite;
-}
-
 .animate-pulse-ring {
   animation: pulseRing 2s $anim-easing infinite;
 }
 
 .animate-float {
   animation: float 3s $anim-easing infinite;
-}
-
-.animate-orbit {
-  animation: orbit 6s $anim-easing infinite;
 }
 
 // -----------------------------------------------------------------------------

@@ -1,4 +1,6 @@
 <section id="hero" class="hero" aria-label="Sección principal">
+  <app-hero-bg></app-hero-bg>
+
   <div class="hero__container">
     <!-- Content Column -->
     <div class="hero__content">
@@ -44,27 +46,17 @@
           </svg>
           Descargar CV
         </button>
+
+        <a class="hero__btn hero__btn--tertiary" href="#contact" (click)="$event.preventDefault(); scrollToContact()">
+          Conversemos →
+        </a>
       </div>
 
-      <!-- Secondary link -->
-      <a class="hero__secondary-link" href="#contact" (click)="$event.preventDefault(); scrollToContact()">
-        Conversemos →
-      </a>
-
-      <!-- Location tag -->
-      <p class="hero__location">
-        Bogotá D.C., Colombia · Disponible para oportunidades directivas, consultoría y colaboración académica
+      <!-- Availability tag -->
+      <p class="hero__availability">
+        <span class="hero__availability-dot"></span>
+        Disponible para oportunidades directivas, consultoría y colaboración académica
       </p>
-
-      <!-- Metrics -->
-      <div class="hero__metrics">
-        @for (metric of metrics; track metric.value) {
-          <div class="metric-card" role="group" [attr.aria-label]="metric.value + ' ' + metric.label">
-            <span class="metric-card__value">{{ metric.value }}</span>
-            <span class="metric-card__label">{{ metric.label }}</span>
-          </div>
-        }
-      </div>
 
       <!-- Download Error Message -->
       @if (downloadError()) {
@@ -74,12 +66,24 @@
 
     <!-- Photo Column -->
     <div class="hero__photo-wrapper">
-      <img
-        class="hero__photo"
-        src="assets/images/profile-photo.webp"
-        alt="Carlos Alberto Figueroa Martínez, líder en transformación empresarial e inteligencia artificial aplicada"
-        loading="eager"
-      >
+      <div class="hero__photo-frame">
+        <img
+          class="hero__photo"
+          src="assets/images/profile-photo.webp"
+          alt="Carlos Alberto Figueroa Martínez, líder en transformación empresarial e inteligencia artificial aplicada"
+          loading="eager"
+          width="400"
+          height="480"
+        >
+      </div>
+      <!-- Floating badges -->
+      <div class="hero__badge hero__badge--top">
+        <span class="hero__badge-value">18+</span>
+        <span class="hero__badge-label">años liderando transformación</span>
+      </div>
+      <div class="hero__badge hero__badge--bottom">
+        <span class="hero__badge-label">Estrategia · Procesos · Tecnología</span>
+      </div>
     </div>
   </div>
 </section>

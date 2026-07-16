@@ -1,11 +1,10 @@
 @use 'styles/tokens' as *;
 
 .education-section {
-  background-color: $color-bg-secondary;
+  background-color: $color-bg-primary;
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity $anim-duration-normal $anim-easing,
-              transform $anim-duration-normal $anim-easing;
+  transform: translateY(24px);
+  transition: opacity 450ms $anim-easing, transform 450ms $anim-easing;
 
   &.is-visible {
     opacity: 1;
@@ -13,59 +12,43 @@
   }
 }
 
-.education-heading {
-  font-family: $font-heading;
-  font-weight: $font-weight-heading;
-  font-size: $font-size-h2;
-  line-height: 1.2;
+.education-header {
   text-align: center;
-  color: $color-text-primary;
   margin-bottom: $space-8;
-
-  @media (max-width: $bp-tablet) {
-    font-size: 28px;
-    margin-bottom: $space-7;
-  }
 }
 
 .education-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: $space-8;
-  align-items: start;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-5;
+  margin-bottom: $space-8;
 
-  @media (max-width: $bp-desktop) {
+  @media (max-width: calc($bp-tablet - 1px)) {
     grid-template-columns: 1fr;
-    gap: $space-7;
   }
-}
-
-// Education Column
-.education-column {
-  display: flex;
-  flex-direction: column;
-  gap: $space-4;
 }
 
 .education-card {
   background: $color-bg-card;
-  border: 1px solid rgba($color-accent-primary, 0.06);
-  border-radius: 12px;
+  border: 1px solid $color-border;
+  border-radius: 16px;
   padding: $space-5;
-  transition: box-shadow $anim-duration-fast $anim-easing,
-              transform $anim-duration-fast $anim-easing;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  transition: transform $anim-duration-fast $anim-easing,
+              box-shadow $anim-duration-fast $anim-easing;
 
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
   }
 
   &__header {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: $space-3;
-    margin-bottom: $space-2;
+    align-items: center;
+    gap: $space-2;
+    flex-wrap: wrap;
   }
 
   &__degree {
@@ -73,112 +56,93 @@
     font-weight: $font-weight-heading;
     font-size: 1rem;
     color: $color-text-primary;
-    line-height: 1.4;
     margin: 0;
   }
 
-  &__status {
+  &__badge {
     font-family: $font-body;
     font-size: 0.6875rem;
     font-weight: $font-weight-emphasis;
-    padding: $space-1 $space-3;
+    color: $color-cyan-500;
+    background: rgba($color-cyan-500, 0.1);
+    padding: 2px 8px;
     border-radius: 12px;
-    white-space: nowrap;
-    text-transform: capitalize;
-
-    &--active {
-      background: rgba($color-accent-secondary, 0.1);
-      color: $color-accent-secondary;
-      border: 1px solid rgba($color-accent-secondary, 0.25);
-    }
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
   }
 
   &__institution {
     font-family: $font-body;
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
     color: $color-text-secondary;
-    margin: 0 0 $space-1;
-  }
-
-  &__year {
-    font-family: $font-body;
-    font-size: 0.8125rem;
-    color: $color-text-muted;
     margin: 0;
   }
-}
 
-// Certifications Column
-.certifications-column {
-  display: flex;
-  flex-direction: column;
-  gap: $space-4;
+  &__period {
+    font-family: $font-body;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: $color-text-muted;
+    margin-top: auto;
+  }
 }
 
 .certifications-title {
   font-family: $font-heading;
+  font-size: 1.25rem;
   font-weight: $font-weight-heading;
-  font-size: $font-size-h4;
   color: $color-text-primary;
-  margin: 0;
-
-  @media (max-width: $bp-tablet) {
-    font-size: 1.25rem;
-  }
+  text-align: center;
+  margin-bottom: $space-5;
 }
 
 .certifications-grid {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: $space-3;
+
+  @media (max-width: calc($bp-desktop - 1px)) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: calc($bp-tablet - 1px)) {
+    grid-template-columns: 1fr;
+  }
 }
 
-.cert-badge {
-  background: $color-bg-card;
-  border: 1px solid rgba($color-accent-primary, 0.06);
-  border-radius: 10px;
-  padding: $space-3 $space-4;
+.cert-item {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: $space-3;
-  transition: border-color $anim-duration-fast $anim-easing;
-
-  &:hover {
-    border-color: rgba($color-accent-gold, 0.25);
-  }
-
-  &__content {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    min-width: 0;
-  }
+  flex-direction: column;
+  gap: 2px;
+  padding: $space-3 $space-4;
+  background: $color-bg-secondary;
+  border: 1px solid $color-border;
+  border-radius: 10px;
 
   &__title {
     font-family: $font-body;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     font-weight: $font-weight-emphasis;
     color: $color-text-primary;
-    line-height: 1.3;
   }
 
   &__institution {
     font-family: $font-body;
-    font-size: 0.6875rem;
-    color: $color-text-muted;
+    font-size: 0.75rem;
+    color: $color-text-secondary;
   }
 
   &__year {
     font-family: $font-body;
-    font-size: 0.6875rem;
-    font-weight: $font-weight-heading;
-    color: $color-accent-gold;
-    background: rgba($color-accent-gold, 0.08);
-    border: 1px solid rgba($color-accent-gold, 0.2);
-    padding: $space-1 $space-2;
-    border-radius: 6px;
-    white-space: nowrap;
-    flex-shrink: 0;
+    font-size: 0.75rem;
+    color: $color-text-muted;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .education-section {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

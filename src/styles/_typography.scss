@@ -1,9 +1,7 @@
 // =============================================================================
 // Typography
-// Font-face declarations, heading styles, and text utilities
 // =============================================================================
 
-@use 'sass:color';
 @use 'tokens' as *;
 
 // -----------------------------------------------------------------------------
@@ -29,37 +27,10 @@ h1, h2, h3, h4, h5, h6 {
   color: $color-text-primary;
 }
 
-h1 {
-  font-size: $font-size-h1;
-
-  @media (max-width: $bp-tablet) {
-    font-size: 36px;
-  }
-}
-
-h2 {
-  font-size: $font-size-h2;
-
-  @media (max-width: $bp-tablet) {
-    font-size: 28px;
-  }
-}
-
-h3 {
-  font-size: $font-size-h3;
-
-  @media (max-width: $bp-tablet) {
-    font-size: 24px;
-  }
-}
-
-h4 {
-  font-size: $font-size-h4;
-
-  @media (max-width: $bp-tablet) {
-    font-size: 20px;
-  }
-}
+h1 { font-size: $font-size-h1; }
+h2 { font-size: $font-size-h2; }
+h3 { font-size: $font-size-h3; }
+h4 { font-size: $font-size-h4; }
 
 // -----------------------------------------------------------------------------
 // Text Utilities
@@ -71,32 +42,24 @@ h4 {
   -webkit-text-fill-color: transparent;
 }
 
-.text-secondary {
-  color: $color-text-secondary;
-}
-
-.text-muted {
-  color: $color-text-muted;
-}
-
-.text-emphasis {
-  font-weight: $font-weight-emphasis;
-}
+.text-secondary { color: $color-text-secondary; }
+.text-muted { color: $color-text-muted; }
+.text-emphasis { font-weight: $font-weight-emphasis; }
 
 // -----------------------------------------------------------------------------
 // Link Styles
 // -----------------------------------------------------------------------------
 a {
-  color: $color-accent-primary;
+  color: $color-blue-600;
   text-decoration: none;
   transition: color $anim-duration-fast $anim-easing;
 
   &:hover {
-    color: $color-accent-secondary;
+    color: $color-cyan-500;
   }
 
   &:focus-visible {
-    outline: 2px solid $color-accent-primary;
+    outline: 2px solid $color-cyan-500;
     outline-offset: 2px;
     border-radius: 2px;
   }

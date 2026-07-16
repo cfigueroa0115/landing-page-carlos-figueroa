@@ -8,13 +8,16 @@
   aria-labelledby="skills-heading"
 >
   <div class="container">
-    <h2 id="skills-heading" class="skills-heading">Capacidades y tecnologías</h2>
+    <div class="skills-header">
+      <span class="section-eyebrow">CAPACIDADES</span>
+      <h2 id="skills-heading" class="section-title">Conocimiento técnico conectado con visión de negocio</h2>
+    </div>
 
     <div class="skills-grid">
       @for (category of categories; track category.title) {
-        <article class="skill-category">
-          <h3 class="skill-category__title">{{ category.title }}</h3>
-          <div class="skill-category__tags">
+        <article class="skill-card">
+          <h3 class="skill-card__title">{{ category.title }}</h3>
+          <div class="skill-card__tags">
             @for (tag of category.tags; track tag) {
               <span class="skill-tag">{{ tag }}</span>
             }

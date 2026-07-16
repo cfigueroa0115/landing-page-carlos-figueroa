@@ -1,24 +1,37 @@
 // =============================================================================
 // Design Tokens
-// Executive landing page — Clean professional palette
+// Executive landing page — Premium dark/light palette
 // =============================================================================
 
 // -----------------------------------------------------------------------------
-// Color Palette
+// Color Palette — Navy/Dark (hero, recognition, contact)
+// -----------------------------------------------------------------------------
+$color-navy-950: #051522;
+$color-navy-900: #071A2B;
+$color-navy-800: #0B2940;
+$color-blue-700: #0B4F73;
+$color-blue-600: #146C94;
+$color-cyan-500: #16A6C7;
+$color-teal-500: #168C84;
+$color-gold-500: #C5A15A;
+
+// -----------------------------------------------------------------------------
+// Color Palette — Light (content sections)
 // -----------------------------------------------------------------------------
 $color-bg-primary: #FFFFFF;
-$color-bg-secondary: #F8F9FA;
+$color-bg-secondary: #F5F7F9;
+$color-bg-alt: #EEF3F6;
 $color-bg-card: #FFFFFF;
-$color-accent-primary: #1B3A4B;    // deep navy
-$color-accent-secondary: #2D7A9C;  // teal/cobalt accent
-$color-accent-gold: #B8860B;       // dark goldenrod for metrics only
-$color-text-primary: #1A1A1A;
-$color-text-secondary: #4A4A4A;
-$color-text-muted: #6B7280;
+$color-border: #DCE4EA;
+$color-text-primary: #102433;
+$color-text-secondary: #526675;
+$color-text-muted: #7A8B97;
 
 // Legacy aliases for backward compatibility
-$color-accent-cyan: $color-accent-primary;
-$color-accent-violet: $color-accent-secondary;
+$color-accent-primary: $color-blue-600;
+$color-accent-secondary: $color-navy-800;
+$color-accent-cyan: $color-cyan-500;
+$color-accent-gold: $color-gold-500;
 
 // -----------------------------------------------------------------------------
 // Typography
@@ -29,10 +42,10 @@ $font-size-base: 16px;
 $font-weight-body: 400;
 $font-weight-emphasis: 600;
 $font-weight-heading: 700;
-$font-size-h1: 60px;
-$font-size-h2: 40px;
-$font-size-h3: 32px;
-$font-size-h4: 24px;
+$font-size-h1: clamp(2.25rem, 5vw, 3.8rem);
+$font-size-h2: clamp(1.75rem, 3.5vw, 2.5rem);
+$font-size-h3: clamp(1.375rem, 2.5vw, 2rem);
+$font-size-h4: clamp(1.125rem, 2vw, 1.5rem);
 
 // -----------------------------------------------------------------------------
 // Spacing Scale (8px base)
@@ -46,6 +59,14 @@ $space-6: 32px;
 $space-7: 48px;
 $space-8: 64px;
 $space-9: 96px;
+$space-10: 120px;
+
+// -----------------------------------------------------------------------------
+// Section spacing
+// -----------------------------------------------------------------------------
+$section-pad-desktop: 120px;
+$section-pad-tablet: 96px;
+$section-pad-mobile: 72px;
 
 // -----------------------------------------------------------------------------
 // Glassmorphism — adapted for light theme
@@ -57,10 +78,11 @@ $glass-blur-max: 20px;
 $glass-border: 1px solid rgba(27, 58, 75, 0.1);
 
 // -----------------------------------------------------------------------------
-// Gradients — Simplified
+// Gradients
 // -----------------------------------------------------------------------------
-$gradient-accent: linear-gradient(135deg, $color-accent-primary, $color-accent-secondary);
-$gradient-text: linear-gradient(90deg, $color-accent-primary, $color-accent-secondary);
+$gradient-accent: linear-gradient(135deg, $color-blue-600, $color-cyan-500);
+$gradient-text: linear-gradient(90deg, $color-blue-600, $color-cyan-500);
+$gradient-navy: linear-gradient(180deg, $color-navy-950, $color-navy-900);
 
 // -----------------------------------------------------------------------------
 // Breakpoints
@@ -69,6 +91,11 @@ $bp-mobile: 375px;
 $bp-tablet: 768px;
 $bp-desktop: 1024px;
 $bp-wide: 1440px;
+
+// -----------------------------------------------------------------------------
+// Layout
+// -----------------------------------------------------------------------------
+$container-max: 1240px;
 
 // -----------------------------------------------------------------------------
 // Animation

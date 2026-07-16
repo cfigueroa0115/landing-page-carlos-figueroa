@@ -23,11 +23,10 @@ interface AcademicEntry {
       aria-labelledby="academic-heading"
     >
       <div class="container">
-        <h2 id="academic-heading" class="academic-heading">Liderazgo académico y formación de talento</h2>
-
-        <p class="academic-intro">
-          Integra su experiencia empresarial con la formación de nuevos profesionales, conectando la teoría con desafíos reales de productividad, transformación digital, operaciones, proyectos e innovación.
-        </p>
+        <div class="academic-header">
+          <span class="section-eyebrow">FORMACIÓN DE TALENTO</span>
+          <h2 id="academic-heading" class="section-title">Experiencia empresarial puesta al servicio de la educación</h2>
+        </div>
 
         <div class="academic-entries">
           @for (entry of entries; track entry.institution) {
@@ -51,11 +50,10 @@ interface AcademicEntry {
     @use 'styles/tokens' as *;
 
     .academic-section {
-      background-color: $color-bg-secondary;
+      background-color: $color-bg-primary;
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity $anim-duration-normal $anim-easing,
-                  transform $anim-duration-normal $anim-easing;
+      transform: translateY(24px);
+      transition: opacity 450ms $anim-easing, transform 450ms $anim-easing;
 
       &.is-visible {
         opacity: 1;
@@ -63,28 +61,9 @@ interface AcademicEntry {
       }
     }
 
-    .academic-heading {
-      font-family: $font-heading;
-      font-weight: $font-weight-heading;
-      font-size: $font-size-h2;
-      line-height: 1.2;
+    .academic-header {
       text-align: center;
-      color: $color-text-primary;
-      margin-bottom: $space-5;
-
-      @media (max-width: $bp-tablet) {
-        font-size: 28px;
-      }
-    }
-
-    .academic-intro {
-      font-family: $font-body;
-      font-size: 1.0625rem;
-      color: $color-text-secondary;
-      line-height: 1.7;
-      text-align: center;
-      max-width: 750px;
-      margin: 0 auto $space-7;
+      margin-bottom: $space-8;
     }
 
     .academic-entries {
@@ -101,8 +80,8 @@ interface AcademicEntry {
 
     .academic-entry {
       background: $color-bg-card;
-      border: 1px solid rgba($color-accent-primary, 0.06);
-      border-radius: 12px;
+      border: 1px solid $color-border;
+      border-radius: 16px;
       padding: $space-5;
       display: flex;
       flex-direction: column;
@@ -112,7 +91,7 @@ interface AcademicEntry {
 
       &:hover {
         transform: translateY(-4px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
       }
 
       &__institution {
@@ -134,7 +113,7 @@ interface AcademicEntry {
         font-family: $font-body;
         font-size: 0.8125rem;
         font-weight: $font-weight-emphasis;
-        color: $color-accent-secondary;
+        color: $color-cyan-500;
         margin-top: auto;
       }
     }
@@ -151,8 +130,8 @@ interface AcademicEntry {
       font-family: $font-body;
       font-size: 0.8125rem;
       font-weight: 500;
-      color: $color-accent-primary;
-      border: 1px solid rgba($color-accent-primary, 0.15);
+      color: $color-blue-600;
+      border: 1px solid $color-border;
       border-radius: 20px;
       white-space: nowrap;
     }

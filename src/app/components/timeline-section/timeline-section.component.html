@@ -8,7 +8,10 @@
   aria-labelledby="timeline-heading"
 >
   <div class="container">
-    <h2 id="timeline-heading" class="timeline-heading">Trayectoria ejecutiva</h2>
+    <div class="timeline-header">
+      <span class="section-eyebrow">TRAYECTORIA</span>
+      <h2 id="timeline-heading" class="section-title">Experiencia ejecutiva</h2>
+    </div>
 
     <!-- Corporate Timeline -->
     <div class="timeline">
@@ -46,7 +49,9 @@
             <div class="timeline-card__details" [class.timeline-card__details--visible]="isNodeExpanded(i)">
               <p class="timeline-card__position">{{ entry.position }}</p>
               <ul class="timeline-card__responsibilities">
-                <li *ngFor="let resp of entry.responsibilities">{{ resp }}</li>
+                @for (resp of entry.responsibilities; track resp) {
+                  <li>{{ resp }}</li>
+                }
               </ul>
             </div>
           </article>

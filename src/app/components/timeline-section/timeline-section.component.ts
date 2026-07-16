@@ -1,5 +1,4 @@
 import { Component, signal, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { IntersectionObserverDirective } from '../../directives/intersection-observer.directive';
 import { AnalyticsService } from '../../services/analytics.service';
 
@@ -17,17 +16,12 @@ interface ConsultancyEntry {
   year: number;
 }
 
-interface RecognitionEntry {
-  title: string;
-  description: string;
-}
-
 @Component({
   standalone: true,
   selector: 'app-timeline-section',
   templateUrl: './timeline-section.component.html',
   styleUrls: ['./timeline-section.component.scss'],
-  imports: [CommonModule, IntersectionObserverDirective],
+  imports: [IntersectionObserverDirective],
 })
 export class TimelineSectionComponent {
   private readonly analytics = inject(AnalyticsService);
@@ -39,7 +33,7 @@ export class TimelineSectionComponent {
       company: 'Compañía de Seguros Bolívar S.A.',
       position: 'Product Owner Senior · Builder Strategist',
       startYear: 2023,
-      endYear: 2026,
+      endYear: null,
       responsibilities: [
         'Modernización gestión documental con 95% de eficiencia',
         'Facturación electrónica con 80% reducción de tiempos',
@@ -100,10 +94,6 @@ export class TimelineSectionComponent {
     { company: 'Management and Quality SAS', client: 'Defensoría del Pueblo', year: 2023 },
     { company: 'Consultoría Estratégica Integral', client: 'MINTIC', year: 2021 },
   ];
-
-  readonly recognitions: RecognitionEntry[] = [];
-
-  readonly academicAreas: string[] = [];
 
   onSectionVisibilityChange(visible: boolean): void {
     if (visible) {

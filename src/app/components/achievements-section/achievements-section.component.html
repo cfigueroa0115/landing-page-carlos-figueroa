@@ -2,21 +2,28 @@
   id="achievements"
   class="section achievements-section"
   appInView
-  [threshold]="0.2"
+  [threshold]="0.15"
   (inView)="onVisibilityChange($event)"
   [class.is-visible]="isVisible()"
   aria-labelledby="achievements-heading"
 >
   <div class="container">
-    <h2 id="achievements-heading" class="achievements-heading">Impacto profesional</h2>
+    <div class="achievements-header">
+      <span class="section-eyebrow">RESULTADOS MEDIBLES</span>
+      <h2 id="achievements-heading" class="section-title">Transformación respaldada por impacto</h2>
+    </div>
 
-    <div class="achievements-grid" role="list" aria-label="Logros profesionales">
-      @for (achievement of achievements; track achievement.title) {
-        <article class="achievement-card" role="listitem">
-          <span class="achievement-percentage">{{ achievement.percentage }}%</span>
-          <h3 class="achievement-title">{{ achievement.title }}</h3>
-          <p class="achievement-description">{{ achievement.description }}</p>
-          <span class="achievement-company">{{ achievement.company }}</span>
+    <div class="bento-grid" role="list" aria-label="Logros profesionales">
+      @for (achievement of achievements; track achievement.title; let i = $index) {
+        <article
+          class="bento-card"
+          [class.bento-card--large]="i === 0"
+          role="listitem"
+        >
+          <span class="bento-card__percentage">{{ achievement.percentage }}%</span>
+          <h3 class="bento-card__title">{{ achievement.title }}</h3>
+          <p class="bento-card__description">{{ achievement.description }}</p>
+          <span class="bento-card__company">{{ achievement.company }}</span>
         </article>
       }
     </div>

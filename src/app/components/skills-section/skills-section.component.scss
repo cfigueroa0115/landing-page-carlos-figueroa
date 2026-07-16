@@ -1,11 +1,10 @@
 @use 'styles/tokens' as *;
 
 .skills-section {
-  background-color: $color-bg-primary;
+  background-color: $color-bg-secondary;
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity $anim-duration-normal $anim-easing,
-              transform $anim-duration-normal $anim-easing;
+  transform: translateY(24px);
+  transition: opacity 450ms $anim-easing, transform 450ms $anim-easing;
 
   &.is-visible {
     opacity: 1;
@@ -13,51 +12,45 @@
   }
 }
 
-.skills-heading {
-  font-family: $font-heading;
-  font-weight: $font-weight-heading;
-  font-size: $font-size-h2;
-  line-height: 1.2;
+.skills-header {
   text-align: center;
-  color: $color-text-primary;
   margin-bottom: $space-8;
-
-  @media (max-width: $bp-tablet) {
-    font-size: 28px;
-    margin-bottom: $space-7;
-  }
 }
 
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: $space-6;
+  gap: $space-5;
 
-  @media (max-width: 576px) {
+  @media (max-width: calc($bp-tablet - 1px)) {
     grid-template-columns: 1fr;
-    gap: $space-5;
   }
 }
 
-.skill-category {
+.skill-card {
   background: $color-bg-card;
-  border: 1px solid rgba($color-accent-primary, 0.06);
-  border-radius: 12px;
+  border: 1px solid $color-border;
+  border-radius: 16px;
   padding: $space-6;
   display: flex;
   flex-direction: column;
   gap: $space-4;
+  transition: transform $anim-duration-fast $anim-easing,
+              box-shadow $anim-duration-fast $anim-easing;
 
-  @media (max-width: $bp-tablet) {
-    padding: $space-5;
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
   }
 
   &__title {
     font-family: $font-heading;
-    font-weight: $font-weight-emphasis;
+    font-weight: $font-weight-heading;
     font-size: 1.0625rem;
     color: $color-text-primary;
     margin: 0;
+    padding-bottom: $space-3;
+    border-bottom: 2px solid $color-cyan-500;
   }
 
   &__tags {
@@ -68,20 +61,22 @@
 }
 
 .skill-tag {
-  padding: $space-2 $space-3;
+  display: inline-block;
+  padding: 6px 12px;
   font-family: $font-body;
   font-size: 0.8125rem;
   font-weight: 500;
-  color: $color-text-primary;
+  color: $color-text-secondary;
   background: $color-bg-secondary;
-  border: 1px solid rgba($color-accent-primary, 0.1);
-  border-radius: 20px;
+  border: 1px solid $color-border;
+  border-radius: 6px;
   white-space: nowrap;
-  cursor: default;
-  user-select: none;
-  transition: border-color $anim-duration-fast $anim-easing;
+}
 
-  &:hover {
-    border-color: rgba($color-accent-primary, 0.3);
+@media (prefers-reduced-motion: reduce) {
+  .skills-section {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

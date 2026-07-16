@@ -44,7 +44,7 @@ body {
 // Selection Styles
 // =============================================================================
 ::selection {
-  background: rgba($color-accent-primary, 0.15);
+  background: rgba($color-cyan-500, 0.2);
   color: $color-text-primary;
 }
 
@@ -60,11 +60,11 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba($color-accent-primary, 0.25);
+  background: rgba($color-blue-600, 0.25);
   border-radius: 4px;
 
   &:hover {
-    background: rgba($color-accent-primary, 0.4);
+    background: rgba($color-blue-600, 0.4);
   }
 }
 
@@ -72,18 +72,17 @@ body {
 // Focus Visible Styles (Accessibility)
 // =============================================================================
 :focus-visible {
-  outline: 2px solid $color-accent-primary;
+  outline: 2px solid $color-cyan-500;
   outline-offset: 2px;
 }
 
-// Ensure focus indicators are visible on all interactive elements
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
 [tabindex]:focus-visible {
-  outline: 2px solid $color-accent-primary;
+  outline: 2px solid $color-cyan-500;
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -107,7 +106,7 @@ textarea:focus-visible,
 // =============================================================================
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: $container-max;
   margin-inline: auto;
   padding-inline: $space-4;
 
@@ -121,9 +120,86 @@ textarea:focus-visible,
 }
 
 .section {
-  padding-block: $space-9;
+  padding-block: $section-pad-mobile;
 
-  @media (max-width: $bp-tablet) {
-    padding-block: $space-7;
+  @media (min-width: $bp-tablet) {
+    padding-block: $section-pad-tablet;
+  }
+
+  @media (min-width: $bp-desktop) {
+    padding-block: $section-pad-desktop;
+  }
+}
+
+// Section background alternation
+.section--light {
+  background-color: $color-bg-primary;
+}
+
+.section--gray {
+  background-color: $color-bg-secondary;
+}
+
+.section--dark {
+  background-color: $color-navy-900;
+  color: #FFFFFF;
+}
+
+// =============================================================================
+// Section Heading Pattern
+// =============================================================================
+.section-eyebrow {
+  font-family: $font-body;
+  font-size: 0.75rem;
+  font-weight: $font-weight-emphasis;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $color-cyan-500;
+  margin-bottom: $space-3;
+}
+
+.section-title {
+  font-family: $font-heading;
+  font-size: $font-size-h2;
+  font-weight: $font-weight-heading;
+  line-height: 1.2;
+  color: $color-text-primary;
+  margin-bottom: $space-6;
+}
+
+// =============================================================================
+// Reveal Animation Classes
+// =============================================================================
+.reveal-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 450ms $anim-easing, transform 450ms $anim-easing;
+
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// =============================================================================
+// Skip Link
+// =============================================================================
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: $color-navy-900;
+  color: #FFFFFF;
+  padding: $space-3 $space-5;
+  border-radius: 0 0 8px 8px;
+  font-size: 0.875rem;
+  font-weight: $font-weight-emphasis;
+  z-index: 10001;
+  text-decoration: none;
+  transition: top 0.2s ease;
+
+  &:focus {
+    top: 0;
   }
 }
