@@ -51,6 +51,14 @@
     }
   }
 
+  &__initials {
+    font-family: $font-heading;
+    font-size: 1.25rem;
+    font-weight: $font-weight-heading;
+    color: $color-accent-primary;
+    letter-spacing: -0.02em;
+  }
+
   &__logo-icon {
     width: 36px;
     height: 36px;
@@ -115,75 +123,25 @@
     }
   }
 
-  &__cta {
-    display: flex;
+  &__download-btn {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
     gap: 6px;
-    padding: 8px 20px;
-    min-width: 120px;
+    padding: 8px 18px;
     font-family: $font-body;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: $font-weight-emphasis;
     color: #FFFFFF;
+    background: $color-accent-primary;
+    border: none;
     border-radius: 8px;
-    text-decoration: none;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s $anim-easing,
-                box-shadow 0.3s $anim-easing;
-
-    // Shine sweep animation
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 50%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-      animation: btnShineSweep 3s ease-in-out infinite;
-      pointer-events: none;
-    }
+    cursor: pointer;
+    transition: transform $anim-duration-fast $anim-easing,
+                box-shadow $anim-duration-fast $anim-easing;
 
     &:hover {
-      transform: translateY(-2px) scale(1.05);
-    }
-
-    // LinkedIn — azul profesional
-    &--linkedin {
-      background: linear-gradient(135deg, #0077B5, #005885);
-      box-shadow: 0 2px 12px rgba(0, 119, 181, 0.3), 0 0 20px rgba(0, 119, 181, 0.1);
-
-      &:hover {
-        box-shadow: 0 4px 20px rgba(0, 119, 181, 0.5), 0 0 30px rgba(0, 119, 181, 0.2);
-      }
-
-      &::after { animation-delay: 0s; }
-    }
-
-    // WhatsApp — verde vibrante
-    &--whatsapp {
-      background: linear-gradient(135deg, #25D366, #128C7E);
-      box-shadow: 0 2px 12px rgba(37, 211, 102, 0.3), 0 0 20px rgba(37, 211, 102, 0.1);
-
-      &:hover {
-        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5), 0 0 30px rgba(37, 211, 102, 0.2);
-      }
-
-      &::after { animation-delay: 1s; }
-    }
-
-    // Email — dorado/bronce cálido
-    &--email {
-      background: linear-gradient(135deg, #C4922A, #8B5E3C);
-      box-shadow: 0 2px 12px rgba(196, 146, 42, 0.3), 0 0 20px rgba(196, 146, 42, 0.1);
-
-      &:hover {
-        box-shadow: 0 4px 20px rgba(196, 146, 42, 0.5), 0 0 30px rgba(196, 146, 42, 0.2);
-      }
-
-      &::after { animation-delay: 2s; }
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba($color-accent-primary, 0.25);
     }
   }
 }
@@ -283,44 +241,28 @@
     }
   }
 
-  &__ctas {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: $space-3;
-    margin-top: $space-6;
-    width: 100%;
-    max-width: 280px;
-  }
-
-  &__cta {
-    display: flex;
+  &__download {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: $space-2;
     width: 100%;
+    max-width: 280px;
     padding: $space-3 $space-5;
     font-family: $font-body;
     font-size: 15px;
     font-weight: $font-weight-emphasis;
     color: #FFFFFF;
+    background: $color-accent-primary;
+    border: none;
     border-radius: 10px;
-    text-decoration: none;
+    cursor: pointer;
+    margin-top: $space-6;
     transition: transform 0.3s $anim-easing, box-shadow 0.3s $anim-easing;
 
-    &:hover { transform: scale(1.03); }
-
-    &--linkedin {
-      background: linear-gradient(135deg, #0077B5, #005885);
-      box-shadow: 0 4px 16px rgba(0, 119, 181, 0.3);
-    }
-    &--whatsapp {
-      background: linear-gradient(135deg, #25D366, #128C7E);
-      box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
-    }
-    &--email {
-      background: linear-gradient(135deg, #C4922A, #8B5E3C);
-      box-shadow: 0 4px 16px rgba(196, 146, 42, 0.3);
+    &:hover {
+      transform: scale(1.03);
+      box-shadow: 0 4px 16px rgba($color-accent-primary, 0.25);
     }
   }
 }
@@ -336,9 +278,4 @@
   to {
     opacity: 1;
   }
-}
-
-@keyframes btnShineSweep {
-  0%, 100% { left: -100%; opacity: 0; }
-  50% { left: 100%; opacity: 1; }
 }

@@ -1,80 +1,61 @@
 import { Component, signal, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CountUpDirective } from '../../directives/count-up.directive';
 import { IntersectionObserverDirective } from '../../directives/intersection-observer.directive';
-import { Achievement } from '../../models/achievement.interface';
 import { AnalyticsService } from '../../services/analytics.service';
 
-/**
- * AchievementsSectionComponent — Displays 7 glassmorphism cards with
- * animated count-up percentages in a responsive grid layout.
- *
- * Features:
- * - 7 achievement cards with glassmorphism effect
- * - Count-up animation triggered at 50% visibility (once per page load)
- * - Responsive grid: 3-col desktop, 2-col tablet, 1-col mobile
- * - Hover: translateY(-8px) + colored glow
- * - Touch: tap toggle for the hover effect
- * - Count-up completes within 2 seconds per card
- */
+interface AchievementItem {
+  percentage: number;
+  title: string;
+  description: string;
+  company: string;
+}
+
 @Component({
   standalone: true,
   selector: 'app-achievements-section',
-  imports: [CommonModule, CountUpDirective, IntersectionObserverDirective],
+  imports: [IntersectionObserverDirective],
   templateUrl: './achievements-section.component.html',
   styleUrls: ['./achievements-section.component.scss'],
 })
 export class AchievementsSectionComponent {
   private readonly analytics = inject(AnalyticsService);
-  /** Controls animation trigger when section enters viewport */
   isVisible = signal<boolean>(false);
 
-  /** Tracks which card is currently active on touch devices */
-  activeTouchCard = signal<number | null>(null);
-
-  /** All 7 achievement metrics data */
-  readonly achievements: (Achievement & { description: string })[] = [
+  readonly achievements: AchievementItem[] = [
     {
       percentage: 95,
-      title: 'Modernización gestión documental',
-      description: 'IBM FileNet → AWS/Oracle/Angular/Java',
+      title: 'Modernización tecnológica',
+      description: 'Modernización del sistema core de gestión documental mediante la migración de IBM FileNet hacia arquitecturas con AWS, Oracle, Angular y Java.',
       company: 'Seguros Bolívar',
     },
     {
       percentage: 80,
-      title: 'Facturación electrónica + portal autogestión',
-      description: 'Reducción tiempos de procesamiento',
+      title: 'Reducción de tiempos',
+      description: 'Implementación de facturación electrónica y portal transaccional de autogestión para intermediarios.',
       company: 'Seguros Bolívar',
     },
     {
       percentage: 90,
-      title: 'Modelo SmartOps automatización integral',
-      description: 'Procesos core del negocio',
-      company: 'Beneficiar Cooperativa',
+      title: 'Eficiencia operativa',
+      description: 'Diseño e implementación de un modelo SmartOps para automatización integral de procesos core.',
+      company: 'Beneficiar Entidad Cooperativa',
     },
     {
       percentage: 85,
-      title: 'Automatización BPM + Oracle SOA Suite 12C',
-      description: 'Eficiencia operativa transversal',
-      company: 'Outsourcing S.A.',
-    },
-    {
-      percentage: 100,
-      title: 'Portafolio estratégico tecnología',
-      description: 'Gestión y cierre de proyectos',
+      title: 'Automatización transversal',
+      description: 'Implementación de BPM y Oracle SOA Suite 12C para optimizar procesos y habilitar crecimiento operacional.',
       company: 'Outsourcing S.A.',
     },
     {
       percentage: 98,
-      title: 'Soluciones fintech y productos digitales',
-      description: 'PSE, crédito web, pagarés',
-      company: 'Indra Tecnocom',
+      title: 'Experiencia y satisfacción',
+      description: 'Desarrollo de soluciones fintech, integración PSE, originación de crédito web y pagarés desmaterializados.',
+      company: 'Indra–Tecnocom',
     },
     {
       percentage: 40,
-      title: 'Consultoría digital sector público',
-      description: 'Defensoría del Pueblo',
-      company: 'Management & Quality',
+      title: 'Mejora en eficacia operativa',
+      description: 'Optimización de procesos y servicios digitales para una entidad del sector público mediante BPMS y Bizagi.',
+      company: 'Defensoría del Pueblo',
     },
   ];
 
@@ -83,24 +64,5 @@ export class AchievementsSectionComponent {
       this.isVisible.set(true);
       this.analytics.trackSectionView('achievements');
     }
-  }
-
-  /**
-   * Handles touch tap toggle for mobile devices.
-   * Tapping a card activates it; tapping again or tapping another card deactivates it.
-   */
-  onCardTap(index: number): void {
-    if (this.activeTouchCard() === index) {
-      this.activeTouchCard.set(null);
-    } else {
-      this.activeTouchCard.set(index);
-    }
-  }
-
-  /**
-   * Checks if a card is currently active via touch.
-   */
-  isCardActive(index: number): boolean {
-    return this.activeTouchCard() === index;
   }
 }

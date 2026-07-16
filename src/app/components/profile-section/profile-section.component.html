@@ -8,21 +8,32 @@
   aria-labelledby="profile-heading"
 >
   <div class="container profile-container">
-    <!-- Left Column: Professional Summary -->
+    <!-- Left Column: Summary -->
     <div class="profile-summary">
-      <h2 id="profile-heading" class="text-gradient profile-heading">Perfil Profesional</h2>
-      <p class="profile-text">{{ summary }}</p>
+      <h2 id="profile-heading" class="profile-heading">Perfil ejecutivo</h2>
+
+      <p class="profile-text">
+        Profesional con más de 18 años de trayectoria liderando iniciativas de modernización tecnológica, automatización inteligente, excelencia operativa e innovación aplicada al negocio. Ha gestionado proyectos estratégicos con mejoras de eficiencia de hasta el 95% y reducciones de tiempos de procesamiento de hasta el 80%, fortaleciendo la productividad, la experiencia del cliente y la capacidad de respuesta organizacional.
+      </p>
+
+      <p class="profile-text">
+        Su experiencia integra inteligencia artificial aplicada, gestión de producto y portafolios, BPM, mejora continua, analítica de datos, agilidad y evolución de modelos operativos. Se distingue por articular negocio, tecnología, operaciones, proveedores y equipos multidisciplinarios para convertir necesidades empresariales complejas en soluciones viables, escalables y medibles.
+      </p>
+
+      <p class="profile-credentials">
+        Ingeniero Industrial · Especialista en Gerencia Financiera · Magíster en Alta Dirección · Doctorando en Administración de Empresas
+      </p>
     </div>
 
-    <!-- Right Column: Orbiting Keyword Tags -->
-    <ul class="profile-tags-orbit" aria-label="Competencias clave">
-      <li
-        *ngFor="let tag of keywordTags; let i = index"
-        class="orbit-tag"
-        [style.animation-delay]="(i * 0.375) + 's'"
-      >
-        {{ tag }}
-      </li>
-    </ul>
+    <!-- Right Column: Value Pillar Cards -->
+    <div class="profile-pillars">
+      @for (pillar of pillars; track pillar.title) {
+        <article class="pillar-card">
+          <div class="pillar-card__icon" [innerHTML]="pillar.icon"></div>
+          <h3 class="pillar-card__title">{{ pillar.title }}</h3>
+          <p class="pillar-card__text">{{ pillar.description }}</p>
+        </article>
+      }
+    </div>
   </div>
 </section>

@@ -9,8 +9,8 @@
 @use 'styles/typography';
 @use 'styles/animations';
 
-// Google Fonts: Inter (body) + Bricolage Grotesque (headings)
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700&family=Inter:wght@400;600&display=swap');
+// Google Fonts: Inter (body + headings)
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 // Tailwind CSS layers
 @tailwind base;
@@ -56,15 +56,15 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: $color-bg-primary;
+  background: $color-bg-secondary;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba($color-accent-primary, 0.2);
+  background: rgba($color-accent-primary, 0.25);
   border-radius: 4px;
 
   &:hover {
-    background: rgba($color-accent-primary, 0.35);
+    background: rgba($color-accent-primary, 0.4);
   }
 }
 
@@ -107,7 +107,7 @@ textarea:focus-visible,
 // =============================================================================
 .container {
   width: 100%;
-  max-width: $bp-wide;
+  max-width: 1200px;
   margin-inline: auto;
   padding-inline: $space-4;
 
@@ -125,32 +125,5 @@ textarea:focus-visible,
 
   @media (max-width: $bp-tablet) {
     padding-block: $space-7;
-  }
-}
-
-// =============================================================================
-// Mobile Responsive Centering Fix
-// =============================================================================
-@media (max-width: $bp-tablet) {
-  .section {
-    text-align: center;
-  }
-
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  // Ensure all section headings are centered
-  .text-gradient,
-  h2, h3 {
-    text-align: center;
-    width: 100%;
-  }
-
-  // Ensure grids center their content
-  .section .container > * {
-    width: 100%;
   }
 }

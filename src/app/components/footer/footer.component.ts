@@ -11,10 +11,10 @@ import { Component } from '@angular/core';
           <!-- Copyright -->
           <div class="text-center desktop:text-left">
             <p class="text-text-primary text-sm font-body">
-              &copy; 2025 Carlos Alberto Figueroa Martínez. Todos los derechos reservados.
+              &copy; {{ currentYear }} Carlos Alberto Figueroa Martínez. Todos los derechos reservados.
             </p>
             <p class="text-text-muted text-xs mt-1 font-body">
-              Diseñado con propósito estratégico
+              Estrategia · Procesos · Tecnología · Resultados
             </p>
           </div>
 
@@ -78,4 +78,6 @@ import { Component } from '@angular/core';
     }
   `],
 })
-export class FooterComponent {}
+export class FooterComponent {
+  readonly currentYear = new Date().getFullYear();
+}

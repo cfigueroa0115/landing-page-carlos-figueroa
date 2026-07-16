@@ -1,19 +1,12 @@
 @use 'styles/tokens' as *;
-@use 'styles/glassmorphism' as glass;
-
-// =============================================================================
-// Hero Section Component Styles
-// =============================================================================
 
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: 85vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
   padding: $space-9 $space-4 $space-7;
-  overflow: hidden;
+  background: $color-bg-primary;
 
   @media (min-width: $bp-tablet) {
     padding: $space-9 $space-6;
@@ -32,25 +25,13 @@
     width: 100%;
     margin-inline: auto;
 
-    // Tablet: single-column centered
-    @media (min-width: $bp-tablet) and (max-width: calc($bp-desktop - 1px)) {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    // Desktop: 60/40 layout (content left, photo right)
     @media (min-width: $bp-desktop) {
       flex-direction: row;
       align-items: center;
-      justify-content: space-between;
       gap: $space-8;
     }
   }
 
-  // ---------------------------------------------------------------------------
-  // Content Column
-  // ---------------------------------------------------------------------------
   &__content {
     display: flex;
     flex-direction: column;
@@ -58,104 +39,66 @@
     text-align: center;
     order: 2;
 
-    @media (min-width: $bp-tablet) and (max-width: calc($bp-desktop - 1px)) {
-      order: 2;
-      align-items: center;
-      max-width: 640px;
-    }
-
     @media (min-width: $bp-desktop) {
       order: 1;
-      flex: 0 0 60%;
+      flex: 0 0 55%;
       align-items: flex-start;
       text-align: left;
     }
   }
 
-  &__name {
+  &__eyebrow {
+    font-family: $font-body;
+    font-size: 0.75rem;
+    font-weight: $font-weight-emphasis;
+    letter-spacing: 0.1em;
+    color: $color-accent-secondary;
+    text-transform: uppercase;
+    margin-bottom: $space-4;
+  }
+
+  &__title {
     font-family: $font-heading;
-    font-size: clamp(28px, 3.8vw, 48px);
+    font-size: clamp(32px, 4.5vw, $font-size-h1);
     font-weight: $font-weight-heading;
     line-height: 1.1;
-    background: $gradient-text;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: $color-text-primary;
     margin-bottom: $space-4;
     letter-spacing: -0.02em;
-    white-space: nowrap;
-
-    @media (max-width: $bp-tablet) {
-      white-space: normal;
-      font-size: clamp(26px, 7vw, 36px);
-    }
   }
 
-  &__subtitle {
-    font-family: $font-body;
-    font-size: clamp(20px, 2.5vw, 28px);
-    font-weight: $font-weight-emphasis;
-    color: $color-accent-secondary;
-    min-height: 1.4em;
-    margin-bottom: $space-4;
-    display: flex;
-    align-items: center;
-    gap: 2px;
-    white-space: nowrap;
-
-    @media (max-width: $bp-tablet) {
-      white-space: normal;
-      font-size: clamp(18px, 5vw, 22px);
-    }
-  }
-
-  &__cursor {
-    display: inline-block;
-    color: $color-accent-secondary;
-    animation: blink 1s step-end infinite;
-  }
-
-  &__tagline {
+  &__descriptor {
     font-family: $font-body;
     font-size: clamp(16px, 1.8vw, 20px);
-    font-weight: $font-weight-body;
+    font-weight: 500;
+    color: $color-accent-primary;
+    margin-bottom: $space-4;
+  }
+
+  &__text {
+    font-family: $font-body;
+    font-size: clamp(15px, 1.5vw, 17px);
     color: $color-text-secondary;
-    line-height: 1.5;
-    max-width: 700px;
-    margin-bottom: $space-6;
-    white-space: nowrap;
-
-    @media (max-width: $bp-desktop) {
-      white-space: normal;
-      max-width: 540px;
-    }
+    line-height: 1.7;
+    max-width: 600px;
+    margin-bottom: $space-3;
   }
 
-  // ---------------------------------------------------------------------------
-  // Metric Chips
-  // ---------------------------------------------------------------------------
-  &__metrics {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: $space-3;
+  &__value-prop {
+    font-family: $font-body;
+    font-size: clamp(15px, 1.5vw, 17px);
+    font-weight: 500;
+    color: $color-text-primary;
+    line-height: 1.6;
     margin-bottom: $space-6;
-    width: 100%;
-    max-width: 480px;
-
-    @media (min-width: $bp-desktop) {
-      grid-template-columns: repeat(4, 1fr);
-      max-width: 100%;
-    }
   }
 
-  // ---------------------------------------------------------------------------
-  // CTA Buttons
-  // ---------------------------------------------------------------------------
   &__ctas {
     display: flex;
     flex-wrap: wrap;
     gap: $space-4;
     align-items: center;
+    margin-bottom: $space-4;
 
     @media (max-width: calc($bp-tablet - 1px)) {
       justify-content: center;
@@ -171,87 +114,80 @@
     font-family: $font-body;
     font-size: 15px;
     font-weight: $font-weight-emphasis;
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: pointer;
     transition: transform $anim-duration-fast $anim-easing,
-                box-shadow $anim-duration-fast $anim-easing,
-                opacity $anim-duration-fast $anim-easing;
+                box-shadow $anim-duration-fast $anim-easing;
+    border: none;
 
     &:hover {
       transform: translateY(-2px);
     }
 
-    &:active {
-      transform: translateY(0);
-    }
-
-    &--outline {
-      background: linear-gradient(135deg, #1B3A4B, #2D5A6B);
+    &--primary {
+      background: $color-accent-primary;
       color: #FFFFFF;
-      border: none;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 2px 16px rgba(27, 58, 75, 0.25),
-                  0 0 24px rgba(27, 58, 75, 0.1);
-
-      // Animated shine sweep
-      &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 60%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-        animation: cvBtnShine 3.5s ease-in-out infinite;
-        pointer-events: none;
-      }
-
-      // Pulsing glow border
-      &::after {
-        content: '';
-        position: absolute;
-        inset: -2px;
-        border-radius: 12px;
-        background: linear-gradient(135deg, rgba(27, 58, 75, 0.6), rgba(196, 146, 42, 0.4));
-        z-index: -1;
-        animation: cvGlowPulse 2.5s ease-in-out infinite;
-      }
 
       &:hover {
-        transform: translateY(-3px) scale(1.04);
-        box-shadow: 0 6px 28px rgba(27, 58, 75, 0.4),
-                    0 0 40px rgba(196, 146, 42, 0.15);
+        box-shadow: 0 4px 16px rgba($color-accent-primary, 0.25);
       }
     }
 
-    &--gradient {
-      background: $gradient-accent;
-      color: #FFFFFF;
-      border: none;
+    &--secondary {
+      background: transparent;
+      color: $color-accent-primary;
+      border: 1.5px solid $color-accent-primary;
 
       &:hover {
-        opacity: 0.9;
-        box-shadow: 0 4px 20px rgba($color-accent-secondary, 0.2);
+        background: rgba($color-accent-primary, 0.04);
+        box-shadow: 0 4px 12px rgba($color-accent-primary, 0.1);
       }
     }
   }
 
-  // ---------------------------------------------------------------------------
-  // Download Error
-  // ---------------------------------------------------------------------------
+  &__secondary-link {
+    font-family: $font-body;
+    font-size: 14px;
+    font-weight: 500;
+    color: $color-accent-secondary;
+    text-decoration: none;
+    margin-bottom: $space-5;
+    transition: color $anim-duration-fast $anim-easing;
+
+    &:hover {
+      color: $color-accent-primary;
+    }
+  }
+
+  &__location {
+    font-family: $font-body;
+    font-size: 13px;
+    color: $color-text-muted;
+    margin-bottom: $space-6;
+    max-width: 500px;
+  }
+
+  &__metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-3;
+    width: 100%;
+    max-width: 420px;
+
+    @media (min-width: $bp-desktop) {
+      grid-template-columns: repeat(4, 1fr);
+      max-width: 100%;
+    }
+  }
+
   &__error {
     margin-top: $space-3;
     font-size: 13px;
-    color: #ff6b6b;
+    color: #dc2626;
     font-family: $font-body;
   }
 
-  // ---------------------------------------------------------------------------
-  // Photo Column
-  // ---------------------------------------------------------------------------
   &__photo-wrapper {
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -259,218 +195,54 @@
 
     @media (min-width: $bp-desktop) {
       order: 2;
-      flex: 0 0 40%;
+      flex: 0 0 45%;
     }
-  }
-
-  &__photo-ring {
-    display: none; // Removed — no rotating ring
   }
 
   &__photo {
-    position: relative;
-    z-index: 1;
-    width: clamp(280px, 38vw, 420px);
+    width: clamp(260px, 35vw, 400px);
     height: auto;
-    border-radius: 16px;
+    border-radius: 12px;
     object-fit: cover;
     object-position: top center;
-    border: none;
-    box-shadow: 0 12px 48px rgba(27, 58, 75, 0.14),
-                0 4px 16px rgba(0, 0, 0, 0.06);
-    transition: box-shadow $anim-duration-fast $anim-easing;
-
-    &:hover {
-      box-shadow: 0 16px 56px rgba(27, 58, 75, 0.18),
-                  0 6px 20px rgba(0, 0, 0, 0.08);
-    }
-  }
-
-  // ---------------------------------------------------------------------------
-  // Scroll Indicator
-  // ---------------------------------------------------------------------------
-  &__scroll-indicator {
-    position: absolute;
-    bottom: $space-6;
-    left: 50%;
-    transform: translateX(-50%);
-    color: $color-text-muted;
-    animation: bounce 2s ease-in-out infinite;
-    cursor: default;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08),
+                0 4px 12px rgba(0, 0, 0, 0.04);
   }
 }
 
-// =============================================================================
-// Metric Chip
-// =============================================================================
-
-.metric-chip {
+// Metric Cards
+.metric-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: $space-5 $space-4;
+  padding: $space-4 $space-3;
   text-align: center;
-  background: #FFFFFF;
-  border: 1px solid rgba(27, 58, 75, 0.08);
-  border-radius: 16px;
-  position: relative;
-  overflow: hidden;
-  cursor: default;
-  transition: transform 0.4s $anim-easing,
-              box-shadow 0.4s $anim-easing,
-              border-color 0.4s $anim-easing,
-              background 0.4s $anim-easing;
+  background: $color-bg-card;
+  border: 1px solid rgba($color-accent-primary, 0.08);
+  border-radius: 10px;
+  transition: box-shadow $anim-duration-fast $anim-easing;
 
-  // Permanent subtle glow
-  box-shadow: 0 0 20px rgba(27, 58, 75, 0.06),
-              0 4px 12px rgba(0, 0, 0, 0.04),
-              inset 0 0 30px rgba(196, 146, 42, 0.03);
-
-  // Animated shimmer/shine effect
-  &::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: conic-gradient(
-      from 0deg,
-      transparent 0%,
-      rgba(196, 146, 42, 0.08) 10%,
-      transparent 20%,
-      transparent 80%,
-      rgba(27, 58, 75, 0.06) 90%,
-      transparent 100%
-    );
-    animation: shimmerRotate 6s linear infinite;
-    pointer-events: none;
-  }
-
-  // Shine sweep effect
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.4),
-      transparent
-    );
-    animation: shineSweep 4s ease-in-out infinite;
-    pointer-events: none;
-  }
-
-  // Staggered animation delays for each chip
-  &:nth-child(1)::after { animation-delay: 0s; }
-  &:nth-child(2)::after { animation-delay: 1s; }
-  &:nth-child(3)::after { animation-delay: 2s; }
-  &:nth-child(4)::after { animation-delay: 3s; }
-
-  &:nth-child(1)::before { animation-delay: 0s; }
-  &:nth-child(2)::before { animation-delay: 1.5s; }
-  &:nth-child(3)::before { animation-delay: 3s; }
-  &:nth-child(4)::before { animation-delay: 4.5s; }
-
-  // Hover: lift + stronger glow + color change
   &:hover {
-    transform: translateY(-8px) scale(1.03);
-    border-color: rgba(196, 146, 42, 0.4);
-    background: linear-gradient(135deg, #FFFFFF 0%, #FDF8F0 100%);
-    box-shadow: 0 0 30px rgba(196, 146, 42, 0.2),
-                0 12px 32px rgba(27, 58, 75, 0.12),
-                0 0 60px rgba(196, 146, 42, 0.08);
-
-    .metric-chip__value {
-      color: $color-accent-gold;
-      text-shadow: 0 0 20px rgba(196, 146, 42, 0.3);
-    }
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   }
 
   &__value {
     font-family: $font-heading;
-    font-size: clamp(24px, 3vw, 36px);
+    font-size: clamp(20px, 2.5vw, 28px);
     font-weight: $font-weight-heading;
     color: $color-accent-primary;
     line-height: 1.1;
-    position: relative;
-    z-index: 1;
-    transition: color 0.4s $anim-easing, text-shadow 0.4s $anim-easing;
   }
 
   &__label {
     font-family: $font-body;
-    font-size: clamp(11px, 1vw, 13px);
-    font-weight: $font-weight-emphasis;
+    font-size: clamp(10px, 0.9vw, 12px);
+    font-weight: 500;
     color: $color-text-secondary;
-    margin-top: $space-2;
+    margin-top: $space-1;
     line-height: 1.3;
-    position: relative;
-    z-index: 1;
     text-transform: uppercase;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.02em;
   }
-}
-
-// =============================================================================
-// Keyframes
-// =============================================================================
-
-@keyframes shimmerRotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes shineSweep {
-  0%, 100% { left: -100%; opacity: 0; }
-  50% { left: 100%; opacity: 1; }
-}
-
-// =============================================================================
-// Keyframes
-// =============================================================================
-
-@keyframes blink {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateX(-50%) translateY(0);
-  }
-  40% {
-    transform: translateX(-50%) translateY(-10px);
-  }
-  60% {
-    transform: translateX(-50%) translateY(-5px);
-  }
-}
-
-@keyframes cvBtnShine {
-  0%, 100% { left: -100%; opacity: 0; }
-  50% { left: 100%; opacity: 1; }
-}
-
-@keyframes cvGlowPulse {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.02); }
 }

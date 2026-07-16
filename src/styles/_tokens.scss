@@ -1,20 +1,20 @@
 // =============================================================================
 // Design Tokens
-// Premium executive landing page visual identity system
+// Executive landing page — Clean professional palette
 // =============================================================================
 
 // -----------------------------------------------------------------------------
-// Color Palette — Warm, Sober, Masculine
+// Color Palette
 // -----------------------------------------------------------------------------
-$color-bg-primary: #F5F0EB;          // warm ivory/cream
-$color-bg-secondary: #EDE8E2;        // slightly darker warm beige
-$color-bg-card: #FFFFFF;             // white cards
-$color-accent-primary: #1B3A4B;      // deep navy-teal (primary accent)
-$color-accent-secondary: #8B5E3C;    // warm bronze/terracotta
-$color-accent-gold: #C4922A;         // rich gold
-$color-text-primary: #1A1A1A;        // near-black for text
-$color-text-secondary: #4A4A4A;      // dark gray
-$color-text-muted: #7A7A7A;          // medium gray
+$color-bg-primary: #FFFFFF;
+$color-bg-secondary: #F8F9FA;
+$color-bg-card: #FFFFFF;
+$color-accent-primary: #1B3A4B;    // deep navy
+$color-accent-secondary: #2D7A9C;  // teal/cobalt accent
+$color-accent-gold: #B8860B;       // dark goldenrod for metrics only
+$color-text-primary: #1A1A1A;
+$color-text-secondary: #4A4A4A;
+$color-text-muted: #6B7280;
 
 // Legacy aliases for backward compatibility
 $color-accent-cyan: $color-accent-primary;
@@ -24,12 +24,12 @@ $color-accent-violet: $color-accent-secondary;
 // Typography
 // -----------------------------------------------------------------------------
 $font-body: 'Inter', system-ui, -apple-system, sans-serif;
-$font-heading: 'Bricolage Grotesque', system-ui, -apple-system, sans-serif;
+$font-heading: 'Inter', system-ui, -apple-system, sans-serif;
 $font-size-base: 16px;
 $font-weight-body: 400;
 $font-weight-emphasis: 600;
 $font-weight-heading: 700;
-$font-size-h1: 56px;
+$font-size-h1: 60px;
 $font-size-h2: 40px;
 $font-size-h3: 32px;
 $font-size-h4: 24px;
@@ -57,11 +57,10 @@ $glass-blur-max: 20px;
 $glass-border: 1px solid rgba(27, 58, 75, 0.1);
 
 // -----------------------------------------------------------------------------
-// Gradients — Warm tones
+// Gradients — Simplified
 // -----------------------------------------------------------------------------
 $gradient-accent: linear-gradient(135deg, $color-accent-primary, $color-accent-secondary);
 $gradient-text: linear-gradient(90deg, $color-accent-primary, $color-accent-secondary);
-$gradient-ring: conic-gradient(from 0deg, $color-accent-primary, $color-accent-gold, $color-accent-primary);
 
 // -----------------------------------------------------------------------------
 // Breakpoints

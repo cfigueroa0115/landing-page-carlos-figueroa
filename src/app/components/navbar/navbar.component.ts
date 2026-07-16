@@ -7,50 +7,40 @@ import {
   OnInit,
   OnDestroy,
 } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { LucideMenu, LucideX } from '@lucide/angular';
+import { isPlatformBrowser } from '@angular/common';
 import { ScrollService } from '../../services/scroll.service';
 import { AnalyticsService } from '../../services/analytics.service';
-import { NavLink } from '../../models/nav-link.interface';
+
+interface NavLink {
+  label: string;
+  sectionId: string;
+}
 
 @Component({
   standalone: true,
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
-  imports: [CommonModule, LucideMenu, LucideX],
+  imports: [],
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   private readonly scrollService = inject(ScrollService);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly analytics = inject(AnalyticsService);
 
-  /** True when scroll position exceeds 50px */
   isScrolled = computed(() => this.scrollService.scrollPosition() > 50);
-
-  /** Mobile menu open state */
   isMobileMenuOpen = signal<boolean>(false);
-
-  /** Active section for highlighting current nav link */
   activeSection = computed(() => this.scrollService.activeSection());
 
-  /** Navigation links */
   readonly navLinks: NavLink[] = [
+    { label: 'Inicio', sectionId: 'hero' },
     { label: 'Perfil', sectionId: 'profile' },
-    { label: 'Logros', sectionId: 'achievements' },
-    { label: 'Experiencia', sectionId: 'timeline' },
-    { label: 'Skills', sectionId: 'skills' },
-    { label: 'Educación', sectionId: 'education' },
+    { label: 'Impacto', sectionId: 'achievements' },
+    { label: 'Trayectoria', sectionId: 'timeline' },
+    { label: 'Capacidades', sectionId: 'skills' },
+    { label: 'Formación', sectionId: 'education' },
     { label: 'Contacto', sectionId: 'contact' },
   ];
-
-  /** LinkedIn profile URL */
-  readonly linkedInUrl =
-    'https://www.linkedin.com/in/carlos-alberto-figueroa-mart%C3%ADnez-649a462a';
-
-  /** WhatsApp URL with pre-filled message */
-  readonly whatsappUrl =
-    'https://wa.me/573005091114?text=' + encodeURIComponent('¡Hola, he visto tu perfil profesional y tu landing page, nos interesa mucho poder contactar contigo para programar un espacio de diálogo!, gracias');
 
   private outsideClickListener: ((event: MouseEvent) => void) | null = null;
 
@@ -60,7 +50,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
         if (this.isMobileMenuOpen()) {
           const target = event.target as HTMLElement;
           const hamburger = target.closest('.hamburger-btn');
-          // Close if clicking the overlay backdrop (not the nav content inside)
           if (!target.closest('.mobile-nav-content') && !hamburger) {
             this.closeMobileMenu();
           }
@@ -89,5 +78,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.scrollService.scrollToSection(sectionId);
     this.analytics.trackClick('nav_' + sectionId);
     this.closeMobileMenu();
+  }
+
+  downloadCV(): void {
+    this.analytics.trackDownloadCV();
+    if (isPlatformBrowser(this.platformId)) {
+      const link = document.createElement('a');
+      link.href = 'assets/documents/cv-carlos-figueroa.pdf';
+      link.download = 'CV-Carlos-Figueroa.pdf';
+      link.target = '_blank';
+      link.click();
+    }
   }
 }

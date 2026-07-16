@@ -1,120 +1,85 @@
-<section id="hero" class="hero" #heroSection aria-label="Sección principal">
+<section id="hero" class="hero" aria-label="Sección principal">
   <div class="hero__container">
-    <!-- Content Column (Left on desktop) -->
+    <!-- Content Column -->
     <div class="hero__content">
-      <h1 class="hero__name" #animateEl>
-        Carlos Alberto Figueroa Martínez
+      <span class="hero__eyebrow">CARLOS ALBERTO FIGUEROA MARTÍNEZ</span>
+
+      <h1 class="hero__title">
+        Transformo estrategia, procesos y tecnología en resultados medibles.
       </h1>
 
-      <p class="hero__subtitle" #animateEl aria-label="Títulos profesionales rotativos">
-        <span
-          appTypewriter
-          [titles]="titles"
-          [typingSpeed]="80"
-          [pauseDuration]="2000"
-        ></span>
-        <span class="hero__cursor" aria-hidden="true">|</span>
+      <p class="hero__descriptor">
+        Líder en Transformación Empresarial · IA Aplicada · Excelencia Operativa
       </p>
 
-      <p class="hero__tagline" #animateEl>
-        18+ años convirtiendo desafíos empresariales complejos en soluciones
-        escalables, medibles y sostenibles
+      <p class="hero__text">
+        Más de 18 años liderando modernización tecnológica, automatización inteligente, gestión de producto y evolución de modelos operativos en organizaciones de alta complejidad.
       </p>
 
-      <!-- Metric Chips -->
-      <div class="hero__metrics" #animateEl>
+      <p class="hero__value-prop">
+        Conecto las necesidades del negocio con soluciones viables, escalables y sostenibles.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="hero__ctas">
+        <button
+          type="button"
+          class="hero__btn hero__btn--primary"
+          (click)="scrollToTimeline()"
+          aria-label="Conocer mi trayectoria profesional"
+        >
+          Conocer mi trayectoria
+        </button>
+
+        <button
+          type="button"
+          class="hero__btn hero__btn--secondary"
+          (click)="downloadCV()"
+          aria-label="Descargar currículum en formato PDF"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Descargar CV
+        </button>
+      </div>
+
+      <!-- Secondary link -->
+      <a class="hero__secondary-link" href="#contact" (click)="$event.preventDefault(); scrollToContact()">
+        Conversemos →
+      </a>
+
+      <!-- Location tag -->
+      <p class="hero__location">
+        Bogotá D.C., Colombia · Disponible para oportunidades directivas, consultoría y colaboración académica
+      </p>
+
+      <!-- Metrics -->
+      <div class="hero__metrics">
         @for (metric of metrics; track metric.value) {
-          <div class="metric-chip" role="group" [attr.aria-label]="metric.value + ' ' + metric.label">
-            <span class="metric-chip__value">{{ metric.value }}</span>
-            <span class="metric-chip__label">{{ metric.label }}</span>
+          <div class="metric-card" role="group" [attr.aria-label]="metric.value + ' ' + metric.label">
+            <span class="metric-card__value">{{ metric.value }}</span>
+            <span class="metric-card__label">{{ metric.label }}</span>
           </div>
         }
       </div>
 
-      <!-- CTA Buttons -->
-      <div class="hero__ctas" #animateEl>
-        <button
-          type="button"
-          class="hero__btn hero__btn--outline"
-          (click)="downloadCV()"
-          aria-label="Descargar currículum en formato PDF"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-            <polyline points="7 10 12 15 17 10" />
-            <line x1="12" y1="15" x2="12" y2="3" />
-          </svg>
-          Descargar CV
-        </button>
-
-        <button
-          type="button"
-          class="hero__btn hero__btn--gradient"
-          (click)="scrollToAchievements()"
-          aria-label="Ver sección de logros"
-        >
-          Ver Logros
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
-        </button>
-      </div>
-
       <!-- Download Error Message -->
       @if (downloadError()) {
-        <p class="hero__error" role="alert">
-          {{ downloadError() }}
-        </p>
+        <p class="hero__error" role="alert">{{ downloadError() }}</p>
       }
     </div>
 
-    <!-- Photo Column (Right on desktop) -->
-    <div class="hero__photo-wrapper" #animateEl>
+    <!-- Photo Column -->
+    <div class="hero__photo-wrapper">
       <img
         class="hero__photo"
         src="assets/images/profile-photo.webp"
-        alt="Carlos Alberto Figueroa Martínez — Líder en Transformación Digital"
+        alt="Carlos Alberto Figueroa Martínez, líder en transformación empresarial e inteligencia artificial aplicada"
         loading="eager"
       >
     </div>
-  </div>
-
-  <!-- Scroll Indicator -->
-  <div class="hero__scroll-indicator" #animateEl aria-hidden="true">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <polyline points="6 9 12 15 18 9" />
-    </svg>
   </div>
 </section>

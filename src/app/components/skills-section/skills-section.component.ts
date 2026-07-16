@@ -1,88 +1,76 @@
 import { Component, signal, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { IntersectionObserverDirective } from '../../directives/intersection-observer.directive';
-import { SkillCategory } from '../../models/skill-category.interface';
-import { SkillBar } from '../../models/skill-bar.interface';
 import { AnalyticsService } from '../../services/analytics.service';
+
+interface SkillGroup {
+  title: string;
+  tags: string[];
+}
 
 @Component({
   standalone: true,
   selector: 'app-skills-section',
   templateUrl: './skills-section.component.html',
   styleUrls: ['./skills-section.component.scss'],
-  imports: [CommonModule, IntersectionObserverDirective],
+  imports: [IntersectionObserverDirective],
 })
 export class SkillsSectionComponent {
   private readonly analytics = inject(AnalyticsService);
   isVisible = signal<boolean>(false);
 
-  /** Skill category groups with icons and tags */
-  readonly categories: SkillCategory[] = [
+  readonly categories: SkillGroup[] = [
     {
-      title: 'Estrategia y Transformación',
-      icon: 'rocket',
+      title: 'Estrategia y transformación',
       tags: [
-        'Transformación Digital',
-        'IA Aplicada',
-        'Planificación Estratégica',
-        'Gobierno TI',
-        'Gestión del Cambio',
-        'Modelos Operativos Inteligentes',
-        'SmartOps',
+        'Transformación digital',
+        'Planeación estratégica',
+        'Gestión del cambio',
+        'Gobierno de TI',
+        'Arquitectura empresarial',
+        'Modelos operativos inteligentes',
       ],
     },
     {
-      title: 'Operaciones y Excelencia',
-      icon: 'settings',
+      title: 'Procesos y excelencia operativa',
       tags: [
-        'Excelencia Operativa',
-        'Automatización Empresarial',
-        'Mejora Continua',
         'BPM',
         'BPMN 2.0',
         'BPMS',
-        'Oracle BPM/SOA Suite 12C',
-        'Bizagi',
+        'Mejora continua',
+        'Lean Six Sigma',
+        'SmartOps',
+        'Rediseño de procesos',
       ],
     },
     {
-      title: 'Datos, IA y Tecnología',
-      icon: 'cpu',
+      title: 'Producto, proyectos y agilidad',
       tags: [
-        'Python',
-        'SQL',
-        'Analítica de Datos',
-        'AWS',
-        'Oracle Cloud',
-        'Angular',
-        'Java',
-        'Cobol',
-      ],
-    },
-    {
-      title: 'Producto, Proyectos y Agilidad',
-      icon: 'layers',
-      tags: [
+        'Product Management',
         'Product Owner',
-        'Scrum Master',
+        'Gestión de portafolios',
+        'Scrum',
         'Kanban',
         'Product Discovery',
         'MVP',
-        'OKRs',
-        'Gestión de Portafolios',
-        'Arquitectura Empresarial',
+        'Gestión de stakeholders',
       ],
     },
-  ];
-
-  /** Key competency bars with percentage values */
-  readonly skillBars: SkillBar[] = [
-    { label: 'Transformación Digital', percentage: 95 },
-    { label: 'Automatización de Procesos', percentage: 92 },
-    { label: 'Gestión de Producto', percentage: 90 },
-    { label: 'Inteligencia Artificial Aplicada', percentage: 85 },
-    { label: 'Liderazgo de Equipos', percentage: 95 },
-    { label: 'Arquitectura Empresarial', percentage: 88 },
+    {
+      title: 'Tecnología, datos e IA',
+      tags: [
+        'Inteligencia artificial aplicada',
+        'Automatización',
+        'Python',
+        'SQL',
+        'Analítica de datos',
+        'AWS',
+        'Oracle',
+        'Oracle BPM/SOA',
+        'Bizagi',
+        'Angular',
+        'Java',
+      ],
+    },
   ];
 
   onVisibilityChange(visible: boolean): void {

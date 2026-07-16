@@ -1,5 +1,5 @@
-import { Component, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, signal, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import {
   ReactiveFormsModule,
   FormBuilder,
@@ -16,37 +16,24 @@ import { AnalyticsService } from '../../services/analytics.service';
   selector: 'app-contact-section',
   templateUrl: './contact-section.component.html',
   styleUrls: ['./contact-section.component.scss'],
-  imports: [CommonModule, ReactiveFormsModule, IntersectionObserverDirective],
+  imports: [ReactiveFormsModule, IntersectionObserverDirective],
 })
 export class ContactSectionComponent {
-  /** Controls animation trigger when section enters viewport */
+  private readonly platformId = inject(PLATFORM_ID);
   isVisible = signal<boolean>(false);
-
-  /** Controls modal visibility */
   isModalOpen = signal<boolean>(false);
-
-  /** Whether the form is currently being submitted */
   isSubmitting = signal<boolean>(false);
-
-  /** Current submission status for UI feedback */
   submitStatus = signal<'idle' | 'success' | 'error' | 'rate-limited'>('idle');
 
-  /** Dropdown options for motivo field */
   readonly motivoOptions = ['Consultoría', 'Colaboración', 'Docencia', 'Otro'];
 
-  /** Contact information */
-  readonly contactInfo = {
-    location: 'Bogotá D.C., Colombia',
-    phone: '+57 3005091114',
-    email: 'carlosfigueroa.cf0115@gmail.com',
-    linkedin: 'https://www.linkedin.com/in/carlos-alberto-figueroa-mart%C3%ADnez-649a462a',
-  };
+  readonly linkedInUrl = 'https://www.linkedin.com/in/carlos-alberto-figueroa-mart%C3%ADnez-649a462a';
+  readonly whatsappUrl = 'https://wa.me/573005091114?text=' + encodeURIComponent('¡Hola, he visto tu perfil profesional y me gustaría conversar contigo!');
 
   private readonly fb = inject(FormBuilder);
   private readonly contactService = inject(ContactService);
   private readonly analytics = inject(AnalyticsService);
 
-  /** Reactive form group with validation rules */
   formGroup: FormGroup = this.fb.group({
     nombre: ['', [Validators.required, Validators.maxLength(100)]],
     empresa: ['', [Validators.maxLength(100)]],
@@ -58,7 +45,19 @@ export class ContactSectionComponent {
   onVisibilityChange(visible: boolean): void {
     if (visible) {
       this.isVisible.set(true);
+      this.analytics.trackSectionView('contact');
     }
+  }
+
+  downloadCV(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    this.analytics.trackDownloadCV();
+
+    const link = document.createElement('a');
+    link.href = 'assets/documents/cv-carlos-figueroa.pdf';
+    link.download = 'CV-Carlos-Figueroa.pdf';
+    link.target = '_blank';
+    link.click();
   }
 
   openModal(): void {
@@ -77,7 +76,6 @@ export class ContactSectionComponent {
     }
   }
 
-  /** Submits the contact form if valid */
   onSubmit(): void {
     if (this.formGroup.invalid || this.isSubmitting()) {
       this.formGroup.markAllAsTouched();
@@ -111,13 +109,6 @@ export class ContactSectionComponent {
     });
   }
 
-  /** Resets the form and status */
-  resetForm(): void {
-    this.formGroup.reset({ motivo: 'Consultoría' });
-    this.submitStatus.set('idle');
-  }
-
-  /** Helper to check if a field has an error and has been touched */
   hasError(field: string, error: string): boolean {
     const control = this.formGroup.get(field);
     return !!control && control.hasError(error) && control.touched;

@@ -1,17 +1,7 @@
-@use '../../../styles/tokens' as *;
-@use '../../../styles/glassmorphism' as *;
-
-// =============================================================================
-// Education Section
-// Two-column layout: education cards (left) + certification badges (right)
-// =============================================================================
+@use 'styles/tokens' as *;
 
 .education-section {
-  background-color: $color-bg-primary;
-  position: relative;
-  overflow: hidden;
-
-  // Fade-in animation on section entry
+  background-color: $color-bg-secondary;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity $anim-duration-normal $anim-easing,
@@ -23,15 +13,13 @@
   }
 }
 
-// -----------------------------------------------------------------------------
-// Section Heading
-// -----------------------------------------------------------------------------
-.section-heading {
+.education-heading {
   font-family: $font-heading;
   font-weight: $font-weight-heading;
   font-size: $font-size-h2;
   line-height: 1.2;
   text-align: center;
+  color: $color-text-primary;
   margin-bottom: $space-8;
 
   @media (max-width: $bp-tablet) {
@@ -40,9 +28,6 @@
   }
 }
 
-// -----------------------------------------------------------------------------
-// Grid Layout
-// -----------------------------------------------------------------------------
 .education-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -55,122 +40,79 @@
   }
 }
 
-// -----------------------------------------------------------------------------
-// Education Cards Column
-// -----------------------------------------------------------------------------
+// Education Column
 .education-column {
   display: flex;
   flex-direction: column;
-  gap: $space-5;
+  gap: $space-4;
 }
 
 .education-card {
-  @include glass-card($glass-bg-opacity-min, $glass-blur-min);
-  padding: $space-5 $space-6;
-  position: relative;
-  overflow: hidden;
-
-  // Fade-in slide-up animation
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity $anim-duration-normal $anim-easing,
-              transform $anim-duration-normal $anim-easing,
-              border-color $anim-duration-fast $anim-easing,
-              box-shadow $anim-duration-fast $anim-easing;
-
-  .is-visible & {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: var(--delay, 0s);
-    animation: fadeInUp $anim-duration-normal $anim-easing both;
-  }
-
-  // Gradient border on hover
-  &:hover {
-    border-color: rgba($color-accent-cyan, 0.4);
-    box-shadow: 0 8px 32px rgba($color-accent-cyan, 0.15),
-                0 0 0 1px rgba($color-accent-violet, 0.2);
-    transform: translateY(-4px);
-  }
-
-  // Gradient top accent line
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: $gradient-accent;
-    opacity: 0;
-    transition: opacity $anim-duration-fast $anim-easing;
-  }
-
-  &:hover::before {
-    opacity: 1;
-  }
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: $space-3;
-  margin-bottom: $space-2;
-}
-
-.card-degree {
-  font-family: $font-heading;
-  font-weight: $font-weight-heading;
-  font-size: 1.125rem;
-  color: $color-text-primary;
-  line-height: 1.4;
-  margin: 0;
-}
-
-.card-status {
-  font-family: $font-body;
-  font-size: 0.75rem;
-  font-weight: $font-weight-emphasis;
-  padding: $space-1 $space-3;
+  background: $color-bg-card;
+  border: 1px solid rgba($color-accent-primary, 0.06);
   border-radius: 12px;
-  white-space: nowrap;
-  text-transform: capitalize;
+  padding: $space-5;
+  transition: box-shadow $anim-duration-fast $anim-easing,
+              transform $anim-duration-fast $anim-easing;
 
-  &.status-active {
-    background: rgba($color-accent-cyan, 0.15);
-    color: $color-accent-cyan;
-    border: 1px solid rgba($color-accent-cyan, 0.3);
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
   }
 
-  &.status-completed {
-    background: rgba($color-accent-gold, 0.1);
-    color: $color-accent-gold;
-    border: 1px solid rgba($color-accent-gold, 0.25);
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: $space-3;
+    margin-bottom: $space-2;
+  }
+
+  &__degree {
+    font-family: $font-heading;
+    font-weight: $font-weight-heading;
+    font-size: 1rem;
+    color: $color-text-primary;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  &__status {
+    font-family: $font-body;
+    font-size: 0.6875rem;
+    font-weight: $font-weight-emphasis;
+    padding: $space-1 $space-3;
+    border-radius: 12px;
+    white-space: nowrap;
+    text-transform: capitalize;
+
+    &--active {
+      background: rgba($color-accent-secondary, 0.1);
+      color: $color-accent-secondary;
+      border: 1px solid rgba($color-accent-secondary, 0.25);
+    }
+  }
+
+  &__institution {
+    font-family: $font-body;
+    font-size: 0.875rem;
+    color: $color-text-secondary;
+    margin: 0 0 $space-1;
+  }
+
+  &__year {
+    font-family: $font-body;
+    font-size: 0.8125rem;
+    color: $color-text-muted;
+    margin: 0;
   }
 }
 
-.card-institution {
-  font-family: $font-body;
-  font-size: 0.9375rem;
-  color: $color-text-secondary;
-  margin: 0 0 $space-1;
-}
-
-.card-year {
-  font-family: $font-body;
-  font-size: 0.8125rem;
-  color: $color-text-muted;
-  margin: 0;
-}
-
-// -----------------------------------------------------------------------------
 // Certifications Column
-// -----------------------------------------------------------------------------
 .certifications-column {
   display: flex;
   flex-direction: column;
-  gap: $space-5;
+  gap: $space-4;
 }
 
 .certifications-title {
@@ -192,84 +134,51 @@
 }
 
 .cert-badge {
-  @include glass-card($glass-bg-opacity-min, $glass-blur-min);
+  background: $color-bg-card;
+  border: 1px solid rgba($color-accent-primary, 0.06);
+  border-radius: 10px;
   padding: $space-3 $space-4;
-  border-radius: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: $space-3;
-
-  // Fade-in slide-up animation
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity $anim-duration-normal $anim-easing,
-              transform $anim-duration-normal $anim-easing,
-              border-color $anim-duration-fast $anim-easing;
-
-  .is-visible & {
-    opacity: 1;
-    transform: translateY(0);
-    animation: fadeInUp $anim-duration-normal $anim-easing both;
-  }
+  transition: border-color $anim-duration-fast $anim-easing;
 
   &:hover {
-    border-color: rgba($color-accent-gold, 0.3);
-  }
-}
-
-.cert-content {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-
-.cert-title {
-  font-family: $font-body;
-  font-size: 0.875rem;
-  font-weight: $font-weight-emphasis;
-  color: $color-text-primary;
-  line-height: 1.3;
-}
-
-.cert-institution {
-  font-family: $font-body;
-  font-size: 0.75rem;
-  color: $color-text-muted;
-}
-
-.cert-year {
-  font-family: $font-body;
-  font-size: 0.75rem;
-  font-weight: $font-weight-heading;
-  color: $color-accent-gold;
-  background: rgba($color-accent-gold, 0.1);
-  border: 1px solid rgba($color-accent-gold, 0.25);
-  padding: $space-1 $space-2;
-  border-radius: 8px;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-// -----------------------------------------------------------------------------
-// Responsive: Stack vertically below 768px
-// -----------------------------------------------------------------------------
-@media (max-width: $bp-tablet) {
-  .education-grid {
-    grid-template-columns: 1fr;
+    border-color: rgba($color-accent-gold, 0.25);
   }
 
-  .education-card {
-    padding: $space-4 $space-5;
-  }
-
-  .card-header {
+  &__content {
+    display: flex;
     flex-direction: column;
-    gap: $space-2;
+    gap: 2px;
+    min-width: 0;
   }
 
-  .cert-badge {
-    padding: $space-3;
+  &__title {
+    font-family: $font-body;
+    font-size: 0.8125rem;
+    font-weight: $font-weight-emphasis;
+    color: $color-text-primary;
+    line-height: 1.3;
+  }
+
+  &__institution {
+    font-family: $font-body;
+    font-size: 0.6875rem;
+    color: $color-text-muted;
+  }
+
+  &__year {
+    font-family: $font-body;
+    font-size: 0.6875rem;
+    font-weight: $font-weight-heading;
+    color: $color-accent-gold;
+    background: rgba($color-accent-gold, 0.08);
+    border: 1px solid rgba($color-accent-gold, 0.2);
+    padding: $space-1 $space-2;
+    border-radius: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 }
