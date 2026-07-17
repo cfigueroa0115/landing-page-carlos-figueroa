@@ -1,5 +1,6 @@
 import { Component, signal, inject } from '@angular/core';
 import { IntersectionObserverDirective } from '../../directives/intersection-observer.directive';
+import { CountUpDirective } from '../../directives/count-up.directive';
 import { AnalyticsService } from '../../services/analytics.service';
 
 interface AchievementItem {
@@ -12,7 +13,7 @@ interface AchievementItem {
 @Component({
   standalone: true,
   selector: 'app-achievements-section',
-  imports: [IntersectionObserverDirective],
+  imports: [IntersectionObserverDirective, CountUpDirective],
   templateUrl: './achievements-section.component.html',
   styleUrls: ['./achievements-section.component.scss'],
 })

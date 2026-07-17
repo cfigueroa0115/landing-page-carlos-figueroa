@@ -50,11 +50,23 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
       background: rgba(11, 41, 64, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(22, 166, 199, 0.4);
+      border: 2px solid rgba(22, 166, 199, 0.6);
       border-radius: 24px;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      animation: trajGlow 2.5s ease-in-out infinite;
+    }
+
+    @keyframes trajGlow {
+      0%, 100% {
+        border-color: rgba(22, 166, 199, 0.4);
+        box-shadow: 0 0 12px rgba(22, 166, 199, 0.15), 0 4px 16px rgba(7, 26, 43, 0.2);
+      }
+      50% {
+        border-color: rgba(22, 166, 199, 0.9);
+        box-shadow: 0 0 24px rgba(22, 166, 199, 0.35), 0 4px 20px rgba(7, 26, 43, 0.3);
+      }
     }
 
     .traj-fab:hover {

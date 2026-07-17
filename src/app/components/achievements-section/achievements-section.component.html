@@ -20,7 +20,7 @@
           [class.bento-card--large]="i === 0"
           role="listitem"
         >
-          <span class="bento-card__percentage">{{ achievement.percentage }}%</span>
+          <span class="bento-card__percentage" appCountUp [targetValue]="achievement.percentage" [duration]="1500" [threshold]="0.3" suffix="%">0%</span>
           <h3 class="bento-card__title">{{ achievement.title }}</h3>
           <p class="bento-card__description">{{ achievement.description }}</p>
           <span class="bento-card__company">{{ achievement.company }}</span>

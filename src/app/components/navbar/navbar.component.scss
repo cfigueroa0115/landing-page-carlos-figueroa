@@ -15,10 +15,11 @@
   border-bottom: 1px solid transparent;
 
   // On dark hero: white text
+  .navbar__logo-icon,
   .navbar__initials,
   .navbar__link,
   .hamburger-btn {
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.9);
   }
 
   .navbar__link:hover {
@@ -31,6 +32,10 @@
 
   &--scrolled {
     @include glass.glass-navbar();
+
+    .navbar__logo-icon {
+      color: $color-blue-600;
+    }
 
     .navbar__initials {
       color: $color-text-primary;
@@ -87,6 +92,12 @@
     font-weight: $font-weight-heading;
     letter-spacing: -0.02em;
     transition: color $anim-duration-fast $anim-easing;
+  }
+
+  &__logo-icon {
+    width: 32px;
+    height: 32px;
+    transition: transform 0.3s, opacity 0.3s, color $anim-duration-fast $anim-easing;
   }
 
   &__links {
