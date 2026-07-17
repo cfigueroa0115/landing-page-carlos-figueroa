@@ -150,9 +150,9 @@ textarea:focus-visible,
 // =============================================================================
 .section-eyebrow {
   font-family: $font-body;
-  font-size: 0.75rem;
-  font-weight: $font-weight-emphasis;
-  letter-spacing: 0.12em;
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
+  font-weight: $font-weight-heading;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: $color-cyan-500;
   margin-bottom: $space-3;
