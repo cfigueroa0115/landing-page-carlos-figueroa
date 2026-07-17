@@ -33,7 +33,7 @@ export class TimelineSectionComponent {
       company: 'Compañía de Seguros Bolívar S.A.',
       position: 'Product Owner Senior · Builder Strategist',
       startYear: 2023,
-      endYear: null,
+      endYear: 2026,
       responsibilities: [
         'Modernización gestión documental con 95% de eficiencia',
         'Facturación electrónica con 80% reducción de tiempos',

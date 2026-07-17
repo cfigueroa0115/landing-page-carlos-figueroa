@@ -1,5 +1,5 @@
-import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, signal, ViewEncapsulation, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -27,7 +27,9 @@ interface DashboardData {
 })
 export class AdminPanelComponent {
   private readonly http = inject(HttpClient);
+  private readonly platformId = inject(PLATFORM_ID);
 
+  showAdminButton = signal(false);
   isOpen = signal(false);
   isAuthenticated = signal(false);
   isLoading = signal(false);
@@ -43,6 +45,12 @@ export class AdminPanelComponent {
 
   username = '';
   password = '';
+
+  constructor() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.showAdminButton.set(window.location.search.includes('admin=true'));
+    }
+  }
 
   open(): void {
     this.isOpen.set(true);

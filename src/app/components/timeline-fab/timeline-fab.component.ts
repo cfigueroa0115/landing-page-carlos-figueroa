@@ -50,23 +50,47 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
       background: rgba(11, 41, 64, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border: 2px solid rgba(22, 166, 199, 0.6);
+      border: 1.5px solid rgba(22, 166, 199, 0.4);
       border-radius: 24px;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-      animation: trajGlow 2.5s ease-in-out infinite;
+      box-shadow: 0 0 8px rgba(22, 166, 199, 0.1), 0 4px 16px rgba(7, 26, 43, 0.2);
+      animation: trajBreathe 6s ease-in-out infinite;
     }
 
-    @keyframes trajGlow {
+    .traj-fab::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: inherit;
+      background: linear-gradient(135deg, transparent 40%, rgba(22, 166, 199, 0.3) 50%, transparent 60%);
+      opacity: 0;
+      animation: trajFlash 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes trajBreathe {
       0%, 100% {
-        border-color: rgba(22, 166, 199, 0.4);
-        box-shadow: 0 0 12px rgba(22, 166, 199, 0.15), 0 4px 16px rgba(7, 26, 43, 0.2);
+        border-color: rgba(22, 166, 199, 0.3);
+        box-shadow: 0 0 8px rgba(22, 166, 199, 0.08), 0 4px 12px rgba(7, 26, 43, 0.15);
+      }
+      40% {
+        border-color: rgba(22, 166, 199, 0.6);
+        box-shadow: 0 0 16px rgba(22, 166, 199, 0.2), 0 4px 16px rgba(7, 26, 43, 0.2);
       }
       50% {
-        border-color: rgba(22, 166, 199, 0.9);
-        box-shadow: 0 0 24px rgba(22, 166, 199, 0.35), 0 4px 20px rgba(7, 26, 43, 0.3);
+        border-color: rgba(22, 166, 199, 0.7);
+        box-shadow: 0 0 20px rgba(22, 166, 199, 0.25), 0 4px 20px rgba(7, 26, 43, 0.2);
       }
+      60% {
+        border-color: rgba(22, 166, 199, 0.5);
+        box-shadow: 0 0 14px rgba(22, 166, 199, 0.15), 0 4px 14px rgba(7, 26, 43, 0.18);
+      }
+    }
+
+    @keyframes trajFlash {
+      0%, 40%, 60%, 100% { opacity: 0; }
+      50% { opacity: 1; }
     }
 
     .traj-fab:hover {
@@ -85,6 +109,18 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
         left: 12px;
         padding: 8px 10px;
         font-size: 0.625rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .traj-fab {
+        animation: none;
+        border-color: rgba(22, 166, 199, 0.5);
+        box-shadow: 0 0 12px rgba(22, 166, 199, 0.15), 0 4px 16px rgba(7, 26, 43, 0.2);
+      }
+      .traj-fab::before {
+        animation: none;
+        opacity: 0;
       }
     }
 
@@ -123,7 +159,6 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
     @keyframes trajSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
     @media (prefers-reduced-motion: reduce) {
-      .traj-fab { animation: none; }
       .traj-overlay, .traj-popup { animation: none; }
     }
   `],

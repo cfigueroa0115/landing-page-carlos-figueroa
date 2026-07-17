@@ -37,6 +37,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     { label: 'Perfil', sectionId: 'profile' },
     { label: 'Impacto', sectionId: 'achievements' },
     { label: 'Trayectoria', sectionId: 'timeline' },
+    { label: 'Innovación', sectionId: 'recognition' },
     { label: 'Capacidades', sectionId: 'skills' },
     { label: 'Formación', sectionId: 'education' },
     { label: 'Contacto', sectionId: 'contact' },
