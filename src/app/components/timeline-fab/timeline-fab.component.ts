@@ -1,22 +1,25 @@
-import { Component, signal, ViewEncapsulation } from '@angular/core';
+import { Component, signal, ViewEncapsulation, inject, PLATFORM_ID, OnInit, OnDestroy } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   standalone: true,
   selector: 'app-timeline-fab',
   encapsulation: ViewEncapsulation.None,
   template: `
-    <button
-      class="traj-fab"
-      (click)="openPopup()"
-      type="button"
-      aria-label="Ver trayectoria profesional"
-      title="Trayectoria Profesional"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/>
-      </svg>
-      <span class="traj-fab__label">Trayectoria</span>
-    </button>
+    @if (isButtonVisible()) {
+      <button
+        class="traj-fab"
+        (click)="openPopup()"
+        type="button"
+        aria-label="Ver trayectoria profesional"
+        title="Trayectoria Profesional"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/>
+        </svg>
+        <span class="traj-fab__label">Trayectoria</span>
+      </button>
+    }
 
     @if (isOpen()) {
       <div class="traj-overlay" (click)="closePopup()">
@@ -166,8 +169,30 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
     }
   `],
 })
-export class TimelineFabComponent {
+export class TimelineFabComponent implements OnInit, OnDestroy {
+  private readonly platformId = inject(PLATFORM_ID);
   isOpen = signal(false);
+  isButtonVisible = signal(true);
+  private scrollListener: (() => void) | null = null;
+
+  ngOnInit(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    this.scrollListener = () => {
+      const heroHeight = window.innerHeight * 0.85;
+      this.isButtonVisible.set(window.scrollY < heroHeight);
+    };
+
+    window.addEventListener('scroll', this.scrollListener, { passive: true });
+  }
+
+  ngOnDestroy(): void {
+    if (this.scrollListener) {
+      window.removeEventListener('scroll', this.scrollListener);
+      this.scrollListener = null;
+    }
+  }
+
   openPopup(): void { this.isOpen.set(true); }
   closePopup(): void { this.isOpen.set(false); }
 }
