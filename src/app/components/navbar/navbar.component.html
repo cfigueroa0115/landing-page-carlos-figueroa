@@ -12,16 +12,24 @@
       (click)="$event.preventDefault(); navigateToSection('hero')"
       aria-label="Ir al inicio"
     >
-      <svg class="navbar__logo-icon" xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <!-- Base: three ascending layers (strategy → process → results) -->
-        <path d="M6 30h28" opacity="0.4"/>
-        <path d="M10 24h20" opacity="0.6"/>
-        <path d="M14 18h12" opacity="0.8"/>
-        <!-- Central ascending arrow (transformation/growth) -->
-        <path d="M20 32V10" stroke-width="2.5"/>
-        <path d="M15 15l5-5 5 5" stroke-width="2.5"/>
-        <!-- Top diamond (excellence/achievement) -->
-        <path d="M20 4l3 3-3 3-3-3z" fill="currentColor" stroke="none" opacity="0.9"/>
+      <svg class="navbar__logo-icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <!-- CF Monogram — Premium Executive Brand -->
+        <defs>
+          <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#16A6C7"/>
+            <stop offset="100%" stop-color="#146C94"/>
+          </linearGradient>
+        </defs>
+        <!-- Outer frame: rounded hexagonal shape (strategy/structure) -->
+        <path d="M20 3L33.5 10.5V25.5L20 33L6.5 25.5V10.5Z" stroke="url(#logoGrad)" stroke-width="1.8" fill="none" opacity="0.9"/>
+        <!-- C letter: bold arc representing continuity and transformation -->
+        <path d="M22 12.5C20.5 11.2 18.5 10.8 16.5 11.5C13.5 12.5 12 15.5 12 20C12 24.5 13.5 27.5 16.5 28.5C18.5 29.2 20.5 28.8 22 27.5" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+        <!-- F letter: geometric forward/progress strokes -->
+        <path d="M24 12V28" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
+        <path d="M24 12H30" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M24 19.5H28.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <!-- Accent node: innovation spark -->
+        <circle cx="31.5" cy="12" r="1.8" fill="url(#logoGrad)"/>
       </svg>
     </a>
 
