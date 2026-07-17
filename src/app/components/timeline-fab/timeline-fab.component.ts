@@ -1,25 +1,22 @@
-import { Component, signal, ViewEncapsulation, inject, PLATFORM_ID, OnInit, OnDestroy } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, signal, ViewEncapsulation } from '@angular/core';
 
 @Component({
   standalone: true,
   selector: 'app-timeline-fab',
   encapsulation: ViewEncapsulation.None,
   template: `
-    @if (isButtonVisible()) {
-      <button
-        class="traj-fab"
-        (click)="openPopup()"
-        type="button"
-        aria-label="Ver trayectoria profesional"
-        title="Trayectoria Profesional"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/>
-        </svg>
-        <span class="traj-fab__label">Trayectoria</span>
-      </button>
-    }
+    <button
+      class="traj-fab"
+      (click)="openPopup()"
+      type="button"
+      aria-label="Ver trayectoria profesional"
+      title="Trayectoria Profesional"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/>
+      </svg>
+      <span class="traj-fab__label">Trayectoria</span>
+    </button>
 
     @if (isOpen()) {
       <div class="traj-overlay" (click)="closePopup()">
@@ -38,9 +35,8 @@ import { isPlatformBrowser } from '@angular/common';
   styles: [`
     .traj-fab {
       position: fixed;
-      top: 12%;
+      top: 80px;
       left: 16px;
-      transform: translateY(-50%);
       z-index: 998;
       display: flex;
       align-items: center;
@@ -103,7 +99,7 @@ import { isPlatformBrowser } from '@angular/common';
       background: rgba(11, 41, 64, 0.95);
       border-color: rgba(22, 166, 199, 0.8);
       box-shadow: 0 6px 24px rgba(22, 166, 199, 0.2);
-      transform: translateY(-50%) scale(1.05);
+      transform: scale(1.05);
     }
 
     .traj-fab svg { color: #16A6C7; }
@@ -111,7 +107,7 @@ import { isPlatformBrowser } from '@angular/common';
 
     @media (max-width: 768px) {
       .traj-fab {
-        top: 12%;
+        top: 74px;
         left: 12px;
         padding: 8px 10px;
         font-size: 0.625rem;
@@ -169,30 +165,8 @@ import { isPlatformBrowser } from '@angular/common';
     }
   `],
 })
-export class TimelineFabComponent implements OnInit, OnDestroy {
-  private readonly platformId = inject(PLATFORM_ID);
+export class TimelineFabComponent {
   isOpen = signal(false);
-  isButtonVisible = signal(true);
-  private scrollListener: (() => void) | null = null;
-
-  ngOnInit(): void {
-    if (!isPlatformBrowser(this.platformId)) return;
-
-    this.scrollListener = () => {
-      const heroHeight = window.innerHeight * 0.85;
-      this.isButtonVisible.set(window.scrollY < heroHeight);
-    };
-
-    window.addEventListener('scroll', this.scrollListener, { passive: true });
-  }
-
-  ngOnDestroy(): void {
-    if (this.scrollListener) {
-      window.removeEventListener('scroll', this.scrollListener);
-      this.scrollListener = null;
-    }
-  }
-
   openPopup(): void { this.isOpen.set(true); }
   closePopup(): void { this.isOpen.set(false); }
 }
