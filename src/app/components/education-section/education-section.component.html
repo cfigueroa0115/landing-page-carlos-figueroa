@@ -37,29 +37,39 @@
       }
     </div>
 
-    <!-- Certifications grouped -->
+    <!-- Certifications Bento Grid -->
     <h3 class="certifications-title">Certificaciones y programas</h3>
-    <div class="certifications-grouped">
-      @for (group of certificationGroups; track group.category) {
-        <div class="cert-group">
-          <h4 class="cert-group__title">{{ group.category }}</h4>
-          <div class="cert-group__items">
+    <div class="certifications-bento">
+      @for (group of certificationGroups; track group.category; let i = $index) {
+        <article class="cert-card" [class.cert-card--large]="group.items.length >= 3">
+          <div class="cert-card__header">
+            <div class="cert-card__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                @for (path of getIconPaths(group.iconPaths); track path) {
+                  <path [attr.d]="path"/>
+                }
+              </svg>
+            </div>
+            <div class="cert-card__meta">
+              <h4 class="cert-card__category">{{ group.category }}</h4>
+              <span class="cert-card__count">{{ group.items.length }} {{ group.items.length === 1 ? 'programa' : 'programas' }}</span>
+            </div>
+          </div>
+          <div class="cert-card__list">
             @for (cert of group.items; track cert.title) {
-              <div class="cert-item">
-                <svg class="cert-item__icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <div class="cert-card__item">
+                <svg class="cert-card__check" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
                 </svg>
-                <span class="cert-item__title">{{ cert.title }}</span>
+                <span class="cert-card__item-title">{{ cert.title }}</span>
                 @if (cert.institution) {
-                  <span class="cert-item__separator">·</span>
-                  <span class="cert-item__institution">{{ cert.institution }}</span>
+                  <span class="cert-card__item-inst">{{ cert.institution }}</span>
                 }
-                <span class="cert-item__separator">·</span>
-                <span class="cert-item__year">{{ cert.year }}</span>
+                <span class="cert-card__item-year">{{ cert.year }}</span>
               </div>
             }
           </div>
-        </div>
+        </article>
       }
     </div>
   </div>

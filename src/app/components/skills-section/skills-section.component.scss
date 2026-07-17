@@ -7,10 +7,7 @@
   transform: translateY(24px);
   transition: opacity 450ms $anim-easing, transform 450ms $anim-easing;
 
-  &.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  &.is-visible { opacity: 1; transform: translateY(0); }
 }
 
 .skills-header {
@@ -30,20 +27,53 @@
   }
 }
 
+// =============================================================================
+// Skill Card with animated border and accent colors
+// =============================================================================
 .skill-card {
+  position: relative;
   background: $color-bg-card;
   border: 1px solid $color-border;
-  border-radius: 16px;
+  border-radius: 18px;
   padding: $space-6;
   display: flex;
   flex-direction: column;
   gap: $space-4;
+  overflow: hidden;
   transition: transform $anim-duration-fast $anim-easing,
               box-shadow $anim-duration-fast $anim-easing,
               border-color $anim-duration-fast $anim-easing,
               opacity $anim-duration-fast $anim-easing;
   cursor: default;
   outline: none;
+
+  // Animated border
+  &__border-anim {
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: conic-gradient(from 0deg, transparent 0%, transparent 78%, rgba($color-cyan-500, 0.4) 86%, transparent 94%);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    padding: 2px;
+    animation: skillBorderRotate 9s linear infinite;
+    animation-delay: var(--card-delay, 0s);
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  &[data-accent="blue"] &__border-anim {
+    background: conic-gradient(from 0deg, transparent 0%, transparent 78%, rgba($color-blue-600, 0.5) 86%, transparent 94%);
+  }
+
+  &[data-accent="teal"] &__border-anim {
+    background: conic-gradient(from 0deg, transparent 0%, transparent 78%, rgba($color-teal-500, 0.5) 86%, transparent 94%);
+  }
+
+  &[data-accent="cyan-blue"] &__border-anim {
+    background: conic-gradient(from 0deg, transparent 0%, transparent 78%, rgba($color-blue-600, 0.3) 83%, rgba($color-cyan-500, 0.4) 88%, transparent 94%);
+  }
 
   &:focus-visible {
     outline: 2px solid $color-cyan-500;
@@ -52,19 +82,26 @@
 
   &:hover,
   &--active {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 36px rgba($color-cyan-500, 0.08);
+    transform: translateY(-5px);
+    box-shadow: 0 14px 40px rgba($color-cyan-500, 0.08);
     border-color: rgba($color-cyan-500, 0.4);
+
+    .skill-card__border-anim { opacity: 0.9; }
 
     .skill-card__icon {
       background: linear-gradient(135deg, rgba($color-blue-600, 0.15), rgba($color-cyan-500, 0.2));
       border-color: rgba($color-cyan-500, 0.5);
-      box-shadow: 0 4px 12px rgba($color-cyan-500, 0.15);
+      box-shadow: 0 4px 14px rgba($color-cyan-500, 0.18);
       color: $color-cyan-500;
     }
 
     .skill-card__title {
       color: $color-blue-600;
+    }
+
+    .skill-card__description {
+      opacity: 1;
+      color: $color-text-secondary;
     }
 
     .skill-tag {
@@ -74,28 +111,37 @@
   }
 
   &--dimmed {
-    opacity: 0.55;
+    opacity: 0.6;
     transform: scale(0.98);
   }
 
   &__header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: $space-3;
   }
 
   &__icon {
-    width: 44px;
-    height: 44px;
-    min-width: 44px;
-    border-radius: 12px;
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    border-radius: 14px;
     background: linear-gradient(135deg, rgba($color-blue-600, 0.06), rgba($color-cyan-500, 0.1));
-    border: 1px solid rgba($color-cyan-500, 0.15);
+    border: 1px solid rgba($color-cyan-500, 0.18);
     display: flex;
     align-items: center;
     justify-content: center;
     color: $color-blue-600;
     transition: all 300ms $anim-easing;
+
+    [data-accent="teal"] & { color: $color-teal-500; border-color: rgba($color-teal-500, 0.18); }
+    [data-accent="blue"] & { color: $color-blue-600; }
+  }
+
+  &__title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
 
   &__title {
@@ -105,6 +151,16 @@
     color: $color-text-primary;
     margin: 0;
     transition: color 200ms $anim-easing;
+  }
+
+  &__description {
+    font-family: $font-body;
+    font-size: 0.8125rem;
+    color: $color-text-muted;
+    line-height: 1.5;
+    margin: 0;
+    opacity: 0.8;
+    transition: all 200ms $anim-easing;
   }
 
   &__tags {
@@ -128,19 +184,26 @@
   transition: all 200ms $anim-easing;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .skills-section {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+@keyframes skillBorderRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
-  .skill-card {
-    transition: none;
-  }
-
+// Mobile: no dimming, simplified borders
+@media (max-width: calc($bp-tablet - 1px)) {
   .skill-card--dimmed {
     opacity: 1;
     transform: none;
   }
+
+  .skill-card__border-anim {
+    animation-duration: 14s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skills-section { opacity: 1; transform: none; transition: none; }
+  .skill-card { transition: none; }
+  .skill-card--dimmed { opacity: 1; transform: none; }
+  .skill-card__border-anim { animation: none; opacity: 0.2; }
 }

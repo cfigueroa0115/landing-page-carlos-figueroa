@@ -21,6 +21,8 @@
           class="skill-card"
           [class.skill-card--active]="activeCategory() === i"
           [class.skill-card--dimmed]="activeCategory() !== -1 && activeCategory() !== i"
+          [attr.data-accent]="category.accentColor"
+          [style.--card-delay]="i + 's'"
           (mouseenter)="setActiveCategory(i)"
           (mouseleave)="clearActiveCategory()"
           (focus)="setActiveCategory(i)"
@@ -28,15 +30,20 @@
           tabindex="0"
           [attr.aria-label]="'Dominio: ' + category.title"
         >
+          <div class="skill-card__border-anim" aria-hidden="true"></div>
+
           <div class="skill-card__header">
             <div class="skill-card__icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 @for (path of getIconPaths(category.icon); track path) {
                   <path [attr.d]="path"/>
                 }
               </svg>
             </div>
-            <h3 class="skill-card__title">{{ category.title }}</h3>
+            <div class="skill-card__title-group">
+              <h3 class="skill-card__title">{{ category.title }}</h3>
+              <p class="skill-card__description">{{ category.description }}</p>
+            </div>
           </div>
           <div class="skill-card__tags">
             @for (tag of category.tags; track tag) {

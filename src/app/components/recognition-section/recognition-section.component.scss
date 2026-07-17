@@ -1,0 +1,295 @@
+@use 'styles/tokens' as *;
+
+.recognition-section {
+  position: relative;
+  background: $color-navy-900;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 450ms $anim-easing, transform 450ms $anim-easing;
+
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.recognition-header {
+  text-align: center;
+  margin-bottom: $space-8;
+  position: relative;
+}
+
+.recognition-eyebrow {
+  font-family: $font-body;
+  font-size: 0.75rem;
+  font-weight: $font-weight-emphasis;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $color-gold-500;
+  margin-bottom: $space-3;
+  display: block;
+}
+
+.recognition-title {
+  font-family: $font-heading;
+  font-size: $font-size-h2;
+  font-weight: $font-weight-heading;
+  line-height: 1.2;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.recognition-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-6;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+
+  @media (max-width: $bp-tablet) {
+    grid-template-columns: 1fr;
+    gap: $space-5;
+  }
+}
+
+// =============================================================================
+// Recognition Card with animated border
+// =============================================================================
+.recognition-card {
+  position: relative;
+  background: rgba($color-navy-800, 0.65);
+  border: 1px solid rgba($color-cyan-500, 0.15);
+  border-radius: 20px;
+  padding: $space-6;
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  overflow: hidden;
+  transition: transform $anim-duration-fast $anim-easing,
+              box-shadow $anim-duration-fast $anim-easing,
+              border-color $anim-duration-fast $anim-easing,
+              background $anim-duration-fast $anim-easing;
+
+  // Animated border sweep
+  &__border-anim {
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: conic-gradient(from 0deg, transparent 0%, transparent 75%, rgba($color-cyan-500, 0.6) 85%, transparent 95%);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    padding: 2px;
+    animation: borderRotate 8s linear infinite;
+    animation-delay: var(--card-delay, 0s);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  &[data-accent="gold"] &__border-anim {
+    background: conic-gradient(from 0deg, transparent 0%, transparent 75%, rgba($color-gold-500, 0.5) 82%, rgba($color-cyan-500, 0.4) 90%, transparent 95%);
+    animation-delay: calc(var(--card-delay, 0s) + 1.8s);
+  }
+
+  // Spotlight glow
+  &__glow {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba($color-cyan-500, 0.08) 0%,
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 400ms $anim-easing;
+    pointer-events: none;
+  }
+
+  &[data-accent="gold"] &__glow {
+    background: radial-gradient(
+      300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba($color-gold-500, 0.08) 0%,
+      transparent 70%
+    );
+  }
+
+  // Hover state
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba($color-cyan-500, 0.4);
+    box-shadow: 0 16px 48px rgba($color-cyan-500, 0.12);
+    background: rgba($color-navy-800, 0.85);
+
+    .recognition-card__glow {
+      opacity: 1;
+    }
+
+    .recognition-card__icon-container {
+      box-shadow: 0 4px 16px rgba($color-cyan-500, 0.25);
+      border-color: rgba($color-cyan-500, 0.5);
+    }
+
+    .recognition-card__title {
+      color: $color-cyan-500;
+    }
+
+    .recognition-card__border-anim {
+      opacity: 1;
+    }
+  }
+
+  &[data-accent="gold"]:hover {
+    border-color: rgba($color-gold-500, 0.4);
+    box-shadow: 0 16px 48px rgba($color-gold-500, 0.1);
+
+    .recognition-card__icon-container {
+      box-shadow: 0 4px 16px rgba($color-gold-500, 0.25);
+      border-color: rgba($color-gold-500, 0.5);
+    }
+
+    .recognition-card__title {
+      color: $color-gold-500;
+    }
+  }
+
+  // Eyebrow
+  &__eyebrow {
+    font-family: $font-body;
+    font-size: 0.625rem;
+    font-weight: $font-weight-emphasis;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $color-cyan-500;
+    opacity: 0.8;
+
+    [data-accent="gold"] & {
+      color: $color-gold-500;
+    }
+  }
+
+  // Icon
+  &__icon-container {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba($color-cyan-500, 0.12), rgba($color-blue-600, 0.08));
+    border: 1px solid rgba($color-cyan-500, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-cyan-500;
+    transition: all 300ms $anim-easing;
+    box-shadow: 0 2px 8px rgba($color-cyan-500, 0.1);
+
+    [data-accent="gold"] & {
+      background: linear-gradient(135deg, rgba($color-gold-500, 0.12), rgba($color-gold-500, 0.06));
+      border-color: rgba($color-gold-500, 0.25);
+      color: $color-gold-500;
+      box-shadow: 0 2px 8px rgba($color-gold-500, 0.1);
+    }
+  }
+
+  // Title
+  &__title {
+    font-family: $font-heading;
+    font-weight: $font-weight-heading;
+    font-size: 1.3rem;
+    color: #FFFFFF;
+    margin: 0;
+    transition: color 300ms $anim-easing;
+  }
+
+  // Description
+  &__description {
+    font-family: $font-body;
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.65;
+    margin: 0;
+
+    @media (min-width: $bp-desktop) {
+      text-align: justify;
+      text-justify: inter-word;
+      hyphens: auto;
+    }
+
+    @media (max-width: calc($bp-desktop - 1px)) {
+      text-align: left;
+      hyphens: none;
+    }
+  }
+
+  // Context
+  &__context {
+    font-family: $font-body;
+    font-size: 0.8125rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.48);
+    margin: 0;
+  }
+
+  // Tags
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+    margin-top: auto;
+  }
+
+  &__tag {
+    font-family: $font-body;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 6px;
+    background: rgba($color-cyan-500, 0.08);
+    color: $color-cyan-500;
+    border: 1px solid rgba($color-cyan-500, 0.15);
+
+    [data-accent="gold"] & {
+      background: rgba($color-gold-500, 0.08);
+      color: $color-gold-500;
+      border-color: rgba($color-gold-500, 0.15);
+    }
+  }
+}
+
+@keyframes borderRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Mobile: disable spotlight and simplify
+@media (max-width: $bp-tablet) {
+  .recognition-card__glow {
+    display: none;
+  }
+
+  .recognition-card__border-anim {
+    animation-duration: 12s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .recognition-section {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .recognition-card {
+    transition: none;
+
+    &__border-anim {
+      animation: none;
+      opacity: 0.3;
+    }
+
+    &__glow {
+      display: none;
+    }
+  }
+}
