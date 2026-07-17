@@ -35,13 +35,50 @@
 
     <!-- Value Pillars -->
     <div class="pillars-grid">
-      @for (pillar of pillars; track pillar.title) {
-        <article class="pillar-card">
-          <div class="pillar-card__icon" [innerHTML]="pillar.icon"></div>
-          <h3 class="pillar-card__title">{{ pillar.title }}</h3>
-          <p class="pillar-card__text">{{ pillar.description }}</p>
-        </article>
-      }
+      <!-- Estrategia y transformación -->
+      <article class="pillar-card" style="--card-delay: 0s">
+        <div class="pillar-card__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+          </svg>
+        </div>
+        <h3 class="pillar-card__title">Estrategia y transformación</h3>
+        <p class="pillar-card__text">Diseño y ejecución de iniciativas de transformación, modernización tecnológica, gobierno y evolución de modelos operativos alineados con la estrategia empresarial.</p>
+      </article>
+
+      <!-- IA y automatización inteligente -->
+      <article class="pillar-card" style="--card-delay: 0.7s">
+        <div class="pillar-card__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 4.5a2.5 2.5 0 0 0-4.96-.46 2.5 2.5 0 0 0-1.98 3 2.5 2.5 0 0 0 1.32 4.24 3 3 0 0 0 .34 5.58 2.5 2.5 0 0 0 2.96 3.08A2.5 2.5 0 0 0 12 19.5a2.5 2.5 0 0 0 2.32.46 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0 1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 12 4.5"/>
+            <path d="m15 9-3 3-3-3"/>
+          </svg>
+        </div>
+        <h3 class="pillar-card__title">IA y automatización inteligente</h3>
+        <p class="pillar-card__text">Aplicación de inteligencia artificial, BPM, BPMS, analítica y automatización para optimizar procesos, reducir tiempos y habilitar operaciones escalables.</p>
+      </article>
+
+      <!-- Producto y portafolios -->
+      <article class="pillar-card" style="--card-delay: 1.4s">
+        <div class="pillar-card__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>
+          </svg>
+        </div>
+        <h3 class="pillar-card__title">Producto y portafolios</h3>
+        <p class="pillar-card__text">Gestión de productos digitales, priorización estratégica, articulación de stakeholders y dirección de portafolios orientados a generación de valor.</p>
+      </article>
+
+      <!-- Operaciones y excelencia -->
+      <article class="pillar-card" style="--card-delay: 2.1s">
+        <div class="pillar-card__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/>
+          </svg>
+        </div>
+        <h3 class="pillar-card__title">Operaciones y excelencia</h3>
+        <p class="pillar-card__text">Rediseño de procesos, mejora continua, modelos SmartOps, gestión de capacidad y fortalecimiento de la productividad y la experiencia del cliente.</p>
+      </article>
     </div>
   </div>
 </section>

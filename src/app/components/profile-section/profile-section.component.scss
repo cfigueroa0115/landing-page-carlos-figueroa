@@ -86,45 +86,70 @@
 
 .pillar-card {
   background: $color-bg-card;
-  border: 1px solid rgba(22, 166, 199, 0.12);
+  border: 1.5px solid rgba(22, 166, 199, 0.15);
   border-top: 3px solid $color-cyan-500;
   border-radius: 16px;
   padding: $space-5;
   display: flex;
   flex-direction: column;
   gap: $space-3;
+  position: relative;
+  overflow: hidden;
   transition: transform 0.25s ease,
               box-shadow 0.25s ease,
-              border-color 0.25s ease;
+              border-color 0.25s ease,
+              background 0.25s ease;
   height: 100%;
+  animation: pillarBorderGlow 7s ease-in-out infinite;
+  animation-delay: var(--card-delay, 0s);
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(22, 166, 199, 0.04), transparent);
+    animation: pillarShineSweep 7s ease-in-out infinite;
+    animation-delay: var(--card-delay, 0s);
+    pointer-events: none;
+  }
 
   &:hover {
-    transform: translateY(-4px);
-    border-color: rgba(22, 166, 199, 0.45);
-    box-shadow: 0 12px 36px rgba(22, 166, 199, 0.1), 0 0 20px rgba(22, 166, 199, 0.06);
+    transform: translateY(-5px);
+    border-color: rgba(22, 166, 199, 0.6);
+    box-shadow: 0 16px 44px rgba(22, 166, 199, 0.12), 0 0 28px rgba(22, 166, 199, 0.08);
+    background: rgba(22, 166, 199, 0.02);
   }
 
   &__icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    background: rgba(22, 166, 199, 0.08);
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(22, 166, 199, 0.1), rgba(20, 108, 148, 0.06));
+    border: 1px solid rgba(22, 166, 199, 0.2);
     color: #16A6C7;
-    margin-bottom: 16px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 
     svg {
-      width: 24px;
-      height: 24px;
+      width: 26px;
+      height: 26px;
     }
+  }
+
+  &:hover &__icon {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(22, 166, 199, 0.2);
   }
 
   &__title {
     font-family: $font-heading;
-    font-weight: $font-weight-emphasis;
-    font-size: 0.9375rem;
+    font-weight: $font-weight-heading;
+    font-size: 1rem;
     color: $color-text-primary;
     margin: 0;
   }
@@ -133,10 +158,20 @@
     font-family: $font-body;
     font-size: 0.8125rem;
     color: $color-text-secondary;
-    line-height: 1.6;
+    line-height: 1.65;
     margin: 0;
     text-align: justify;
   }
+}
+
+@keyframes pillarBorderGlow {
+  0%, 100% { border-color: rgba(22, 166, 199, 0.15); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+  50% { border-color: rgba(22, 166, 199, 0.35); box-shadow: 0 4px 16px rgba(22, 166, 199, 0.06); }
+}
+
+@keyframes pillarShineSweep {
+  0%, 40%, 100% { left: -100%; opacity: 0; }
+  50% { left: 100%; opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
