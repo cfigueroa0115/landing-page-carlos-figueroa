@@ -1,7 +1,26 @@
+@use 'sass:map';
+@use 'sass:color';
 @use 'styles/tokens' as *;
 
+// =============================================================================
+// Timeline Section — Executive Premium Redesign
+// =============================================================================
+
+// Stage color map
+$stage-colors: (
+  'bpm': #146C94,
+  'projects': #1B4F8C,
+  'automation': #0D9488,
+  'smartops': #0F766E,
+  'product-ia': #16A6C7,
+);
+
+// =============================================================================
+// Section Base
+// =============================================================================
 .timeline-section {
-  background-color: $color-bg-secondary;
+  position: relative;
+  overflow: hidden;
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 450ms $anim-easing, transform 450ms $anim-easing;
@@ -12,142 +31,480 @@
   }
 }
 
+// =============================================================================
+// Background
+// =============================================================================
+.timeline-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  &__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba($color-navy-800, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba($color-navy-800, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  &__radial {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba($color-cyan-500, 0.04), transparent),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba($color-blue-600, 0.03), transparent),
+      linear-gradient(180deg, #F0F4F8 0%, #F5F7F9 40%, #F0F4F8 100%);
+  }
+
+  &__nodes {
+    position: absolute;
+    inset: 0;
+  }
+
+  &__node {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba($color-cyan-500, 0.06);
+
+    &--1 {
+      width: 300px;
+      height: 300px;
+      top: 10%;
+      right: -100px;
+    }
+    &--2 {
+      width: 200px;
+      height: 200px;
+      bottom: 20%;
+      left: -60px;
+    }
+    &--3 {
+      width: 150px;
+      height: 150px;
+      top: 50%;
+      right: 20%;
+    }
+  }
+}
+
+// =============================================================================
+// Header
+// =============================================================================
 .timeline-header {
   text-align: center;
   margin-bottom: $space-8;
-}
-
-// Timeline
-.timeline {
   position: relative;
-  padding-left: 40px;
-  max-width: 800px;
-  margin: 0 auto;
+  z-index: 1;
 
-  @media (max-width: calc($bp-tablet - 1px)) {
-    padding-left: 28px;
+  &__subtitle {
+    font-family: $font-body;
+    font-size: clamp(1rem, 1.5vw, 1.125rem);
+    color: $color-text-secondary;
+    max-width: 680px;
+    margin: 0 auto $space-7;
+    line-height: 1.7;
   }
 }
 
-.timeline-line {
+// =============================================================================
+// Evolution Path
+// =============================================================================
+.evolution-path {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+  position: relative;
+  padding: $space-5 0;
+
+  @media (max-width: calc($bp-tablet - 1px)) {
+    gap: $space-2;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &__node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-2;
+    opacity: 0;
+    transform: translateY(12px) scale(0.9);
+    transition: opacity 400ms $anim-easing, transform 400ms $anim-easing;
+
+    &--revealed {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  &__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba($color-blue-600, 0.08), rgba($color-cyan-500, 0.12));
+    border: 1px solid rgba($color-cyan-500, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-blue-600;
+    transition: all 300ms $anim-easing;
+
+    .evolution-path__node--revealed & {
+      background: linear-gradient(135deg, rgba($color-blue-600, 0.12), rgba($color-cyan-500, 0.18));
+      border-color: rgba($color-cyan-500, 0.4);
+      box-shadow: 0 2px 12px rgba($color-cyan-500, 0.15);
+    }
+  }
+
+  &__label {
+    font-family: $font-body;
+    font-size: 0.75rem;
+    font-weight: $font-weight-emphasis;
+    color: $color-text-secondary;
+    white-space: nowrap;
+
+    @media (max-width: calc($bp-tablet - 1px)) {
+      font-size: 0.6875rem;
+    }
+  }
+
+  &__connector {
+    display: flex;
+    align-items: center;
+    padding: 0 $space-2;
+    color: rgba($color-cyan-500, 0.3);
+    opacity: 0;
+    transform: scaleX(0);
+    transition: opacity 300ms $anim-easing 150ms, transform 300ms $anim-easing 150ms;
+
+    &--revealed {
+      opacity: 1;
+      transform: scaleX(1);
+      color: $color-cyan-500;
+    }
+
+    @media (max-width: calc($bp-tablet - 1px)) {
+      padding: 0 $space-1;
+      
+      svg {
+        width: 16px;
+        height: 8px;
+      }
+    }
+  }
+}
+
+// =============================================================================
+// Executive Timeline
+// =============================================================================
+.executive-timeline {
+  position: relative;
+  padding-left: 60px;
+  max-width: 900px;
+  margin: 0 auto;
+  z-index: 1;
+
+  @media (max-width: calc($bp-tablet - 1px)) {
+    padding-left: 36px;
+  }
+}
+
+// =============================================================================
+// Animated Line
+// =============================================================================
+.exec-line {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 14px;
-  width: 2px;
-  background: linear-gradient(180deg, $color-navy-800, $color-cyan-500, $color-navy-800);
-  border-radius: 1px;
+  left: 24px;
+  width: 3px;
+  background: rgba($color-navy-800, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
 
   @media (max-width: calc($bp-tablet - 1px)) {
-    left: 10px;
+    left: 12px;
+    width: 2px;
+  }
+
+  &__progress {
+    width: 100%;
+    background: linear-gradient(180deg, $color-blue-600, $color-cyan-500, #0D9488);
+    border-radius: 2px;
+    transition: height 100ms linear;
+    box-shadow: 0 0 8px rgba($color-cyan-500, 0.3);
   }
 }
 
-.timeline-entry {
+// =============================================================================
+// Executive Card
+// =============================================================================
+.exec-card {
   position: relative;
-  margin-bottom: $space-5;
+  margin-bottom: $space-6;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 500ms $anim-easing, transform 500ms $anim-easing;
+
+  &--active {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
   &:last-child {
     margin-bottom: 0;
   }
-}
 
-.timeline-node {
-  position: absolute;
-  left: -40px;
-  top: $space-5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  // Node on the timeline
+  &__node {
+    position: absolute;
+    left: -60px;
+    top: 32px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
 
-  @media (max-width: calc($bp-tablet - 1px)) {
-    left: -28px;
+    @media (max-width: calc($bp-tablet - 1px)) {
+      left: -36px;
+      width: 18px;
+      height: 18px;
+      top: 24px;
+    }
   }
 
-  &__dot {
+  &__node-dot {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: $color-cyan-500;
-    border: 3px solid $color-bg-secondary;
-    box-shadow: 0 0 0 2px $color-navy-800;
+    background: $color-bg-secondary;
+    border: 3px solid rgba($color-navy-800, 0.2);
+    transition: all 400ms $anim-easing;
+    z-index: 1;
+
+    .exec-card__node--active & {
+      background: $color-cyan-500;
+      border-color: $color-cyan-500;
+      box-shadow: 0 0 0 4px rgba($color-cyan-500, 0.2);
+    }
+
+    .exec-card--featured .exec-card__node--active & {
+      background: #fff;
+      border-color: $color-cyan-500;
+      box-shadow: 0 0 0 4px rgba($color-cyan-500, 0.3), 0 0 12px rgba($color-cyan-500, 0.4);
+    }
+
+    @media (max-width: calc($bp-tablet - 1px)) {
+      width: 10px;
+      height: 10px;
+      border-width: 2px;
+    }
   }
-}
 
-.timeline-card {
-  background: $color-bg-card;
-  border: 1px solid $color-border;
-  border-radius: 16px;
-  padding: $space-5;
-  cursor: pointer;
-  transition: transform $anim-duration-fast $anim-easing,
-              box-shadow $anim-duration-fast $anim-easing;
+  &__node-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1px solid rgba($color-cyan-500, 0);
+    transition: all 400ms $anim-easing;
 
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    .exec-card__node--active & {
+      border-color: rgba($color-cyan-500, 0.3);
+      animation: nodeRingPulse 2s ease-in-out 1;
+    }
   }
 
-  &--expanded {
-    border-color: rgba($color-cyan-500, 0.3);
+  // Card body
+  &__body {
+    background: $color-bg-card;
+    border: 1px solid $color-border;
+    border-radius: 20px;
+    padding: $space-5 $space-6;
+    position: relative;
+    transition: all 300ms $anim-easing;
+    border-left: 4px solid transparent;
+
+    @media (max-width: calc($bp-tablet - 1px)) {
+      padding: $space-4 $space-4;
+      border-radius: 16px;
+    }
+
+    // Stage left border colors
+    [data-stage="bpm"] & { border-left-color: map.get($stage-colors, 'bpm'); }
+    [data-stage="projects"] & { border-left-color: map.get($stage-colors, 'projects'); }
+    [data-stage="automation"] & { border-left-color: map.get($stage-colors, 'automation'); }
+    [data-stage="smartops"] & { border-left-color: map.get($stage-colors, 'smartops'); }
+    [data-stage="product-ia"] & { border-left-color: map.get($stage-colors, 'product-ia'); }
+
+    // Hover effect (desktop)
+    @media (hover: hover) {
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba($color-navy-800, 0.08), 0 4px 12px rgba($color-cyan-500, 0.06);
+        background: #FAFCFE;
+        border-color: rgba($color-cyan-500, 0.3);
+
+        .exec-card__icon-wrapper {
+          background: linear-gradient(135deg, rgba($color-blue-600, 0.12), rgba($color-cyan-500, 0.18));
+          box-shadow: 0 2px 12px rgba($color-cyan-500, 0.2);
+        }
+
+        .exec-card__company {
+          color: $color-blue-600;
+        }
+      }
+
+      // Intensify left border on hover
+      [data-stage="bpm"] &:hover { border-left-color: color.adjust(map.get($stage-colors, 'bpm'), $lightness: -8%); }
+      [data-stage="projects"] &:hover { border-left-color: color.adjust(map.get($stage-colors, 'projects'), $lightness: -8%); }
+      [data-stage="automation"] &:hover { border-left-color: color.adjust(map.get($stage-colors, 'automation'), $lightness: -8%); }
+      [data-stage="smartops"] &:hover { border-left-color: color.adjust(map.get($stage-colors, 'smartops'), $lightness: -8%); }
+      [data-stage="product-ia"] &:hover { border-left-color: color.adjust(map.get($stage-colors, 'product-ia'), $lightness: -8%); }
+    }
   }
 
-  &__header {
+  // Featured card (most recent)
+  &--featured &__body {
+    background: linear-gradient(135deg, $color-navy-900, $color-navy-800);
+    border-color: rgba($color-cyan-500, 0.4);
+    border-left-color: $color-cyan-500;
+    color: #fff;
+    box-shadow: 0 8px 32px rgba($color-navy-950, 0.3), 0 0 20px rgba($color-cyan-500, 0.1);
+
+    @media (hover: hover) {
+      &:hover {
+        background: linear-gradient(135deg, $color-navy-900, color.adjust($color-navy-800, $lightness: 3%));
+        border-color: rgba($color-cyan-500, 0.6);
+        border-left-color: $color-cyan-500;
+        box-shadow: 0 16px 48px rgba($color-navy-950, 0.4), 0 0 30px rgba($color-cyan-500, 0.15);
+
+        .exec-card__company {
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  // Featured badge
+  &__current-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    font-family: $font-body;
+    font-size: 0.6875rem;
+    font-weight: $font-weight-emphasis;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: $color-cyan-500;
+    background: rgba($color-cyan-500, 0.1);
+    border: 1px solid rgba($color-cyan-500, 0.25);
+    border-radius: 20px;
+    padding: 4px 12px;
+    margin-bottom: $space-4;
+  }
+
+  // Visible content layout
+  &__visible-content {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: $space-4;
+    align-items: start;
+
+    @media (max-width: calc($bp-tablet - 1px)) {
+      grid-template-columns: 1fr auto;
+      gap: $space-3;
+    }
+  }
+
+  // Icon wrapper
+  &__icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba($color-blue-600, 0.06), rgba($color-cyan-500, 0.1));
+    border: 1px solid rgba($color-cyan-500, 0.15);
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
+    color: $color-blue-600;
+    transition: all 300ms $anim-easing;
+    flex-shrink: 0;
+
+    .exec-card--featured & {
+      background: rgba($color-cyan-500, 0.15);
+      border-color: rgba($color-cyan-500, 0.3);
+      color: $color-cyan-500;
+    }
+
+    @media (max-width: calc($bp-tablet - 1px)) {
+      display: none;
+    }
+  }
+
+  // Info block
+  &__info {
+    min-width: 0;
+  }
+
+  &__top-row {
+    display: flex;
+    align-items: center;
     gap: $space-3;
+    flex-wrap: wrap;
+    margin-bottom: $space-2;
+  }
+
+  &__stage-tag {
+    font-family: $font-body;
+    font-size: 0.6875rem;
+    font-weight: $font-weight-emphasis;
+    letter-spacing: 0.02em;
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: rgba($color-blue-600, 0.08);
+    color: $color-blue-600;
+
+    &[data-stage="bpm"] { background: rgba(map.get($stage-colors, 'bpm'), 0.08); color: map.get($stage-colors, 'bpm'); }
+    &[data-stage="projects"] { background: rgba(map.get($stage-colors, 'projects'), 0.08); color: map.get($stage-colors, 'projects'); }
+    &[data-stage="automation"] { background: rgba(map.get($stage-colors, 'automation'), 0.08); color: map.get($stage-colors, 'automation'); }
+    &[data-stage="smartops"] { background: rgba(map.get($stage-colors, 'smartops'), 0.08); color: map.get($stage-colors, 'smartops'); }
+    &[data-stage="product-ia"] { background: rgba(map.get($stage-colors, 'product-ia'), 0.08); color: map.get($stage-colors, 'product-ia'); }
+
+    .exec-card--featured & {
+      background: rgba($color-cyan-500, 0.15);
+      color: $color-cyan-500;
+    }
+  }
+
+  &__period {
+    font-family: $font-body;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: $color-text-muted;
+
+    .exec-card--featured & {
+      color: rgba(255, 255, 255, 0.7);
+    }
   }
 
   &__company {
     font-family: $font-heading;
     font-weight: $font-weight-heading;
-    font-size: 1rem;
+    font-size: clamp(1.0625rem, 2vw, 1.25rem);
     color: $color-text-primary;
-    margin: 0;
+    margin: 0 0 2px;
     line-height: 1.3;
-  }
+    transition: color 200ms $anim-easing;
 
-  &__date {
-    font-family: $font-body;
-    font-size: 0.8125rem;
-    font-weight: 500;
-    color: $color-cyan-500;
-    display: block;
-    margin-top: 2px;
-  }
-
-  &__toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-    background: $color-bg-secondary;
-    color: $color-text-muted;
-    flex-shrink: 0;
-    transition: transform $anim-duration-fast $anim-easing;
-
-    svg {
-      transition: transform $anim-duration-fast $anim-easing;
-
-      &.rotated {
-        transform: rotate(180deg);
-      }
-    }
-  }
-
-  &__details {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 300ms $anim-easing, opacity 300ms $anim-easing;
-    opacity: 0;
-
-    &--visible {
-      max-height: 400px;
-      opacity: 1;
-      margin-top: $space-4;
+    .exec-card--featured & {
+      color: #FFFFFF;
     }
   }
 
@@ -157,42 +514,272 @@
     font-weight: 500;
     color: $color-text-secondary;
     margin: 0 0 $space-3;
+
+    .exec-card--featured & {
+      color: rgba(255, 255, 255, 0.85);
+    }
   }
 
-  &__responsibilities {
-    list-style: none;
-    padding: 0;
+  &__description {
+    font-family: $font-body;
+    font-size: 0.875rem;
+    color: $color-text-secondary;
+    line-height: 1.6;
+    margin: 0 0 $space-3;
+
+    .exec-card--featured & {
+      color: rgba(255, 255, 255, 0.75);
+    }
+  }
+
+  // Metric row
+  &__metric-row {
+    display: flex;
+    align-items: baseline;
+    gap: $space-2;
+    margin-bottom: $space-3;
+  }
+
+  &__metric {
+    font-family: $font-heading;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: $font-weight-heading;
+    background: $gradient-text;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+
+    .exec-card--featured & {
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      background: linear-gradient(90deg, #fff, $color-cyan-500);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  &__metric-label {
+    font-family: $font-body;
+    font-size: 0.8125rem;
+    color: $color-text-muted;
+
+    .exec-card--featured & {
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+
+  // Tags
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+  }
+
+  &__tag {
+    font-family: $font-body;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 8px;
+    background: $color-bg-secondary;
+    color: $color-text-secondary;
+    border: 1px solid $color-border;
+
+    .exec-card--featured & {
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.8);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+  }
+
+  // Toggle button
+  &__toggle {
     display: flex;
     flex-direction: column;
-    gap: $space-2;
+    align-items: center;
+    gap: 4px;
+    padding: $space-3;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: $color-text-muted;
+    border-radius: 12px;
+    transition: all 200ms $anim-easing;
+    min-width: 44px;
+    min-height: 44px;
+    align-self: center;
 
-    li {
-      font-family: $font-body;
-      font-size: 0.875rem;
-      color: $color-text-secondary;
-      padding-left: $space-4;
-      position: relative;
-      line-height: 1.5;
+    &:hover {
+      background: rgba($color-cyan-500, 0.08);
+      color: $color-cyan-500;
+    }
 
-      &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 8px;
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: $color-cyan-500;
+    &:focus-visible {
+      outline: 2px solid $color-cyan-500;
+      outline-offset: 2px;
+    }
+
+    .exec-card--featured & {
+      color: rgba(255, 255, 255, 0.6);
+
+      &:hover {
+        background: rgba($color-cyan-500, 0.15);
+        color: $color-cyan-500;
       }
     }
+
+    @media (max-width: calc($bp-tablet - 1px)) {
+      grid-column: 2;
+      grid-row: 1;
+    }
+  }
+
+  &__toggle-label {
+    font-family: $font-body;
+    font-size: 0.625rem;
+    font-weight: $font-weight-emphasis;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+
+    @media (max-width: calc($bp-tablet - 1px)) {
+      display: none;
+    }
+  }
+
+  &__chevron {
+    transition: transform 300ms $anim-easing;
+
+    &--rotated {
+      transform: rotate(180deg);
+    }
+  }
+
+  // Accordion
+  &__accordion {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 400ms $anim-easing, opacity 300ms $anim-easing;
+    overflow: hidden;
+
+    &--open {
+      grid-template-rows: 1fr;
+      opacity: 1;
+      margin-top: $space-5;
+    }
+  }
+
+  &__accordion-inner {
+    overflow: hidden;
+    padding: 0;
+
+    .exec-card__accordion--open & {
+      padding-top: $space-4;
+      border-top: 1px solid $color-border;
+    }
+
+    .exec-card--featured .exec-card__accordion--open & {
+      border-top-color: rgba(255, 255, 255, 0.12);
+    }
+  }
+
+  &__accordion-section {
+    margin-bottom: $space-5;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__accordion-title {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    font-family: $font-heading;
+    font-size: 0.875rem;
+    font-weight: $font-weight-emphasis;
+    color: $color-text-primary;
+    margin: 0 0 $space-2;
+
+    svg {
+      color: $color-cyan-500;
+      flex-shrink: 0;
+    }
+
+    .exec-card--featured & {
+      color: #FFFFFF;
+    }
+  }
+
+  &__accordion-text {
+    font-family: $font-body;
+    font-size: 0.875rem;
+    color: $color-text-secondary;
+    line-height: 1.7;
+    margin: 0;
+    padding-left: 24px;
+
+    .exec-card--featured & {
+      color: rgba(255, 255, 255, 0.75);
+    }
+  }
+
+  &__tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+    padding-left: 24px;
+  }
+
+  &__tech-tag {
+    font-family: $font-body;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba($color-cyan-500, 0.06);
+    color: $color-blue-600;
+    border: 1px solid rgba($color-cyan-500, 0.15);
+
+    .exec-card--featured & {
+      background: rgba($color-cyan-500, 0.1);
+      color: $color-cyan-500;
+      border-color: rgba($color-cyan-500, 0.25);
+    }
+  }
+
+  // Expanded state
+  &--expanded &__body {
+    border-color: rgba($color-cyan-500, 0.3);
+    box-shadow: 0 8px 32px rgba($color-navy-800, 0.08);
+  }
+
+  &--expanded.exec-card--featured &__body {
+    border-color: rgba($color-cyan-500, 0.5);
+    box-shadow: 0 12px 48px rgba($color-navy-950, 0.4), 0 0 24px rgba($color-cyan-500, 0.12);
   }
 }
 
+// =============================================================================
+// Node animation
+// =============================================================================
+@keyframes nodeRingPulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.8); opacity: 0; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+// =============================================================================
 // Consultancies subsection
+// =============================================================================
 .timeline-subsection {
   margin-top: $space-8;
-  max-width: 800px;
+  max-width: 900px;
   margin-inline: auto;
+  position: relative;
+  z-index: 1;
 
   &__title {
     font-family: $font-heading;
@@ -217,11 +804,17 @@
 .consultancy-item {
   background: $color-bg-card;
   border: 1px solid $color-border;
-  border-radius: 12px;
+  border-radius: 14px;
   padding: $space-4;
   display: flex;
   flex-direction: column;
   gap: 4px;
+  transition: all 200ms $anim-easing;
+
+  &:hover {
+    border-color: rgba($color-cyan-500, 0.2);
+    box-shadow: 0 4px 16px rgba($color-navy-800, 0.04);
+  }
 
   &__company {
     font-family: $font-body;
@@ -237,6 +830,9 @@
   }
 }
 
+// =============================================================================
+// Reduced Motion
+// =============================================================================
 @media (prefers-reduced-motion: reduce) {
   .timeline-section {
     opacity: 1;
@@ -244,7 +840,38 @@
     transition: none;
   }
 
-  .timeline-card__details {
+  .exec-card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .exec-card__body {
+    transition: none;
+  }
+
+  .exec-card__accordion {
+    transition: none;
+  }
+
+  .exec-card__node-ring {
+    animation: none;
+  }
+
+  .exec-line__progress {
+    height: 100% !important;
+    transition: none;
+  }
+
+  .evolution-path__node {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .evolution-path__connector {
+    opacity: 1;
+    transform: scaleX(1);
     transition: none;
   }
 }
