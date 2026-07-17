@@ -68,7 +68,7 @@ import { Component } from '@angular/core';
       &__path {
         stroke-dasharray: 2000;
         stroke-dashoffset: 2000;
-        animation: drawPath 25s linear infinite;
+        animation: drawPath 14s linear infinite;
 
         &--1 { animation-delay: 0s; }
         &--2 { animation-delay: -6s; }

@@ -53,42 +53,39 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
       border: 2px solid rgba(22, 166, 199, 0.5);
       border-radius: 24px;
       cursor: pointer;
+      overflow: hidden;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 0 12px rgba(22, 166, 199, 0.12), 0 4px 16px rgba(7, 26, 43, 0.2);
+      box-shadow: 0 0 8px rgba(22, 166, 199, 0.1), 0 4px 12px rgba(7, 26, 43, 0.2);
       animation: trajBreathePremium 5.5s ease-in-out infinite;
     }
 
     .traj-fab::before {
       content: '';
       position: absolute;
-      inset: -2px;
+      inset: 0;
       border-radius: inherit;
-      background: linear-gradient(90deg, transparent 0%, transparent 30%, rgba(22, 166, 199, 0.5) 45%, rgba(80, 220, 255, 0.8) 50%, rgba(22, 166, 199, 0.5) 55%, transparent 70%, transparent 100%);
+      background: linear-gradient(90deg, transparent 0%, transparent 30%, rgba(22, 166, 199, 0.3) 45%, rgba(80, 220, 255, 0.5) 50%, rgba(22, 166, 199, 0.3) 55%, transparent 70%, transparent 100%);
       opacity: 0;
       animation: trajSweepPremium 5.5s ease-in-out infinite;
       pointer-events: none;
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      padding: 2px;
     }
 
     @keyframes trajBreathePremium {
       0%, 100% {
         border-color: rgba(22, 166, 199, 0.35);
-        box-shadow: 0 0 8px rgba(22, 166, 199, 0.08), 0 4px 12px rgba(7, 26, 43, 0.15);
+        box-shadow: 0 0 6px rgba(22, 166, 199, 0.06), 0 4px 10px rgba(7, 26, 43, 0.12);
       }
       30% {
         border-color: rgba(22, 166, 199, 0.7);
-        box-shadow: 0 0 18px rgba(22, 166, 199, 0.25), 0 4px 18px rgba(7, 26, 43, 0.2);
+        box-shadow: 0 0 12px rgba(22, 166, 199, 0.15), 0 4px 14px rgba(7, 26, 43, 0.18);
       }
       45% {
         border-color: rgba(22, 166, 199, 0.85);
-        box-shadow: 0 0 24px rgba(22, 166, 199, 0.35), 0 4px 20px rgba(7, 26, 43, 0.22);
+        box-shadow: 0 0 14px rgba(22, 166, 199, 0.2), 0 4px 16px rgba(7, 26, 43, 0.2);
       }
       55% {
         border-color: rgba(22, 166, 199, 0.6);
-        box-shadow: 0 0 16px rgba(22, 166, 199, 0.2), 0 4px 16px rgba(7, 26, 43, 0.18);
+        box-shadow: 0 0 10px rgba(22, 166, 199, 0.12), 0 4px 12px rgba(7, 26, 43, 0.16);
       }
     }
 
