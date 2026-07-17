@@ -45,9 +45,9 @@
               <p class="skill-card__description">{{ category.description }}</p>
             </div>
           </div>
-          <div class="skill-card__tags">
+          <div class="skill-card__tags" role="list" aria-label="Competencias del dominio">
             @for (tag of category.tags; track tag) {
-              <span class="skill-tag">{{ tag }}</span>
+              <span class="skill-tag" role="listitem">{{ tag }}</span>
             }
           </div>
         </article>

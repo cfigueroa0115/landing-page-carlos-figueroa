@@ -37,7 +37,7 @@ export class AcademicSectionComponent {
     {
       institution: 'Universidad Cooperativa de Colombia',
       role: 'Profesor de Ingeniería Industrial',
-      period: '2026 – actualmente',
+      period: '2026 – presente',
       focus: 'Operaciones, procesos y transformación digital',
       subjects: ['Gestión de operaciones', 'Mejora continua', 'Procesos industriales'],
       iconPaths: 'M22 10v6M2 10l10-5 10 5-10 5z|M6 12v5c3 3 10 3 12 0v-5|M2 2h4l2 3h12',

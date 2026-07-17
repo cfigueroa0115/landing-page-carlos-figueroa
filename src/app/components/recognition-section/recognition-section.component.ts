@@ -61,9 +61,9 @@ interface RecognitionItem {
               <h3 class="recognition-card__title">{{ item.title }}</h3>
               <p class="recognition-card__description">{{ item.description }}</p>
               <p class="recognition-card__context">{{ item.context }}</p>
-              <div class="recognition-card__tags">
+              <div class="recognition-card__tags" role="list" aria-label="Tecnologías y capacidades">
                 @for (tag of item.tags; track tag) {
-                  <span class="recognition-card__tag">{{ tag }}</span>
+                  <span class="recognition-card__tag" role="listitem">{{ tag }}</span>
                 }
               </div>
             </article>

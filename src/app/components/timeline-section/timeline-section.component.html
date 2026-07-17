@@ -113,9 +113,9 @@
                 </div>
 
                 <!-- Tags -->
-                <div class="exec-card__tags">
+                <div class="exec-card__tags" role="list" aria-label="Tecnologías clave">
                   @for (tag of entry.tags; track tag) {
-                    <span class="exec-card__tag">{{ tag }}</span>
+                    <span class="exec-card__tag" role="listitem">{{ tag }}</span>
                   }
                 </div>
               </div>
@@ -242,9 +242,9 @@
               </svg>
               <span>{{ c.result }}</span>
             </div>
-            <div class="consultancy-card__tags">
+            <div class="consultancy-card__tags" role="list" aria-label="Tecnologías aplicadas">
               @for (tech of c.technologies; track tech) {
-                <span class="consultancy-card__tag">{{ tech }}</span>
+                <span class="consultancy-card__tag" role="listitem">{{ tech }}</span>
               }
             </div>
           </article>
