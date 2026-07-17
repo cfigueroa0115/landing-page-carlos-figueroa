@@ -50,12 +50,12 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
       background: rgba(11, 41, 64, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border: 1.5px solid rgba(22, 166, 199, 0.4);
+      border: 2px solid rgba(22, 166, 199, 0.5);
       border-radius: 24px;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 0 8px rgba(22, 166, 199, 0.1), 0 4px 16px rgba(7, 26, 43, 0.2);
-      animation: trajBreathe 6s ease-in-out infinite;
+      box-shadow: 0 0 12px rgba(22, 166, 199, 0.12), 0 4px 16px rgba(7, 26, 43, 0.2);
+      animation: trajBreathePremium 5.5s ease-in-out infinite;
     }
 
     .traj-fab::before {
@@ -63,34 +63,40 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
       position: absolute;
       inset: -2px;
       border-radius: inherit;
-      background: linear-gradient(135deg, transparent 40%, rgba(22, 166, 199, 0.3) 50%, transparent 60%);
+      background: linear-gradient(90deg, transparent 0%, transparent 30%, rgba(22, 166, 199, 0.5) 45%, rgba(80, 220, 255, 0.8) 50%, rgba(22, 166, 199, 0.5) 55%, transparent 70%, transparent 100%);
       opacity: 0;
-      animation: trajFlash 6s ease-in-out infinite;
+      animation: trajSweepPremium 5.5s ease-in-out infinite;
       pointer-events: none;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      padding: 2px;
     }
 
-    @keyframes trajBreathe {
+    @keyframes trajBreathePremium {
       0%, 100% {
-        border-color: rgba(22, 166, 199, 0.3);
+        border-color: rgba(22, 166, 199, 0.35);
         box-shadow: 0 0 8px rgba(22, 166, 199, 0.08), 0 4px 12px rgba(7, 26, 43, 0.15);
       }
-      40% {
-        border-color: rgba(22, 166, 199, 0.6);
-        box-shadow: 0 0 16px rgba(22, 166, 199, 0.2), 0 4px 16px rgba(7, 26, 43, 0.2);
-      }
-      50% {
+      30% {
         border-color: rgba(22, 166, 199, 0.7);
-        box-shadow: 0 0 20px rgba(22, 166, 199, 0.25), 0 4px 20px rgba(7, 26, 43, 0.2);
+        box-shadow: 0 0 18px rgba(22, 166, 199, 0.25), 0 4px 18px rgba(7, 26, 43, 0.2);
       }
-      60% {
-        border-color: rgba(22, 166, 199, 0.5);
-        box-shadow: 0 0 14px rgba(22, 166, 199, 0.15), 0 4px 14px rgba(7, 26, 43, 0.18);
+      45% {
+        border-color: rgba(22, 166, 199, 0.85);
+        box-shadow: 0 0 24px rgba(22, 166, 199, 0.35), 0 4px 20px rgba(7, 26, 43, 0.22);
+      }
+      55% {
+        border-color: rgba(22, 166, 199, 0.6);
+        box-shadow: 0 0 16px rgba(22, 166, 199, 0.2), 0 4px 16px rgba(7, 26, 43, 0.18);
       }
     }
 
-    @keyframes trajFlash {
-      0%, 40%, 60%, 100% { opacity: 0; }
-      50% { opacity: 1; }
+    @keyframes trajSweepPremium {
+      0%, 35% { opacity: 0; transform: translateX(-100%); }
+      40% { opacity: 1; }
+      60% { opacity: 1; }
+      65%, 100% { opacity: 0; transform: translateX(100%); }
     }
 
     .traj-fab:hover {

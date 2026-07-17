@@ -48,7 +48,7 @@ export class AdminPanelComponent {
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
-      this.showAdminButton.set(window.location.search.includes('admin=true'));
+      this.showAdminButton.set(true);
     }
   }
 
