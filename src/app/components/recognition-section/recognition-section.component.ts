@@ -32,7 +32,7 @@ interface RecognitionItem {
 
       <div class="container">
         <div class="recognition-header">
-          <span class="recognition-eyebrow">INNOVACIÓN APLICADA</span>
+          <span class="recognition-eyebrow">INNOVACIÓN Y RECONOCIMIENTOS</span>
           <h2 id="recognition-heading" class="recognition-title">Reconocimientos que validan la capacidad de transformar</h2>
         </div>
 

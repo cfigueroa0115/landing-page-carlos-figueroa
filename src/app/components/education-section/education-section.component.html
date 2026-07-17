@@ -63,8 +63,10 @@
                 </svg>
                 <span class="cert-card__item-title">{{ cert.title }}</span>
                 @if (cert.institution) {
+                  <span class="cert-card__item-separator" aria-hidden="true">·</span>
                   <span class="cert-card__item-inst">{{ cert.institution }}</span>
                 }
+                <span class="cert-card__item-separator" aria-hidden="true">·</span>
                 <span class="cert-card__item-year">{{ cert.year }}</span>
               </div>
             }
