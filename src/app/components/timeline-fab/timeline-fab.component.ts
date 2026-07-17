@@ -35,7 +35,7 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
   styles: [`
     .traj-fab {
       position: fixed;
-      top: 18%;
+      top: 12%;
       left: 16px;
       transform: translateY(-50%);
       z-index: 998;
@@ -108,7 +108,7 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
 
     @media (max-width: 768px) {
       .traj-fab {
-        top: 18%;
+        top: 12%;
         left: 12px;
         padding: 8px 10px;
         font-size: 0.625rem;
