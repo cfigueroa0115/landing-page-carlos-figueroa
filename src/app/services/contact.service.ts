@@ -33,7 +33,7 @@ export class ContactService {
    * The owner must set this in environment or replace the placeholder.
    * Web3Forms keys are public by design (client-side submissions).
    */
-  private readonly accessKey = '4bbf0a0c-33de-4fca-9929-5765ffa1ee4c';
+  private readonly accessKey = 'be63ee16-d693-4da8-b5ae-5b2beea9f5f0';
 
   /**
    * Submits the contact form to Web3Forms for real email delivery,
