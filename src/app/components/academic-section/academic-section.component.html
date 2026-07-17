@@ -40,26 +40,28 @@
           <h3 class="academic-card__institution">{{ entry.institution }}</h3>
           <p class="academic-card__role">{{ entry.role }}</p>
           <p class="academic-card__focus">{{ entry.focus }}</p>
-          <span class="academic-card__period">{{ entry.period }}</span>
+          <div class="academic-card__footer">
+            <span class="academic-card__period">{{ entry.period }}</span>
 
-          <button
-            type="button"
-            class="academic-card__toggle"
-            [attr.aria-expanded]="isExpanded(i)"
-            [attr.aria-controls]="'academic-panel-' + i"
-            (click)="toggleAccordion(i)"
-            (keydown.enter)="toggleAccordion(i)"
-            (keydown.space)="toggleAccordion(i); $event.preventDefault()"
-          >
-            <span>Ver asignaturas</span>
-            <svg
-              class="academic-card__chevron"
-              [class.academic-card__chevron--open]="isExpanded(i)"
-              xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+            <button
+              type="button"
+              class="academic-card__toggle"
+              [attr.aria-expanded]="isExpanded(i)"
+              [attr.aria-controls]="'academic-panel-' + i"
+              (click)="toggleAccordion(i)"
+              (keydown.enter)="toggleAccordion(i)"
+              (keydown.space)="toggleAccordion(i); $event.preventDefault()"
             >
-              <polyline points="6 9 12 15 18 9"/>
-            </svg>
-          </button>
+              <span>Ver asignaturas</span>
+              <svg
+                class="academic-card__chevron"
+                [class.academic-card__chevron--open]="isExpanded(i)"
+                xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+              >
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+          </div>
 
           <div
             [id]="'academic-panel-' + i"

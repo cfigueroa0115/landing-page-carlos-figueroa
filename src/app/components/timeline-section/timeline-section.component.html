@@ -107,9 +107,9 @@
                 <p class="exec-card__description">{{ entry.description }}</p>
 
                 <!-- Metric -->
-                <div class="exec-card__metric-row">
-                  <span class="exec-card__metric">{{ entry.mainMetric }}</span>
-                  <span class="exec-card__metric-label">{{ entry.mainResult }}</span>
+                <div class="exec-card__metric-row" aria-label="{{ entry.mainMetric }} — {{ entry.mainResult }}">
+                  <span class="exec-card__metric" aria-hidden="true">{{ entry.mainMetric }}</span>
+                  <span class="exec-card__metric-label" aria-hidden="true">{{ entry.mainResult }}</span>
                 </div>
 
                 <!-- Tags -->

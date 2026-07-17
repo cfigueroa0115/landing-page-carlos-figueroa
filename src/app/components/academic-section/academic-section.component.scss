@@ -167,6 +167,14 @@
     margin-top: auto;
   }
 
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-3;
+    margin-top: auto;
+  }
+
   // Toggle button
   &__toggle {
     display: flex;
