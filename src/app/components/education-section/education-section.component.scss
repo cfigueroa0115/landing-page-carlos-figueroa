@@ -1,6 +1,7 @@
 @use 'styles/tokens' as *;
 
 .education-section {
+  position: relative;
   background-color: $color-bg-primary;
   opacity: 0;
   transform: translateY(24px);
@@ -15,33 +16,86 @@
 .education-header {
   text-align: center;
   margin-bottom: $space-8;
+  position: relative;
 }
 
-.education-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: $space-5;
-  margin-bottom: $space-8;
+// Education Path - ascending route
+.education-path {
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto $space-8;
+  padding-left: 40px;
 
-  @media (max-width: calc($bp-tablet - 1px)) {
-    grid-template-columns: 1fr;
+  &__line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 14px;
+    width: 2px;
+    background: linear-gradient(180deg, $color-cyan-500, rgba($color-blue-600, 0.3));
+    border-radius: 2px;
   }
 }
 
 .education-card {
-  background: $color-bg-card;
-  border: 1px solid $color-border;
-  border-radius: 16px;
-  padding: $space-5;
+  position: relative;
+  margin-bottom: $space-5;
   display: flex;
-  flex-direction: column;
-  gap: $space-2;
-  transition: transform $anim-duration-fast $anim-easing,
-              box-shadow $anim-duration-fast $anim-easing;
+  align-items: flex-start;
+  gap: $space-4;
 
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &__node {
+    position: absolute;
+    left: -40px;
+    top: 12px;
+    width: 28px;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__node-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: $color-bg-secondary;
+    border: 3px solid $color-blue-600;
+    transition: all 300ms $anim-easing;
+
+    &--pulse {
+      background: $color-cyan-500;
+      border-color: $color-cyan-500;
+      box-shadow: 0 0 0 4px rgba($color-cyan-500, 0.2);
+      animation: educationPulse 3s ease-in-out infinite;
+    }
+  }
+
+  &__content {
+    background: $color-bg-card;
+    border: 1px solid $color-border;
+    border-radius: 14px;
+    padding: $space-4 $space-5;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+    transition: transform $anim-duration-fast $anim-easing,
+                box-shadow $anim-duration-fast $anim-easing,
+                border-color $anim-duration-fast $anim-easing;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      border-color: rgba($color-cyan-500, 0.3);
+    }
+  }
+
+  &--active &__content {
+    border-color: rgba($color-cyan-500, 0.4);
+    box-shadow: 0 4px 16px rgba($color-cyan-500, 0.08);
   }
 
   &__header {
@@ -69,6 +123,7 @@
     border-radius: 12px;
     text-transform: uppercase;
     letter-spacing: 0.03em;
+    animation: educationPulse 3s ease-in-out infinite;
   }
 
   &__institution {
@@ -83,10 +138,15 @@
     font-size: 0.8125rem;
     font-weight: 500;
     color: $color-text-muted;
-    margin-top: auto;
   }
 }
 
+@keyframes educationPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+// Certifications grouped
 .certifications-title {
   font-family: $font-heading;
   font-size: 1.25rem;
@@ -94,30 +154,49 @@
   color: $color-text-primary;
   text-align: center;
   margin-bottom: $space-5;
+  position: relative;
 }
 
-.certifications-grid {
+.certifications-grouped {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: $space-3;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-5;
+  position: relative;
 
   @media (max-width: calc($bp-desktop - 1px)) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+  }
+}
+
+.cert-group {
+  &__title {
+    font-family: $font-heading;
+    font-size: 0.875rem;
+    font-weight: $font-weight-emphasis;
+    color: $color-blue-600;
+    margin: 0 0 $space-3;
+    padding-bottom: $space-2;
+    border-bottom: 2px solid rgba($color-cyan-500, 0.2);
   }
 
-  @media (max-width: calc($bp-tablet - 1px)) {
-    grid-template-columns: 1fr;
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
   }
 }
 
 .cert-item {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: $space-3 $space-4;
-  background: $color-bg-secondary;
-  border: 1px solid $color-border;
-  border-radius: 10px;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-2 0;
+  flex-wrap: wrap;
+
+  &__icon {
+    color: $color-cyan-500;
+    flex-shrink: 0;
+  }
 
   &__title {
     font-family: $font-body;
@@ -126,9 +205,14 @@
     color: $color-text-primary;
   }
 
+  &__separator {
+    color: $color-text-muted;
+    font-size: 0.75rem;
+  }
+
   &__institution {
     font-family: $font-body;
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
     color: $color-text-secondary;
   }
 
@@ -144,5 +228,10 @@
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  .education-card__badge,
+  .education-card__node-dot--pulse {
+    animation: none;
   }
 }

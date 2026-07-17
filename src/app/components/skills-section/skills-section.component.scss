@@ -1,6 +1,7 @@
 @use 'styles/tokens' as *;
 
 .skills-section {
+  position: relative;
   background-color: $color-bg-secondary;
   opacity: 0;
   transform: translateY(24px);
@@ -15,12 +16,14 @@
 .skills-header {
   text-align: center;
   margin-bottom: $space-8;
+  position: relative;
 }
 
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: $space-5;
+  position: relative;
 
   @media (max-width: calc($bp-tablet - 1px)) {
     grid-template-columns: 1fr;
@@ -36,11 +39,63 @@
   flex-direction: column;
   gap: $space-4;
   transition: transform $anim-duration-fast $anim-easing,
-              box-shadow $anim-duration-fast $anim-easing;
+              box-shadow $anim-duration-fast $anim-easing,
+              border-color $anim-duration-fast $anim-easing,
+              opacity $anim-duration-fast $anim-easing;
+  cursor: default;
+  outline: none;
 
-  &:hover {
+  &:focus-visible {
+    outline: 2px solid $color-cyan-500;
+    outline-offset: 2px;
+  }
+
+  &:hover,
+  &--active {
     transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 12px 36px rgba($color-cyan-500, 0.08);
+    border-color: rgba($color-cyan-500, 0.4);
+
+    .skill-card__icon {
+      background: linear-gradient(135deg, rgba($color-blue-600, 0.15), rgba($color-cyan-500, 0.2));
+      border-color: rgba($color-cyan-500, 0.5);
+      box-shadow: 0 4px 12px rgba($color-cyan-500, 0.15);
+      color: $color-cyan-500;
+    }
+
+    .skill-card__title {
+      color: $color-blue-600;
+    }
+
+    .skill-tag {
+      border-color: rgba($color-cyan-500, 0.2);
+      color: $color-text-primary;
+    }
+  }
+
+  &--dimmed {
+    opacity: 0.55;
+    transform: scale(0.98);
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+  }
+
+  &__icon {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba($color-blue-600, 0.06), rgba($color-cyan-500, 0.1));
+    border: 1px solid rgba($color-cyan-500, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-blue-600;
+    transition: all 300ms $anim-easing;
   }
 
   &__title {
@@ -49,8 +104,7 @@
     font-size: 1.0625rem;
     color: $color-text-primary;
     margin: 0;
-    padding-bottom: $space-3;
-    border-bottom: 2px solid $color-cyan-500;
+    transition: color 200ms $anim-easing;
   }
 
   &__tags {
@@ -71,6 +125,7 @@
   border: 1px solid $color-border;
   border-radius: 6px;
   white-space: nowrap;
+  transition: all 200ms $anim-easing;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -78,5 +133,14 @@
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  .skill-card {
+    transition: none;
+  }
+
+  .skill-card--dimmed {
+    opacity: 1;
+    transform: none;
   }
 }

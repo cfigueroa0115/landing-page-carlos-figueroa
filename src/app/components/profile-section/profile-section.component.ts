@@ -1,6 +1,7 @@
 import { Component, signal, inject } from '@angular/core';
 import { IntersectionObserverDirective } from '../../directives/intersection-observer.directive';
 import { AnalyticsService } from '../../services/analytics.service';
+import { SectionBackgroundComponent } from '../section-background/section-background.component';
 
 interface Pillar {
   icon: string;
@@ -13,7 +14,7 @@ interface Pillar {
   selector: 'app-profile-section',
   templateUrl: './profile-section.component.html',
   styleUrls: ['./profile-section.component.scss'],
-  imports: [IntersectionObserverDirective],
+  imports: [IntersectionObserverDirective, SectionBackgroundComponent],
 })
 export class ProfileSectionComponent {
   private readonly analytics = inject(AnalyticsService);

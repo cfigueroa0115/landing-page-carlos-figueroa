@@ -5,6 +5,7 @@
 .contact-section {
   background: $color-navy-900;
   position: relative;
+  overflow: hidden;
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 450ms $anim-easing, transform 450ms $anim-easing;
@@ -19,6 +20,7 @@
   flex-direction: column;
   align-items: center;
   gap: $space-5;
+  position: relative;
 }
 
 .contact-eyebrow {

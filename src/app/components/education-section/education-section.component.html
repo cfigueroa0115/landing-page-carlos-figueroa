@@ -7,38 +7,58 @@
   [class.is-visible]="isVisible()"
   aria-labelledby="education-heading"
 >
+  <app-section-background variant="education" [height]="900"></app-section-background>
+
   <div class="container">
     <div class="education-header">
       <span class="section-eyebrow">FORMACIÓN Y CERTIFICACIONES</span>
       <h2 id="education-heading" class="section-title">Base académica sólida y aprendizaje continuo</h2>
     </div>
 
-    <!-- Education Grid -->
-    <div class="education-grid">
-      @for (item of educationEntries; track item.degree) {
-        <article class="education-card">
-          <div class="education-card__header">
-            <h3 class="education-card__degree">{{ item.degree }}</h3>
-            @if (item.status === 'en curso') {
-              <span class="education-card__badge">En curso</span>
-            }
+    <!-- Education Path -->
+    <div class="education-path">
+      <div class="education-path__line" aria-hidden="true"></div>
+      @for (item of educationEntries; track item.degree; let i = $index) {
+        <article class="education-card" [class.education-card--active]="item.status === 'en curso'">
+          <div class="education-card__node" aria-hidden="true">
+            <span class="education-card__node-dot" [class.education-card__node-dot--pulse]="item.status === 'en curso'"></span>
           </div>
-          <p class="education-card__institution">{{ item.institution }}</p>
-          <span class="education-card__period">{{ item.yearRange }}</span>
+          <div class="education-card__content">
+            <div class="education-card__header">
+              <h3 class="education-card__degree">{{ item.degree }}</h3>
+              @if (item.status === 'en curso') {
+                <span class="education-card__badge">En curso</span>
+              }
+            </div>
+            <p class="education-card__institution">{{ item.institution }}</p>
+            <span class="education-card__period">{{ item.yearRange }}</span>
+          </div>
         </article>
       }
     </div>
 
-    <!-- Certifications -->
+    <!-- Certifications grouped -->
     <h3 class="certifications-title">Certificaciones y programas</h3>
-    <div class="certifications-grid">
-      @for (cert of certifications; track cert.title) {
-        <div class="cert-item">
-          <span class="cert-item__title">{{ cert.title }}</span>
-          @if (cert.institution) {
-            <span class="cert-item__institution">{{ cert.institution }}</span>
-          }
-          <span class="cert-item__year">{{ cert.year }}</span>
+    <div class="certifications-grouped">
+      @for (group of certificationGroups; track group.category) {
+        <div class="cert-group">
+          <h4 class="cert-group__title">{{ group.category }}</h4>
+          <div class="cert-group__items">
+            @for (cert of group.items; track cert.title) {
+              <div class="cert-item">
+                <svg class="cert-item__icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+                <span class="cert-item__title">{{ cert.title }}</span>
+                @if (cert.institution) {
+                  <span class="cert-item__separator">·</span>
+                  <span class="cert-item__institution">{{ cert.institution }}</span>
+                }
+                <span class="cert-item__separator">·</span>
+                <span class="cert-item__year">{{ cert.year }}</span>
+              </div>
+            }
+          </div>
         </div>
       }
     </div>

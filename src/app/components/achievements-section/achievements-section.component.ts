@@ -2,6 +2,7 @@ import { Component, signal, inject } from '@angular/core';
 import { IntersectionObserverDirective } from '../../directives/intersection-observer.directive';
 import { CountUpDirective } from '../../directives/count-up.directive';
 import { AnalyticsService } from '../../services/analytics.service';
+import { SectionBackgroundComponent } from '../section-background/section-background.component';
 
 interface AchievementItem {
   percentage: number;
@@ -13,7 +14,7 @@ interface AchievementItem {
 @Component({
   standalone: true,
   selector: 'app-achievements-section',
-  imports: [IntersectionObserverDirective, CountUpDirective],
+  imports: [IntersectionObserverDirective, CountUpDirective, SectionBackgroundComponent],
   templateUrl: './achievements-section.component.html',
   styleUrls: ['./achievements-section.component.scss'],
 })

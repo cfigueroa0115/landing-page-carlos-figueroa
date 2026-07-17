@@ -7,6 +7,8 @@
   [class.is-visible]="isVisible()"
   aria-labelledby="skills-heading"
 >
+  <app-section-background variant="capabilities" [height]="700"></app-section-background>
+
   <div class="container">
     <div class="skills-header">
       <span class="section-eyebrow">CAPACIDADES</span>
@@ -14,9 +16,28 @@
     </div>
 
     <div class="skills-grid">
-      @for (category of categories; track category.title) {
-        <article class="skill-card">
-          <h3 class="skill-card__title">{{ category.title }}</h3>
+      @for (category of categories; track category.title; let i = $index) {
+        <article
+          class="skill-card"
+          [class.skill-card--active]="activeCategory() === i"
+          [class.skill-card--dimmed]="activeCategory() !== -1 && activeCategory() !== i"
+          (mouseenter)="setActiveCategory(i)"
+          (mouseleave)="clearActiveCategory()"
+          (focus)="setActiveCategory(i)"
+          (blur)="clearActiveCategory()"
+          tabindex="0"
+          [attr.aria-label]="'Dominio: ' + category.title"
+        >
+          <div class="skill-card__header">
+            <div class="skill-card__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                @for (path of getIconPaths(category.icon); track path) {
+                  <path [attr.d]="path"/>
+                }
+              </svg>
+            </div>
+            <h3 class="skill-card__title">{{ category.title }}</h3>
+          </div>
           <div class="skill-card__tags">
             @for (tag of category.tags; track tag) {
               <span class="skill-tag">{{ tag }}</span>

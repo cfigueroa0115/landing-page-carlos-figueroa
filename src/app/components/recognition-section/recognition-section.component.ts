@@ -1,18 +1,21 @@
 import { Component, signal, inject } from '@angular/core';
 import { IntersectionObserverDirective } from '../../directives/intersection-observer.directive';
 import { AnalyticsService } from '../../services/analytics.service';
+import { SectionBackgroundComponent } from '../section-background/section-background.component';
 
 interface RecognitionItem {
   title: string;
   description: string;
+  context: string;
   tags: string;
   icon: string;
+  accentColor: 'cyan' | 'gold';
 }
 
 @Component({
   standalone: true,
   selector: 'app-recognition-section',
-  imports: [IntersectionObserverDirective],
+  imports: [IntersectionObserverDirective, SectionBackgroundComponent],
   template: `
     <section
       id="recognition"
@@ -23,8 +26,7 @@ interface RecognitionItem {
       [class.is-visible]="isVisible()"
       aria-labelledby="recognition-heading"
     >
-      <!-- Subtle radial glow -->
-      <div class="recognition-glow" aria-hidden="true"></div>
+      <app-section-background variant="innovation" [height]="700"></app-section-background>
 
       <div class="container">
         <div class="recognition-header">
@@ -34,10 +36,11 @@ interface RecognitionItem {
 
         <div class="recognition-grid">
           @for (item of recognitions; track item.title) {
-            <article class="recognition-card">
+            <article class="recognition-card" [attr.data-accent]="item.accentColor">
               <div class="recognition-card__icon" [innerHTML]="item.icon"></div>
               <h3 class="recognition-card__title">{{ item.title }}</h3>
               <p class="recognition-card__description">{{ item.description }}</p>
+              <p class="recognition-card__context">{{ item.context }}</p>
               <p class="recognition-card__tags">{{ item.tags }}</p>
             </article>
           }
@@ -60,18 +63,6 @@ interface RecognitionItem {
         opacity: 1;
         transform: translateY(0);
       }
-    }
-
-    .recognition-glow {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba($color-gold-500, 0.06) 0%, transparent 70%);
-      pointer-events: none;
     }
 
     .recognition-header {
@@ -122,27 +113,64 @@ interface RecognitionItem {
       display: flex;
       flex-direction: column;
       gap: $space-3;
+      position: relative;
+      overflow: hidden;
       transition: transform $anim-duration-fast $anim-easing,
-                  box-shadow $anim-duration-fast $anim-easing;
+                  box-shadow $anim-duration-fast $anim-easing,
+                  border-color $anim-duration-fast $anim-easing;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        border: 1px solid transparent;
+        background: linear-gradient(135deg, rgba($color-gold-500, 0.1), transparent 50%, rgba($color-cyan-500, 0.1)) border-box;
+        mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+        -webkit-mask-composite: xor;
+        opacity: 0;
+        transition: opacity 400ms $anim-easing;
+        pointer-events: none;
+      }
 
       &:hover {
         transform: translateY(-4px);
         box-shadow: 0 12px 40px rgba($color-gold-500, 0.1);
+        border-color: rgba($color-gold-500, 0.4);
+
+        &::before {
+          opacity: 1;
+        }
+      }
+
+      &[data-accent="cyan"] {
+        border-color: rgba($color-cyan-500, 0.25);
+
+        &:hover {
+          border-color: rgba($color-cyan-500, 0.5);
+          box-shadow: 0 12px 40px rgba($color-cyan-500, 0.1);
+        }
       }
 
       &__icon {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 44px;
-        height: 44px;
-        border-radius: 12px;
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
         background: rgba($color-gold-500, 0.1);
         color: $color-gold-500;
 
         svg {
-          width: 22px;
-          height: 22px;
+          width: 24px;
+          height: 24px;
+        }
+
+        [data-accent="cyan"] & {
+          background: rgba($color-cyan-500, 0.1);
+          color: $color-cyan-500;
         }
       }
 
@@ -159,6 +187,14 @@ interface RecognitionItem {
         font-size: 0.9375rem;
         color: rgba(255, 255, 255, 0.7);
         line-height: 1.6;
+        margin: 0;
+      }
+
+      &__context {
+        font-family: $font-body;
+        font-size: 0.8125rem;
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.5);
         margin: 0;
       }
 
@@ -188,15 +224,19 @@ export class RecognitionSectionComponent {
   readonly recognitions: RecognitionItem[] = [
     {
       title: 'Duplicados Cero',
-      description: 'Reconocimiento por el diseño de una solución basada en inteligencia artificial y automatización para evitar la carga repetida de documentos en procesos aseguradores.',
-      tags: 'IA aplicada · Automatización · Eficiencia operativa',
-      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>',
+      description: 'Diseño de una solución basada en inteligencia artificial y automatización para detectar y evitar la carga repetida de documentos en procesos aseguradores de gran volumen.',
+      context: 'Seguros Bolívar · Producto digital con IA aplicada',
+      tags: 'IA aplicada · Automatización · Eficiencia operativa · AWS',
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v2"/><path d="M20 16v2a2 2 0 0 1-2 2h-2"/><path d="M8 20H6a2 2 0 0 1-2-2v-2"/><path d="M4 8V6a2 2 0 0 1 2-2h2"/><path d="m9 15 3-3 3 3"/><path d="M12 12v6"/></svg>',
+      accentColor: 'cyan',
     },
     {
       title: 'Hackathon Kiro AWS',
-      description: 'Reconocimiento por la integración de inteligencia artificial, tecnologías cloud y resolución ágil de problemas empresariales complejos.',
-      tags: 'AWS · Kiro · IA · Innovación',
+      description: 'Reconocimiento por la integración de inteligencia artificial, tecnologías cloud y resolución ágil de problemas empresariales complejos en un entorno competitivo.',
+      context: 'AWS · Innovación competitiva · Cloud & IA',
+      tags: 'AWS · Kiro · IA · Innovación · Cloud',
       icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>',
+      accentColor: 'gold',
     },
   ];
 

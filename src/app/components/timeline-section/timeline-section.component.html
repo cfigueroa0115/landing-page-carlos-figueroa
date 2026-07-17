@@ -215,10 +215,39 @@
       <h3 class="timeline-subsection__title">Consultorías estratégicas</h3>
       <div class="consultancies-list">
         @for (c of consultancies; track c.company) {
-          <div class="consultancy-item">
-            <span class="consultancy-item__company">{{ c.company }}</span>
-            <span class="consultancy-item__client">{{ c.client }} ({{ c.year }})</span>
-          </div>
+          <article class="consultancy-card">
+            <div class="consultancy-card__header">
+              <div class="consultancy-card__icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                </svg>
+              </div>
+              <div class="consultancy-card__titles">
+                <span class="consultancy-card__client">{{ c.client }}</span>
+                <span class="consultancy-card__company">{{ c.company }} · {{ c.year }}</span>
+              </div>
+            </div>
+            <p class="consultancy-card__role">{{ c.role }}</p>
+            <div class="consultancy-card__detail">
+              <span class="consultancy-card__detail-label">Problema:</span>
+              <span>{{ c.problem }}</span>
+            </div>
+            <div class="consultancy-card__detail">
+              <span class="consultancy-card__detail-label">Solución:</span>
+              <span>{{ c.solution }}</span>
+            </div>
+            <div class="consultancy-card__result">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
+              </svg>
+              <span>{{ c.result }}</span>
+            </div>
+            <div class="consultancy-card__tags">
+              @for (tech of c.technologies; track tech) {
+                <span class="consultancy-card__tag">{{ tech }}</span>
+              }
+            </div>
+          </article>
         }
       </div>
     </div>

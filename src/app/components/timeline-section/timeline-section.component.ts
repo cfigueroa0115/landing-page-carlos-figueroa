@@ -19,6 +19,11 @@ interface ConsultancyEntry {
   company: string;
   client: string;
   year: number;
+  role: string;
+  problem: string;
+  solution: string;
+  result: string;
+  technologies: string[];
 }
 
 @Component({
@@ -53,7 +58,7 @@ export class TimelineSectionComponent implements AfterViewInit, OnDestroy {
       endYear: 2026,
       stage: 'Producto, IA y modernización',
       stageColor: 'product-ia',
-      mainResult: '95% de mejora máxima en eficiencia operativa',
+      mainResult: 'Mejora máxima en eficiencia operativa',
       mainMetric: '95%',
       description: 'Modernización del core documental y desarrollo de soluciones digitales, articulando negocio, tecnología, operaciones y proveedores.',
       tags: ['IA aplicada', 'AWS', 'Producto digital'],
@@ -73,7 +78,7 @@ export class TimelineSectionComponent implements AfterViewInit, OnDestroy {
       endYear: 2023,
       stage: 'Transformación digital y SmartOps',
       stageColor: 'smartops',
-      mainResult: '90% de incremento en eficiencia operativa',
+      mainResult: 'Incremento en eficiencia operativa',
       mainMetric: '90%',
       description: 'Diseño e implementación de un modelo de operaciones inteligentes y automatización de procesos core.',
       tags: ['SmartOps', 'BPMS', 'Python'],
@@ -93,7 +98,7 @@ export class TimelineSectionComponent implements AfterViewInit, OnDestroy {
       endYear: 2019,
       stage: 'Automatización y agilidad',
       stageColor: 'automation',
-      mainResult: '85% de eficiencia operativa transversal',
+      mainResult: 'Eficiencia operativa transversal',
       mainMetric: '85%',
       description: 'Implementación de un ecosistema de automatización mediante BPM, Oracle SOA y modelos analíticos de capacidad.',
       tags: ['BPM', 'Oracle SOA', 'Analítica'],
@@ -113,7 +118,7 @@ export class TimelineSectionComponent implements AfterViewInit, OnDestroy {
       endYear: 2016,
       stage: 'Productos digitales y fintech',
       stageColor: 'projects',
-      mainResult: '98% en indicadores de experiencia y satisfacción',
+      mainResult: 'En indicadores de experiencia y satisfacción',
       mainMetric: '98%',
       description: 'Dirección de soluciones fintech, originación de crédito web, integración PSE y pagarés desmaterializados.',
       tags: ['Fintech', 'Producto', 'PSE'],
@@ -133,7 +138,7 @@ export class TimelineSectionComponent implements AfterViewInit, OnDestroy {
       endYear: 2013,
       stage: 'BPM y automatización de procesos',
       stageColor: 'bpm',
-      mainResult: '88,5% de éxito en implementación',
+      mainResult: 'Éxito en implementación',
       mainMetric: '88,5%',
       description: 'Definición e implementación de procesos automatizados mediante Oracle BPM/SOA.',
       tags: ['BPM', 'Oracle SOA', 'PMO'],
@@ -149,8 +154,26 @@ export class TimelineSectionComponent implements AfterViewInit, OnDestroy {
   ];
 
   readonly consultancies: ConsultancyEntry[] = [
-    { company: 'Management and Quality SAS', client: 'Defensoría del Pueblo', year: 2023 },
-    { company: 'Consultoría Estratégica Integral', client: 'MINTIC', year: 2021 },
+    {
+      company: 'Management and Quality SAS',
+      client: 'Defensoría del Pueblo',
+      year: 2023,
+      role: 'Consultor en Transformación Digital',
+      problem: 'Procesos manuales en servicios al ciudadano con baja eficiencia y trazabilidad limitada.',
+      solution: 'Rediseño de procesos con enfoque BPM y digitalización de trámites mediante BPMS Bizagi.',
+      result: '40% de mejora operativa en servicios al ciudadano',
+      technologies: ['BPMS', 'Bizagi', 'BPM', 'Transformación Digital'],
+    },
+    {
+      company: 'Consultoría Estratégica Integral',
+      client: 'MINTIC',
+      year: 2021,
+      role: 'Consultor en Arquitectura Empresarial',
+      problem: 'Procesos sin estándar y desarticulación entre áreas misionales y tecnología.',
+      solution: 'Diseño de arquitectura empresarial y optimización de procesos con BPMN 2.0.',
+      result: '35% de mejora en eficiencia de procesos',
+      technologies: ['BPMN 2.0', 'Bizagi', 'Arquitectura Empresarial'],
+    },
   ];
 
   readonly evolutionPath = [
@@ -273,13 +296,12 @@ export class TimelineSectionComponent implements AfterViewInit, OnDestroy {
   }
 
   toggleNode(index: number): void {
-    const current = new Set(this.expandedNodes());
+    const current = this.expandedNodes();
     if (current.has(index)) {
-      current.delete(index);
+      this.expandedNodes.set(new Set());
     } else {
-      current.add(index);
+      this.expandedNodes.set(new Set([index]));
     }
-    this.expandedNodes.set(current);
   }
 
   isNodeExpanded(index: number): boolean {

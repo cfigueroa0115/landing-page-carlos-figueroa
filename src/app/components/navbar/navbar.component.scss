@@ -118,6 +118,7 @@
     text-decoration: none;
     transition: color $anim-duration-fast $anim-easing;
     position: relative;
+    padding: 4px 0;
 
     &::after {
       content: '';
@@ -131,9 +132,16 @@
       transition: width $anim-duration-fast $anim-easing;
     }
 
-    &:hover::after,
-    &--active::after {
+    &:hover::after {
       width: 100%;
+    }
+
+    &--active {
+      font-weight: $font-weight-emphasis;
+
+      &::after {
+        width: 100%;
+      }
     }
   }
 

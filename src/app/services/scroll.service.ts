@@ -76,6 +76,8 @@ export class ScrollService {
       'profile',
       'achievements',
       'timeline',
+      'recognition',
+      'academic',
       'skills',
       'education',
       'contact',

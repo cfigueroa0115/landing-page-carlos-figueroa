@@ -10,13 +10,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { IntersectionObserverDirective } from '../../directives/intersection-observer.directive';
 import { ContactService, ContactFormData } from '../../services/contact.service';
 import { AnalyticsService } from '../../services/analytics.service';
+import { SectionBackgroundComponent } from '../section-background/section-background.component';
 
 @Component({
   standalone: true,
   selector: 'app-contact-section',
   templateUrl: './contact-section.component.html',
   styleUrls: ['./contact-section.component.scss'],
-  imports: [ReactiveFormsModule, IntersectionObserverDirective],
+  imports: [ReactiveFormsModule, IntersectionObserverDirective, SectionBackgroundComponent],
 })
 export class ContactSectionComponent {
   private readonly platformId = inject(PLATFORM_ID);

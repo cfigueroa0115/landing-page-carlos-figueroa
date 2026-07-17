@@ -1,9 +1,11 @@
 import { Component, signal, inject } from '@angular/core';
 import { IntersectionObserverDirective } from '../../directives/intersection-observer.directive';
 import { AnalyticsService } from '../../services/analytics.service';
+import { SectionBackgroundComponent } from '../section-background/section-background.component';
 
 interface SkillGroup {
   title: string;
+  icon: string;
   tags: string[];
 }
 
@@ -12,15 +14,17 @@ interface SkillGroup {
   selector: 'app-skills-section',
   templateUrl: './skills-section.component.html',
   styleUrls: ['./skills-section.component.scss'],
-  imports: [IntersectionObserverDirective],
+  imports: [IntersectionObserverDirective, SectionBackgroundComponent],
 })
 export class SkillsSectionComponent {
   private readonly analytics = inject(AnalyticsService);
   isVisible = signal<boolean>(false);
+  activeCategory = signal<number>(-1);
 
   readonly categories: SkillGroup[] = [
     {
       title: 'Estrategia y transformación',
+      icon: 'M12 12 m-10 0 a10 10 0 1 0 20 0 a10 10 0 1 0 -20 0|M16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76',
       tags: [
         'Transformación digital',
         'Planeación estratégica',
@@ -32,6 +36,7 @@ export class SkillsSectionComponent {
     },
     {
       title: 'Procesos y excelencia operativa',
+      icon: 'M12 14 4-4|M3.34 19a10 10 0 1 1 17.32 0',
       tags: [
         'BPM',
         'BPMN 2.0',
@@ -44,6 +49,7 @@ export class SkillsSectionComponent {
     },
     {
       title: 'Producto, proyectos y agilidad',
+      icon: 'M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z|M22 17.65l-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65|M22 12.65l-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65',
       tags: [
         'Product Management',
         'Product Owner',
@@ -57,6 +63,7 @@ export class SkillsSectionComponent {
     },
     {
       title: 'Tecnología, datos e IA',
+      icon: 'M12 4.5a2.5 2.5 0 0 0-4.96-.46 2.5 2.5 0 0 0-1.98 3 2.5 2.5 0 0 0 1.32 4.24 3 3 0 0 0 .34 5.58 2.5 2.5 0 0 0 2.96 3.08A2.5 2.5 0 0 0 12 19.5a2.5 2.5 0 0 0 2.32.46 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0 1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 12 4.5',
       tags: [
         'Inteligencia artificial aplicada',
         'Automatización',
@@ -78,5 +85,17 @@ export class SkillsSectionComponent {
       this.isVisible.set(true);
       this.analytics.trackSectionView('skills');
     }
+  }
+
+  setActiveCategory(index: number): void {
+    this.activeCategory.set(index);
+  }
+
+  clearActiveCategory(): void {
+    this.activeCategory.set(-1);
+  }
+
+  getIconPaths(iconStr: string): string[] {
+    return iconStr.split('|');
   }
 }
