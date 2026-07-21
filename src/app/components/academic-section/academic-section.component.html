@@ -84,8 +84,8 @@
     <div class="domain-areas">
       <h4 class="domain-areas__title">Áreas de dominio docente</h4>
       <div class="domain-areas__grid">
-        @for (area of domainAreas; track area.label) {
-          <div class="domain-area" tabindex="0" [attr.aria-label]="area.label">
+        @for (area of domainAreas; track area.label; let di = $index) {
+          <div class="domain-area" tabindex="0" [attr.aria-label]="area.label" [style.--domain-index]="di">
             <div class="domain-area__icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 @for (path of getIconPaths(area.iconPaths); track path) {

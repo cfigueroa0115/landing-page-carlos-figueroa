@@ -268,17 +268,17 @@
 
   &__title {
     font-family: $font-heading;
-    font-size: 1rem;
-    font-weight: $font-weight-emphasis;
-    color: $color-text-secondary;
-    margin: 0 0 $space-5;
+    font-size: 1.375rem;
+    font-weight: $font-weight-heading;
+    color: $color-text-primary;
+    margin: 0 0 $space-6;
   }
 
   &__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: $space-4;
-    max-width: 720px;
+    max-width: 780px;
     margin: 0 auto;
 
     @media (max-width: calc($bp-tablet - 1px)) {
@@ -296,20 +296,46 @@
   display: flex;
   align-items: center;
   gap: $space-3;
-  padding: $space-3 $space-4;
-  border-radius: 12px;
-  border: 1px solid rgba($color-cyan-500, 0.12);
+  padding: $space-4 $space-4;
+  border-radius: 14px;
+  border: 1.5px solid rgba($color-cyan-500, 0.18);
   background: rgba($color-cyan-500, 0.02);
+  position: relative;
+  overflow: hidden;
   transition: all 250ms $anim-easing;
   cursor: default;
   outline: none;
+  animation: domainBorderGlow 5s ease-in-out infinite;
+  animation-delay: calc(var(--domain-index, 0) * 0.7s);
+
+  // Recorrido luminoso
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: conic-gradient(from 0deg, transparent 0%, transparent 72%, rgba(22, 166, 199, 0.55) 82%, rgba(255,255,255,0.3) 86%, rgba(22, 166, 199, 0.55) 90%, transparent 100%);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    padding: 2px;
+    animation: domainBorderRotate 5s linear infinite;
+    animation-delay: calc(var(--domain-index, 0) * 0.7s);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
 
   &:hover,
   &:focus-visible {
-    border-color: rgba($color-cyan-500, 0.35);
-    background: rgba($color-cyan-500, 0.06);
-    box-shadow: 0 4px 12px rgba($color-cyan-500, 0.08);
-    transform: translateY(-2px);
+    border-color: rgba($color-cyan-500, 0.5);
+    background: rgba($color-cyan-500, 0.05);
+    box-shadow: 0 6px 18px rgba($color-cyan-500, 0.12), 0 0 16px rgba($color-cyan-500, 0.08);
+    transform: translateY(-3px);
   }
 
   &:focus-visible {
@@ -318,12 +344,12 @@
   }
 
   &__icon {
-    width: 36px;
-    height: 36px;
-    min-width: 36px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, rgba($color-blue-600, 0.06), rgba($color-cyan-500, 0.1));
-    border: 1px solid rgba($color-cyan-500, 0.15);
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba($color-blue-600, 0.08), rgba($color-cyan-500, 0.12));
+    border: 1px solid rgba($color-cyan-500, 0.18);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -332,17 +358,28 @@
 
     .domain-area:hover & {
       color: $color-cyan-500;
-      border-color: rgba($color-cyan-500, 0.3);
+      border-color: rgba($color-cyan-500, 0.35);
+      box-shadow: 0 2px 8px rgba($color-cyan-500, 0.15);
     }
   }
 
   &__label {
     font-family: $font-body;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     font-weight: 500;
     color: $color-text-primary;
     text-align: left;
   }
+}
+
+@keyframes domainBorderRotate {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes domainBorderGlow {
+  0%, 100% { border-color: rgba(22, 166, 199, 0.18); box-shadow: 0 2px 8px rgba(22, 166, 199, 0.05); }
+  50%       { border-color: rgba(22, 166, 199, 0.48); box-shadow: 0 0 16px rgba(22, 166, 199, 0.16), 0 2px 8px rgba(22, 166, 199, 0.06); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -351,4 +388,5 @@
   .academic-card__badge { animation: none; }
   .academic-card__panel { transition: none; }
   .academic-card--expanded .academic-card__subject-tag { animation: none; }
+  .domain-area { animation: none; &::before { animation: none; opacity: 0.3; } }
 }
